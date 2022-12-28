@@ -18,7 +18,14 @@ const ResourcePage = () => {
   const authContxt = useContext(authContext);
   const navigateTo = useNavigate();
   //TODO: CHECK IF THE USER IS AUTHORISED TO VISIT THIS PAGE(LOGIN AND PRIVILEGE)
-  useEffect(() => {});
+  useEffect(() => {
+    //EDGE-CASE: IF THE USER ISN'T LOGGED IN
+    if (!authContxt.user) navigateTo('/login');
+
+    //EDGE-CASE: IF THE USER DOESN'T HAVE PERMISSION TO VISIT THIS PAGE
+    if (!['admin', 'head_of_department'].includes(authContxt.user.privilege))
+      navigateTo('/');
+  });
   const [isAddProfessorActive, setIsAddProfessorActive] = useState(false);
   const [isAddLectureRoomActive, setIsAddLectureRoomActive] = useState(false);
   const [isAddNewCourseActive, setIsAddNewCourseActive] = useState(false);

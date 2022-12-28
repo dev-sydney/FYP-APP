@@ -90,9 +90,13 @@ export const ResourceContextProvider = ({ children }) => {
       });
     }
   };
-  const loadAllFaculties = async () => {
+  const loadAllFaculties = async (navigateTo) => {
     try {
       const res = await fetch(`/api/v1/faculties/`);
+      //EDGE-CASE: incase there's UNAUTHORISED ACCESS naviagteTo the homepage
+      if (res.status === 401) {
+        navigateTo('/');
+      }
       if (res.status === 200) {
         const results = await res.json();
         dispatch({

@@ -1,17 +1,25 @@
 import React, { useContext, useEffect, useState, Fragment } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 import resourceContext from '../contexts/ResourceContext';
 import attendanceContext from '../contexts/AttendanceContext';
-
+import authContext from '../contexts/AuthContext';
 import './../styles/profileStyle.scss';
 
 const stat = 1;
+/**
+ * This page component renders the table of attendance scores, as well as a form that controls the
+ * data that is got.
+ * @returns
+ */
 const AttendanceScoresPage = () => {
   const resourceContxt = useContext(resourceContext);
   const attendanceContxt = useContext(attendanceContext);
+  const authContxt = useContext(authContext);
+
+  const navigateTo = useNavigate();
 
   const [formData, setFormData] = useState({
     startDate: '',
@@ -20,7 +28,15 @@ const AttendanceScoresPage = () => {
   const [courseId, setCourseId] = useState(0);
 
   useEffect(() => {
-    resourceContxt.loadAllFaculties();
+    //EDGE-CASE: IF THE USER ISN'T LOGGED IN
+    if (!authContxt.user) navigateTo('/login');
+
+    //EDGE-CASE: IF THERES ANY UNAUTHORIZED VISIT
+    if (
+      !['professor', 'head_of_department'].includes(authContxt.user.privilege)
+    )
+      navigateTo('/');
+    resourceContxt.loadAllFaculties(navigateTo);
   }, [stat]);
 
   /* -------THE SELECT OPTIONS ONCHANGE EVENT HANDLERS------- */

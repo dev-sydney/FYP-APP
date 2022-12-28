@@ -1,0 +1,41 @@
+.modal_bg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(65, 63, 63, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: 0.1s all;
+  overflow: hidden;
+  position: absolute;
+  z-index: 10;
+}
+.test_styling {
+  border: 2px solid black;
+  height: fit-content;
+  width: 20rem;
+  z-index: 4;
+  position: relative;
+}
+.qs_container {
+  /*   display: flex;
+ */
+  border: 2px solid red;
+  width: 100%;
+  height: 4.5em;
+  position: relative;
+  overflow: hidden;
+  .question {
+    width: 100%;
+    height: 100%;
+    /*     margin: 5px;
+ */
+    border: 1px solid blue;
+    transition: transform 0.5s;
+    position: absolute;
+    /*     top: 0;
+ */
+  }
+}

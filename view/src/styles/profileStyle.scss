@@ -1,0 +1,32 @@
+@import 'main';
+
+.form__user-photo {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 100%;
+}
+.label__upload {
+  border: 1px solid green;
+  width: 9em;
+  height: fit-content;
+  margin-top: 45px;
+  transition: 0.2s all;
+  color: black;
+  border: none;
+  border-bottom: 1px solid black;
+  padding-left: 5px;
+
+  .form__upload {
+    width: 0em;
+    opacity: 0;
+    margin-top: 0;
+  }
+}
+
+.label__upload:hover {
+  background-color: gray;
+  color: #fff;
+  -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  transform: translateY(-10%);
+}

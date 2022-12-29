@@ -61,25 +61,37 @@ export const AuthContextProvider = ({ children }) => {
    * @param {Object} formData The Form Data object containing the users credentials
    * @param {Object} naviagteTo
    */
-  const signupUser = (formData, navigateTo) => {
+  const signupUser = async (formData, navigateTo) => {
     try {
       //TODO: Convert the fields that are supossed to be numeric to numbers
       formData.indexNumber = +formData.indexNumber;
       formData.facultyId = +formData.facultyId;
 
-      // dispatch({
-      //   type: Types.SIGN_UP,
-      //   payload:res.data.user
-      // });
+      const res = await fetch('/api/v1/users/signup', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      if (res.status === 201) {
+        const result = await res.json();
 
-      // //TODO: Navigate the user to the home page
-      // setTimeout(() => {
-      //   navigateTo('/home');
-      // }, 500);
+        dispatch({
+          type: Types.SIGN_UP,
+          payload: result.data.user,
+        });
+
+        //TODO: Navigate the user to the home page
+        setTimeout(() => {
+          navigateTo('/');
+        }, 500);
+      }
     } catch (err) {
+      console.log(err);
       dispatch({
         type: Types.SIGN_UP_ERROR,
-        // payload: err,
+        payload: err.message,
       });
     }
   };

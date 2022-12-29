@@ -65,7 +65,7 @@ const HomePage = () => {
       {/* ----CONDTIONAL RENDERING FOR THE SECUIRTY QUESTIONS MODAL---- */}
       {authContxt.user &&
         (authContxt.user.privilege === 'student' &&
-        !authContxt.user.hasSecurityQuestionsSet ? (
+        authContxt.user.hasSecurityQuestionsSet === 0 ? (
           <ModalBackground
             children={
               <SecurityQForm

@@ -1,3 +1,28 @@
 $primary_color: #000000;
 $input_form_family: 'lato';
 $prim_background-color: #fafafa;
+
+@mixin page-container {
+  display: flex;
+  // align-content: flex-start;
+  // align-content: center;
+  flex-direction: column;
+}
+@mixin btn {
+  color: white;
+  background-color: #4db5f9;
+  font-size: 1rem;
+  padding: 0.7rem 3rem;
+  border-radius: 5px;
+  text-transform: uppercase;
+  display: inline-block;
+  text-decoration: none;
+  width: 100%;
+  transition: all 0.4s;
+  font-weight: 400;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  /*Add later when we use this for the button in form*/
+  border: none;
+  cursor: pointer;
+}

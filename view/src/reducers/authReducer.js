@@ -2,6 +2,22 @@ import * as Types from '../utils/types';
 
 const authReducer = (state, action) => {
   switch (action.type) {
+    case Types.SIGN_UP:
+      localStorage.removeItem('user');
+      localStorage.setItem('user', JSON.stringify(action.payload));
+      return {
+        ...state,
+        isLoggedIn: true,
+        authAlertMessage: 'Sign up successful!',
+      };
+    case Types.SIGN_UP_ERROR:
+      localStorage.removeItem('user');
+      return {
+        ...state,
+        isLoggedIn: false,
+        authAlertMessage: action.payload,
+      };
+
     case Types.SIGN_IN:
       localStorage.removeItem('user');
       localStorage.setItem('user', JSON.stringify(action.payload));
@@ -13,9 +29,10 @@ const authReducer = (state, action) => {
       localStorage.removeItem('user');
       return {
         ...state,
-        isLoggedIn: true,
+        isLoggedIn: false,
         authAlertMessage: action.payload,
       };
+
     case Types.LOAD_SECURITY_QUESTIONS:
       return {
         ...state,
@@ -37,6 +54,7 @@ const authReducer = (state, action) => {
         ...state,
         authAlertMessage: action.payload,
       };
+
     case Types.UPDATE_ACCOUNT_SUCCESS:
       return {
         ...state,
@@ -47,6 +65,7 @@ const authReducer = (state, action) => {
         ...state,
         authAlertMessage: action.payload,
       };
+
     case Types.SIGN_OUT:
       localStorage.removeItem('user');
       return {
@@ -57,6 +76,7 @@ const authReducer = (state, action) => {
         ...state,
         authAlertMessage: action.payload,
       };
+
     default:
       return state;
   }

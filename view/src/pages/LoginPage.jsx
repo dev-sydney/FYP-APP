@@ -1,6 +1,6 @@
-import React, { Fragment, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import authContext from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 
 import './../styles/formStyles.scss';
 
@@ -23,14 +23,15 @@ const LoginPage = () => {
   };
 
   return (
-    <Fragment>
-      LOGIN HERE
-      <form onSubmit={onSubmit}>
+    <div className="login-container">
+      <p className="form__name">login</p>
+      <h1 className="logo">LOGO</h1>
+      <form onSubmit={onSubmit} className={'auth-form'}>
         {/* EMAIL-ADDRESS INPUT */}
-        <div className="form-group">
-          <label>Email Address: </label>
+        <div className="form__group">
+          <label className="form__label">Email Address: </label>
           <input
-            className="input"
+            className="form__input"
             type="email"
             placeholder="Youremail@example.com"
             required
@@ -39,12 +40,11 @@ const LoginPage = () => {
             onChange={onChange}
           />
         </div>
-
         {/* PASSWORD INPUT */}
-        <div className="form-group">
-          <label>Password: </label>
+        <div className="form__group">
+          <label className="form__label">Password: </label>
           <input
-            className="input"
+            className="form__input"
             type="password"
             placeholder="• • • • • • • •"
             required
@@ -53,9 +53,15 @@ const LoginPage = () => {
             onChange={onChange}
           />
         </div>
-        <input type="submit" value="Login" className="submit-btn" />
+        <input type="submit" value="Login" className="login-btn " />
       </form>
-    </Fragment>
+      <span className="signup__note">
+        Don't have an account?
+        <NavLink to="/signup" className={``}>
+          Sign up{' '}
+        </NavLink>{' '}
+      </span>
+    </div>
   );
 };
 

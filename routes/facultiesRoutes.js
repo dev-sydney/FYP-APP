@@ -4,15 +4,12 @@ const authController = require('./../controllers/authController');
 
 const router = express.Router();
 
-router.use(authController.authenticateUser);
+// router.use(authController.authenticateUser);
 //CREATE
 router
   .route('/')
   .post(authController.restrictTo('admin'), facultyController.createFaculty)
-  .get(
-    authController.restrictTo('professor', 'head_of_department'),
-    facultyController.getAllFaculties
-  );
+  .get(facultyController.getAllFaculties);
 
 //READ
 

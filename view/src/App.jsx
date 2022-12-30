@@ -13,6 +13,7 @@ import SignedAttendancesPage from './pages/SignedAttendancesPage';
 import ProfilePage from './pages/ProfilePage';
 import ResourcePage from './pages/ResourcePage';
 import AttendanceScoresPage from './pages/AttendanceScoresPage';
+import SignupPage from './pages/SignupPage';
 
 import NavBar from './components/NavBar';
 import './App.css';
@@ -27,6 +28,7 @@ function App() {
               <BrowserRouter>
                 <Routes>
                   <Route path="/login" element={<LoginPage />} />
+                  <Route path="/signup" element={<SignupPage />} />
                   <Route path="/" element={<HomePage />} />
                   <Route
                     path="/attendances/ongoingAttendances"

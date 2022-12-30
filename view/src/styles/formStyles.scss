@@ -1,76 +1,158 @@
 @import 'main';
+.signup-container {
+  @include page-container;
+  padding-top: 1.7em;
+  row-gap: 3em;
+  //NOTE: STYLING FOR THE SIGN UP FORM BELOW
+  .signup__form {
+    padding-top: 2em;
+    margin: 0em auto;
+    padding: 2rem 1.2rem;
+    // outline: 2px solid green;
+
+    .double__input {
+      display: flex;
+      column-gap: 5px;
+    }
+    .input {
+      // padding: 1rem 1.7rem;
+      text-align: left;
+      font-size: 1em;
+      border: none;
+      width: 100%;
+      display: inline;
+    }
+    //NOTE: SAME STYLING AS THE FORM-GROUP BELOW
+    .form__group--signup {
+      // outline: 2px solid yellow;
+      margin-right: 1.5em;
+      margin-bottom: 2rem;
+      width: 100%;
+      select,
+      input {
+        padding: 1rem 1.7rem;
+        text-align: left;
+        font-size: 1em;
+        border: none;
+        width: 100%;
+        background-color: #fff;
+        background-color: #f2f2f2;
+        border-top: 3px solid transparent;
+        border-bottom: 3px solid transparent;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+        border-radius: 10px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+    }
+    .signup-btn {
+      @include btn;
+      margin-top: 1em;
+    }
+    .inactive__btn {
+      @include btn;
+      background-color: gray;
+    }
+    .active__btn {
+      @include btn;
+      background-color: #222222;
+    }
+    .hide {
+      display: none;
+    }
+    .show {
+      display: block;
+    }
+    .back--signup__container {
+      display: flex;
+      column-gap: 10px;
+      margin-top: 15em;
+    }
+    .back__btn {
+      @include btn;
+      margin-top: 1em;
+      background-color: #222222;
+    }
+    .continue__btn {
+      transition: 0.3s all;
+    }
+    .form__input--signup {
+      transition: 0.3s all;
+    }
+  }
+}
+
 .login-container {
   @include page-container;
   padding-top: 1.7em;
   row-gap: 3.5em;
   justify-content: space-around;
-  //NOTE: STYLING FOR THE LOGIN FORM & ITS INNER COMPONENTS
-  .form__name {
-    font-weight: 3rem;
-    font-size: 1.2em;
-    // outline: 2px solid red;
-  }
-  .auth-form {
-    margin: 0em auto;
-    padding: 5rem 1.8rem;
-    // padding: 5rem auto;
-    // outline: 2px solid green;
-    .form__group {
-      margin-right: 1.5em;
-      margin-bottom: 2.5rem;
-      width: 100%;
-    }
-    .form__label {
-      display: block;
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      color: rgb(128, 125, 125);
-    }
-    .form__input {
-      padding: 1rem 1.7rem;
-      text-align: left;
-      font-size: 1em;
-      border: none;
-      width: 100%;
-      background-color: #fff;
-      background-color: #f2f2f2;
-      border-top: 3px solid transparent;
-      border-bottom: 3px solid transparent;
-      -webkit-transition: all 0.3s;
-      transition: all 0.3s;
-      border-radius: 10px;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-    }
+}
+//NOTE: STYLING FOR THE LOGIN FORM & ITS INNER COMPONENTS
+.form__name {
+  font-weight: 3rem;
+  font-size: 1.2em;
+  // outline: 2px solid red;
+}
 
-    label {
-      display: block;
-      text-align: left;
-    }
-    .login-btn {
-      @include btn;
-    }
+.auth__form {
+  margin: 0em auto;
+  padding: 5rem 1.8rem;
+  // padding: 5rem auto;
+  // outline: 2px solid green;
+  .form__group {
+    margin-right: 1.5em;
+    margin-bottom: 2.5rem;
+    width: 100%;
   }
-  .create-btn {
+  .form__label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: rgb(128, 125, 125);
+  }
+  .form__input {
+    padding: 1rem 1.7rem;
+    text-align: left;
+    font-size: 1em;
+    border: none;
+    width: 100%;
+    background-color: #fff;
+    background-color: #f2f2f2;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    border-radius: 10px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  label {
+    display: block;
+    text-align: left;
+  }
+  .login-btn {
     @include btn;
-    border: 1px solid black;
-    margin-bottom: 2em;
   }
 }
+
 .form__input:focus {
   outline: none;
   border-bottom: 2px solid black;
 }
+.form__input--signup,
 .form__input:focus:invalid {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid red;
 }
 .form__input::-webkit-input-placeholder {
   color: #bbb;
 }
 /* .logo {
-  // outline: 2px solid blue;
+  outline: 2px solid blue;
 }
 .signup__note {
-  // outline: 2px solid orange;
+  outline: 2px solid orange;
 } */

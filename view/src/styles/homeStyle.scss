@@ -1,0 +1,45 @@
+@import 'main';
+
+.home-container {
+  @include page-container;
+  background: black;
+  overflow: hidden;
+  // align-content: space-around;
+  min-height: 100%;
+
+  .top_logo_space {
+    padding: 1.5em 1em;
+  }
+  .vertical__slider {
+    z-index: 3;
+    outline: 2px solid yellow;
+    -webkit-transition: all 1s;
+    transition: all 1s;
+    background-color: #ffff;
+    padding: 1em 0.5em 1.5em 0.5em;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    // opacity: 0;
+    text-align: center;
+    min-height: 5em;
+    .lectureroom {
+      font-size: 2em;
+      font-weight: 1em;
+    }
+  }
+}
+.slide_up {
+  //NOTE: ONSCAN POSITON--> transform: translateY(-10%);
+  transform: translateY(-10%);
+}
+.slide_down {
+  //NOTE: OG POSITON--> transform: translateY(75%);
+  transform: translateY(-25%);
+}

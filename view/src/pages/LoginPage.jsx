@@ -8,7 +8,7 @@ const LoginPage = () => {
   const navigateTo = useNavigate();
 
   const authContxt = useContext(authContext);
-  const { loginUser, user } = authContxt;
+  const { loginUser } = authContxt;
 
   const [formData, setFormData] = useState({
     userPassword: '',
@@ -26,7 +26,7 @@ const LoginPage = () => {
     <div className="login-container">
       <p className="form__name">login</p>
       <h1 className="logo">LOGO</h1>
-      <form onSubmit={onSubmit} className={'auth-form'}>
+      <form onSubmit={onSubmit} className={'auth__form'}>
         {/* EMAIL-ADDRESS INPUT */}
         <div className="form__group">
           <label className="form__label">Email Address: </label>
@@ -56,10 +56,7 @@ const LoginPage = () => {
         <input type="submit" value="Login" className="login-btn " />
       </form>
       <span className="signup__note">
-        Don't have an account?
-        <NavLink to="/signup" className={``}>
-          Sign up{' '}
-        </NavLink>{' '}
+        Don't have an account? <NavLink to="/signup">Sign up</NavLink>
       </span>
     </div>
   );

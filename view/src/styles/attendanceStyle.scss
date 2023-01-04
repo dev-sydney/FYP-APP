@@ -1,6 +1,10 @@
+@import 'main';
+.ongoing__page {
+  height: inherit;
+}
 .ongoing__container {
-  border: 2px solid blue;
-
+  outline: 2px solid blue;
+  min-height: 100%;
   .ongoing__card {
     border: 2px solid black;
     margin: 5px;
@@ -10,4 +14,32 @@
 .signed__card {
   border: 2px solid black;
   margin: 5px;
+}
+.attendance__form__container {
+  // outline: 2px solid green;
+  padding: 0em 0.5em;
+  padding-bottom: 2em;
+  .attendance__form {
+    // outline: 2px solid lightgreen;
+    margin-top: 1em;
+    .form__input {
+      padding: 1rem 1.7rem;
+      text-align: left;
+      font-size: 1em;
+      border: none;
+      width: 100%;
+      background-color: #fff;
+      background-color: #f2f2f2;
+      border-top: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+      -webkit-transition: all 0.3s;
+      transition: all 0.3s;
+      border-radius: 10px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+    .start__btn {
+      @include btn;
+    }
+  }
 }

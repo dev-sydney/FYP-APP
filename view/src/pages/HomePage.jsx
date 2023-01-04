@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useState,
-  useContext,
-  useRef,
-  useEffect,
-} from 'react';
+import React, { useState, useContext, useRef, useEffect } from 'react';
 import { QrReader } from 'react-qr-reader';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,21 +7,21 @@ import authContext from '../contexts/AuthContext';
 import attendanceContext from '../contexts/AttendanceContext';
 
 /* ---------------COMPONENTS---------------- */
-import SecurityQForm from '../components/SecurityQForm';
 import AttendanceForm from '../components/AttendanceForm';
-import ModalBackground from '../components/ModalBackground';
 import QRcodeDetails from '../components/QRcodeDetails';
 import AnswerSecurityQForm from '../components/AnswerSecurityQForm';
+import AlertComponent from '../components/AlertComponent';
+import './../styles/homeStyle.scss';
 
 const HomePage = () => {
   const authContxt = useContext(authContext);
-  // const attendanceContxt = useContext(attendanceContext);
+  const attendanceContxt = useContext(attendanceContext);
 
   const [QRcodeData, setQRcodeData] = useState('');
 
-  const [isModalActive, setIsModalActive] = useState(true);
-  const [isAttendanceModalActive, setIsAttendanceModalActive] = useState(false);
   const [isAttendanceDetails, setIsAttendanceDetails] = useState(false);
+  const [didProfessorScan, setDidProfessorScan] = useState(false);
+  const [shouldQRcodeDetailPopup, setShouldQRcodeDetailPopup] = useState(false);
 
   const dataStr = useRef('');
 
@@ -46,8 +40,7 @@ const HomePage = () => {
       if (
         ['head_of_department', 'professor'].includes(authContxt.user.privilege)
       ) {
-        setIsAttendanceModalActive(!isAttendanceModalActive);
-        // console.log(result.text);
+        setDidProfessorScan(true);
         setQRcodeData(result.text);
       }
 
@@ -56,65 +49,82 @@ const HomePage = () => {
         setIsAttendanceDetails(!isAttendanceDetails);
         setQRcodeData(result.text);
         dataStr.current = result.text;
+        setShouldQRcodeDetailPopup(true);
       }
     }
   };
 
   return (
-    <Fragment>
-      {/* ----CONDTIONAL RENDERING FOR THE SECUIRTY QUESTIONS MODAL---- */}
-      {authContxt.user &&
-        (authContxt.user.privilege === 'student' &&
-        authContxt.user.hasSecurityQuestionsSet === 0 ? (
-          <ModalBackground
-            children={
-              <SecurityQForm
-                setIsModalActive={setIsModalActive}
-                isModalActive={isModalActive}
-              />
-            }
-          />
-        ) : (
-          ''
-        ))}
-      {/* ----CONDTIONAL RENDERING FOR THE ATTENDANCE FORM MODAL---- */}
-      {authContxt.user &&
-        (['professor', 'head_of_department'].includes(
-          authContxt.user.privilege
-        ) && isAttendanceModalActive ? (
-          <ModalBackground
-            children={
-              <AttendanceForm
-                QRcodeData={QRcodeData}
-                setIsAttendanceModalActive={setIsAttendanceModalActive}
-                isAttendanceModalActive={isAttendanceModalActive}
-              />
-            }
-          />
-        ) : (
-          ''
-        ))}
-
-      <AnswerSecurityQForm />
+    <div className="home-container">
+      <AlertComponent />
+      <div
+        className="top_logo_space"
+        style={{ textAlign: 'left', color: 'white' }}
+      >
+        <span>PresencePal</span>
+      </div>
       <div>
         <QrReader
           constraints={{ facingMode: 'environment' }}
           scanDelay={300}
           containerStyle={{
             width: '100%',
-            border: '2px solid green',
+            backgroundColor: 'black',
+            paddingTop: '0em',
+            height: '30em',
+          }}
+          videoContainerStyle={{
+            paddingTop: '0em',
+            height: '100%',
+            opacity: '0.5',
+          }}
+          videoStyle={{
+            minHeight: '100%',
           }}
           onResult={onResult}
         />
-        {/* ----CONDTIONAL RENDERING FOR THE ATTENDANCE DETAILS COMPONENT---- */}
-        {authContxt.user &&
-          (authContxt.user.privilege === 'student' && isAttendanceDetails ? (
-            <QRcodeDetails dataStr={dataStr.current} />
-          ) : (
-            ''
-          ))}
       </div>
-    </Fragment>
+      <QRcodeDetails
+        dataStr={dataStr.current}
+        isAttendanceDetails={isAttendanceDetails}
+        setIsAttendanceDetails={setIsAttendanceDetails}
+        setShouldQRcodeDetailPopup={setShouldQRcodeDetailPopup}
+        shouldQRcodeDetailPopup={shouldQRcodeDetailPopup}
+      />
+      //NOTE: THIS COMPONENT IS THE VERTICAL SLIDER THAT WILL ONLY POPUP //IF
+      APROFESSOR SCANS OR AN ONGOING ATTENDANCE ISN'T EXPIRED AND THE
+      STUDENTGETS THEIR // SECURITY QUESTION
+      <div
+        className={`vertical__slider ${
+          didProfessorScan || attendanceContxt.studentRandomQ?.secretQs
+            ? 'slide_up'
+            : 'slide_down'
+        }`}
+      >
+        {/*NOTE: conditional rendering if a professor scans it should show the lecturehall name in the vertical component */}
+        {QRcodeData &&
+          ['professor', 'head_of_department'].includes(
+            authContxt.user.privilege
+          ) &&
+          didProfessorScan && (
+            <p className="lectureroom">
+              {QRcodeData.split(' ')[1].split('=')[1]} ?
+            </p>
+          )}
+
+        {/* NOTE: CONDTIONAL RENDERING TO DISPLAY THE PROFESSOR ATTENDANCE FORM WHEN A PROFESSOR SCANS */}
+        {didProfessorScan && (
+          <AttendanceForm
+            setDidProfessorScan={setDidProfessorScan}
+            setQRcodeData={setQRcodeData}
+            QRcodeData={QRcodeData}
+          />
+        )}
+
+        {/* NOTE: CONDTIONAL RENDERING IF THE STUDENT TAPS THE PROCEED BTN TO TAKE AN ATTENDANCE */}
+        {attendanceContxt?.studentRandomQ?.secretQs && <AnswerSecurityQForm />}
+      </div>
+    </div>
   );
 };
 

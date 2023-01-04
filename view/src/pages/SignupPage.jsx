@@ -32,7 +32,7 @@ const SignupPage = () => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    // authContxt.signupUser(formData, navigateTo);TODO://REVERT BACK AFTER FINISHING STYLING
+    authContxt.signupUser(formData, navigateTo);
   };
   return (
     <div className="signup-container">

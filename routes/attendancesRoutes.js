@@ -15,7 +15,7 @@ router
     attendanceController.createOngoingAttendance
   )
   .get(
-    authController.restrictTo('professor'),
+    authController.restrictTo('professor', 'head_of_department'),
     attendanceController.getAttendancesStartedByProfessor
   );
 

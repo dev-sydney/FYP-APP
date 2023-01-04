@@ -6,7 +6,9 @@ const authController = require('./../controllers/authController');
 const router = express.Router();
 //CREATE
 router.use(authController.authenticateUser);
-router.use(authController.restrictTo('admin', 'head_of_department'));
+router.use(
+  authController.restrictTo('admin', 'head_of_department', 'professor')
+);
 router
   .route('/')
   .post(courseController.createCourse)

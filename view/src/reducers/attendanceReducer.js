@@ -2,6 +2,21 @@ import * as Types from '../utils/types';
 
 const attendanceReducer = (state, action) => {
   switch (action.type) {
+    case Types.SET_LOADING:
+      return {
+        ...state,
+        isLoading: state.isLoading ? null : true,
+      };
+    case Types.SET_ALERT:
+      return {
+        ...state,
+        attendanceAlert: action.payload,
+      };
+    case Types.CLEAR_ATTENDANCE_ALERT:
+      return {
+        ...state,
+        attendanceAlert: null,
+      };
     case Types.START_ONGOING_ATTENDANCE:
       return {
         ...state,
@@ -27,16 +42,22 @@ const attendanceReducer = (state, action) => {
         ...state,
         studentRandomQ: action.payload,
       };
-    case Types.SECURITY_ANSWER_CORRECT ||
-      Types.SECURITY_ANSWER_CORRECT_INCORRECT:
+    case Types.CLEAR_RANDOM_SECURITY_QUESTION:
       return {
         ...state,
-        securityQuestionAlert: action.payload,
+        studentRandomQ: null,
+      };
+    case Types.SECURITY_ANSWER_CORRECT:
+      return {
+        ...state,
+        attendanceAlert: action.payload,
+        studentRandomQ: null,
       };
     case Types.SECURITY_ANSWER_CORRECT_INCORRECT:
       return {
         ...state,
-        securityQuestionAlert: action.payload,
+        attendanceAlert: action.payload,
+        isLoading: null,
       };
     case Types.GET_ONGOING_ATTENDANCES:
       return {
@@ -99,6 +120,16 @@ const attendanceReducer = (state, action) => {
         ...state,
         attendanceScores: null,
         attendanceAlert: action.payload,
+      };
+    case Types.SET_RANDOM_SECURITY_QUESTION_FAILURE:
+      return {
+        ...state,
+        attendanceAlert: action.payload,
+      };
+    case Types.QRCODE_LOCKED:
+      return {
+        ...state,
+        QRcodeStatus: action.payload,
       };
     default:
       return state;

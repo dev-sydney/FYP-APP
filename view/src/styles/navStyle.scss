@@ -1,3 +1,21 @@
 .not-loggedIn {
   display: none;
 }
+.nav__bar {
+  background-color: #ffffff;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 1em 1em;
+  z-index: 5;
+  border-top: 1px solid gray;
+  display: flex;
+  justify-content: space-around;
+  a {
+    margin-top: 2em auto;
+    color: #1d2021;
+    display: flex;
+    align-items: flex-start;
+  }
+}

@@ -14,7 +14,7 @@ import ProfilePage from './pages/ProfilePage';
 import ResourcePage from './pages/ResourcePage';
 import AttendanceScoresPage from './pages/AttendanceScoresPage';
 import SignupPage from './pages/SignupPage';
-
+import Empty from './pages/Empty';
 import NavBar from './components/NavBar';
 import './App.css';
 
@@ -44,6 +44,7 @@ function App() {
                     path="/attendance-scores"
                     element={<AttendanceScoresPage />}
                   />
+                  <Route path="/empty" element={<Empty />} />
                 </Routes>
                 <NavBar />
               </BrowserRouter>

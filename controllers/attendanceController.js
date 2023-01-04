@@ -5,7 +5,6 @@ const pool = require('./../Model/database');
 const AppError = require('../utils/AppError');
 
 exports.createOngoingAttendance = catchAsyncErrors(async (req, res, next) => {
-  // console.log(req.user);
   const { QRcodeId, lectureRoom } = req.query;
   const cloneObject = { ...req.body };
 
@@ -37,7 +36,7 @@ exports.createOngoingAttendance = catchAsyncErrors(async (req, res, next) => {
   );
 
   //3. send a success message
-  res.status(200).json({
+  res.status(201).json({
     status: 'success',
     msg: 'All good, attendance ongoing...',
   });
@@ -72,7 +71,7 @@ exports.checkSignedAttendanceValidility = catchAsyncErrors(
       [req.user.userId]
     );
     const [securityQuestions] = results;
-    console.log(securityQuestions);
+    // console.log(securityQuestions);
 
     res.status(200).json({
       status: 'success',
@@ -90,7 +89,6 @@ exports.createSignedAttendance = catchAsyncErrors(async (req, res, next) => {
 
   //TODO: Create the date at which the attendance is being signed
   let currentTime = new Date(Date.now());
-
   cloneObject.createdAt = currentTime
     .toISOString()
     .split('T')
@@ -115,7 +113,7 @@ exports.createSignedAttendance = catchAsyncErrors(async (req, res, next) => {
       securityAnswers.securityAnswers[+cloneObject.randomIndex]
     ))
   ) {
-    return next(new AppError('Oops, incorrect answer', 406));
+    return next(new AppError('Oops, incorrect answer, try again!', 406));
   }
 
   //TODO: Create the keys & values string for the INSERT command
@@ -139,7 +137,7 @@ exports.createSignedAttendance = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    msg: 'Awesome job buddy! :)',
+    message: 'Awesome job buddy! :)',
   });
 });
 
@@ -215,6 +213,14 @@ exports.getSemesterAttendanceScores = catchAsyncErrors(
 );
 
 exports.getCurrentProfessor = catchAsyncErrors(async (req, res, next) => {
+  const [QRcodeEntities] = await pool.query(
+    `SELECT * FROM QRcodes WHERE QRcodeId = ?`,
+    [+req.params.QRcodeId]
+  );
+  //EDGE-CASE: IF THE QRCODE IS LOCKED
+  if (QRcodeEntities[0].isLocked === 1)
+    return next(new AppError('QRcode is locked', 423));
+
   //TODO: QUERY THE QRCODE DETAILS BASED OF THE REQ.PARAMS (QRcodeId)
   const [qrCodeInfo] = await pool.query(
     `SELECT surName,otherNames,photo,privilege,QRcodes.isLocked
@@ -224,21 +230,21 @@ exports.getCurrentProfessor = catchAsyncErrors(async (req, res, next) => {
     [+req.params.QRcodeId]
   );
   //EDGE-CASE:IF NO DETAILS ARE FOUND ABOUT QRCODE OR QRCODE IS LOCKED
-  if (qrCodeInfo.length === 0)
-    return next(new AppError('Sorry Buddy, this QRcode is locked :(', 423));
+  /* if (qrCodeInfo.length === 0)
+    return next(new AppError('Oops, locked :(', 423)); */
 
   //EDGE-CASE: IF THE QRCODE IS LOCKED
-  if (qrCodeInfo[0].isLocked) {
+  /*  if (qrCodeInfo[0].isLocked) {
     res.status(400).json({
       status: 'rejected',
-      msg: 'Sorry Buddy, this QRcode is locked :(',
+      message: 'Oops, locked :(',
     });
   } else {
-    res.status(200).json({
-      status: 'success',
-      qrCodeDetails: qrCodeInfo[0],
-    });
-  }
+  } */
+  res.status(200).json({
+    status: 'success',
+    qrCodeDetails: qrCodeInfo[0],
+  });
 });
 
 exports.getAttendancesStartedByProfessor = catchAsyncErrors(

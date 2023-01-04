@@ -92,7 +92,7 @@ STYLING THAT CAME WITH VITE
   }
   #root {
     width: 100%;
-    height: 100%;
+    height: inherit;
   }
   html {
     width: 100vw;
@@ -101,7 +101,7 @@ STYLING THAT CAME WITH VITE
   }
   .App {
     text-align: center;
-    outline: 2px solid red;
+    outline: 5px solid red;
     width: 100%;
     height: 100%;
   }

@@ -15,7 +15,7 @@ export const AttendanceContextProvider = ({ children }) => {
     QRcodeId: null,
     securityQuestionAlert: null,
     student: null,
-    isLoading: false,
+    isLoading: null,
     attendanceScores: null,
     QRcodeStatus: null,
   };
@@ -69,15 +69,30 @@ export const AttendanceContextProvider = ({ children }) => {
           body: JSON.stringify(formData),
         }
       );
-      const results = await res.json();
-      dispatch({
-        action: Types.START_ONGOING_ATTENDANCE,
-        payload: results.msg,
-      });
+      if (res.status === 201) {
+        const results = await res.json();
+        dispatch({
+          type: Types.START_ONGOING_ATTENDANCE,
+          payload: {
+            heading: 'Awesome',
+            detail: results.msg,
+            type: 'success',
+          },
+        });
+        setTimeout(() => {
+          dispatch({
+            type: Types.CLEAR_ATTENDANCE_ALERT,
+          });
+        }, 2000);
+      }
     } catch (err) {
       dispatch({
-        action: Types.START_ONGOING_ATTENDANCE_FAILURE,
-        payload: 'Oops, trouble starting an attendance, please try again',
+        type: Types.START_ONGOING_ATTENDANCE_FAILURE,
+        payload: {
+          heading: 'Uh, oh',
+          detail: 'Oops, trouble starting an attendance, please try again',
+          type: 'error',
+        },
       });
     }
   };
@@ -93,10 +108,17 @@ export const AttendanceContextProvider = ({ children }) => {
         `/api/v1/attendances/getCurrentProfessor/${state.QRcodeId}`
       );
       const results = await res.json();
-      //EDGE-CASE: IF THE QRCODE IS EITHER LOCKED OR UNKNOWN(NOT AVAILABLE IN THE DB)
+      //EDGE-CASE: IF THE QRCODE IS EITHER LOCKED
       if (res.status === 423) {
-        throw new Error(results.message);
+        dispatch({
+          type: Types.QRCODE_LOCKED,
+          payload: results.message,
+        });
       }
+      // OR UNKNOWN(NOT AVAILABLE IN THE DB)
+      // if (res.status >= 400) {
+      //   throw new Error(results.message ? results.message : results.msg);
+      // }
       // console.log({ results, res });
       //EDGE-CASE: IF THE status is 'rejected'
 
@@ -108,10 +130,15 @@ export const AttendanceContextProvider = ({ children }) => {
         });
       }
     } catch (err) {
-      dispatch({
+      /* dispatch({
         type: Types.GET_QRCODE_DETAILS_FAILURE,
-        payload: err.message,
-      });
+        payload: {
+          heading: 'Uh, oh',
+          detail: err.message,
+          type: 'error',
+        },
+      }); */
+      console.log(err.message);
     }
   };
 
@@ -127,11 +154,22 @@ export const AttendanceContextProvider = ({ children }) => {
       );
 
       //EDGE-CASE: IF THE RESPONSE WAS UNSUCCESSFUL & ATTENDANCE TIMED OUT
-      if (!res.ok && res.status === 406) {
+      if (res.status === 406) {
+        const result = await res.json();
         dispatch({
           type: Types.SET_RANDOM_SECURITY_QUESTION_FAILURE,
-          payload: JSON.parse(await res.text()).message,
+          payload: {
+            heading: 'Uh, oh',
+            detail: result.message,
+            type: 'error',
+          },
         });
+
+        setTimeout(() => {
+          dispatch({
+            type: Types.CLEAR_ATTENDANCE_ALERT,
+          });
+        }, 2000);
       }
       //TODO: RESPONSE WAS SUCCESSFUL AND USER GETS SECURITY QUESTION
       const results = await res.json();
@@ -146,12 +184,15 @@ export const AttendanceContextProvider = ({ children }) => {
     }
   };
   /**
-   * Function Responsible for making an API call to validate a user answer
+   * Function Responsible for making an API call to validate a users answer
    * to a security question and to create a signed attendance if the answer's right
    * @param {*} formData
    */
   const answerQuestionAndSignAttendance = async (formData) => {
     try {
+      dispatch({
+        type: Types.SET_LOADING,
+      });
       const res = await fetch(
         `/api/v1/attendances/sign-attendance/${state.studentRandomQ.ongoingAttendanceId}/${state.studentRandomQ.courseId}/${state.studentRandomQ.randomIndexNum}`,
         {
@@ -171,20 +212,45 @@ export const AttendanceContextProvider = ({ children }) => {
         throw incorrectAnswerError;
       }
 
-      if (res.ok) {
+      if (res.status === 200) {
         dispatch({
           type: Types.SECURITY_ANSWER_CORRECT,
-          payload: result.msg,
+          payload: {
+            heading: 'Well done!',
+            detail: result.message,
+            type: 'success',
+          },
         });
+
+        setTimeout(() => {
+          dispatch({ type: Types.CLEAR_ATTENDANCE_ALERT });
+        }, 2000);
       }
     } catch (err) {
       if (err.status === 406) {
         dispatch({
           type: Types.SECURITY_ANSWER_CORRECT_INCORRECT,
-          payload: err.message,
+          payload: {
+            heading: 'Uh, oh',
+            detail: err.message,
+            type: 'error',
+          },
         });
+        setTimeout(() => {
+          dispatch({ type: Types.CLEAR_ATTENDANCE_ALERT });
+        }, 2000);
       } else {
-        console.log(err);
+        dispatch({
+          type: Types.SET_ALERT,
+          payload: {
+            heading: 'Uh, oh',
+            detail: 'Something went very wrong',
+            type: 'error',
+          },
+        });
+        setTimeout(() => {
+          dispatch({ type: Types.CLEAR_ATTENDANCE_ALERT });
+        }, 2000);
       }
     }
   };
@@ -196,7 +262,7 @@ export const AttendanceContextProvider = ({ children }) => {
       const res = await fetch(`/api/v1/attendances/ongoing/`);
 
       //EDGE-CASE: IF THE USER HAS UNAUTHORIZED ACCESS
-      if (res.status) navigateTo('/');
+      if (res.status === 401) navigateTo('/');
       if (res.ok) {
         const results = await res.json();
 
@@ -349,6 +415,9 @@ export const AttendanceContextProvider = ({ children }) => {
       });
     }
   };
+  const clearRandomSecurityQuestion = () => {
+    dispatch({ type: Types.CLEAR_RANDOM_SECURITY_QUESTION });
+  };
   return (
     <attendanceContext.Provider
       value={{
@@ -373,6 +442,7 @@ export const AttendanceContextProvider = ({ children }) => {
         clearSomeContextState,
         eraseOngoingAttendance,
         loadAttendanceScores,
+        clearRandomSecurityQuestion,
       }}
     >
       {children}

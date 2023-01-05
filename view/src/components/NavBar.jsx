@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   UilEstate,
-  UilProcess,
   UilAnalytics,
   UilUserCircle,
   UilCreateDashboard,
+  UilHistoryAlt,
 } from '@iconscout/react-unicons';
 
 import authContext from '../contexts/AuthContext';
@@ -20,7 +20,6 @@ const NavBar = () => {
   const authContxt = useContext(authContext);
   return (
     <div className={`nav__bar ${!authContxt.user && 'not-loggedIn'}`}>
-      //TODO: REMOVE AFTER STYLING
       <NavLink to="/">
         <UilEstate size="35" color="#1D2021" />
       </NavLink>
@@ -29,7 +28,7 @@ const NavBar = () => {
         authContxt.user.privilege
       ) && (
         <NavLink to="/attendances/ongoingAttendances">
-          <UilProcess size="35" color="#1D2021" />
+          <UilHistoryAlt size="35" color="#1D2021" />
         </NavLink>
       )}
       {/* NOTE: CONDTIONAL RENDERING FOT THE ONGOING ATTENDANCES LINK */}

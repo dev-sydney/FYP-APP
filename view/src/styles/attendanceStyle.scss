@@ -3,14 +3,76 @@
   height: inherit;
 }
 .ongoing__container {
-  outline: 2px solid blue;
-  min-height: 100%;
+  min-height: fit-content;
+  width: 100%;
+  overflow-y: auto;
+
+  background-color: #eeeeee90;
   .ongoing__card {
-    border: 2px solid black;
-    margin: 5px;
+    // outline: 1.5px solid darkgray;
+    background: white;
+    margin: 0.5em 0.7em;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.7em;
+    a {
+      text-decoration: none;
+    }
+    .flex__1,
+    .flex__2,
+    .flex__3 {
+      // outline: 2px solid darkgray;
+      width: 100%;
+      text-align: left;
+      padding-left: 1em;
+      padding-right: 0.5em;
+      margin-bottom: 0.5em;
+    }
+    .flex__1 {
+      display: flex;
+      justify-content: space-between;
+      h2 {
+        color: #3e3a3a;
+      }
+      .more {
+        border-radius: 50%;
+        height: fit-content;
+        width: fit-content;
+        padding-top: 4px;
+        padding-left: 5px;
+        padding-right: 5px;
+        background: #d3d3d362;
+      }
+    }
+    .flex__2 {
+      color: gray;
+    }
+    .flex__3 {
+      display: flex;
+      justify-content: space-between;
+      p {
+        color: rgb(60, 60, 60);
+        padding-top: 10px;
+      }
+      .attendance__status {
+        padding: 5px 7px;
+        border-radius: 4px;
+        text-align: center;
+        font-weight: 1.5em;
+        height: fit-content;
+      }
+    }
   }
 }
-
+.completed {
+  color: blue;
+  background-color: rgba(84, 84, 233, 0.059);
+}
+.ongoing {
+  color: green;
+  background-color: rgba(27, 189, 27, 0.059);
+}
 .signed__card {
   border: 2px solid black;
   margin: 5px;

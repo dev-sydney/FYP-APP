@@ -7,6 +7,8 @@ import authContext from '../contexts/AuthContext';
 /* --------------------COMPONENTS IMPORT--------------------*/
 import OngoingAttendances from '../components/OngoingAttendances';
 
+import './../styles/attendanceStyle.scss';
+
 /**
  * This Page Component renders all Ongoing attendances started by the user
  * @returns
@@ -22,10 +24,15 @@ const OngoingAttendancePage = () => {
     }
   }, []);
   return (
-    <Fragment>
-      <h1>Attendances Started By You</h1>
+    <div className="ongoing__page">
+      <h1
+        style={{ textAlign: 'left', padding: '.5em .85em', color: '#3E3A3A' }}
+      >
+        Attendances Started,
+        <br /> By You
+      </h1>
       <OngoingAttendances />
-    </Fragment>
+    </div>
   );
 };
 

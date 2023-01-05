@@ -250,7 +250,7 @@ exports.getCurrentProfessor = catchAsyncErrors(async (req, res, next) => {
 exports.getAttendancesStartedByProfessor = catchAsyncErrors(
   async (req, res, next) => {
     const [professorAttendances] = await pool.query(
-      'SELECT * FROM OngoingAttendances WHERE userId = ?',
+      'SELECT * FROM OngoingAttendances WHERE userId = ? ORDER BY ongoingAttendanceId DESC LIMIT 30',
       [req.user.userId]
     );
     res.status(200).json({

@@ -24,3 +24,20 @@ $prim_background-color: #fafafa;
   border: none;
   cursor: pointer;
 }
+
+@mixin form-input {
+  padding: 1rem 1.7rem;
+  text-align: left;
+  font-size: 1em;
+  border: none;
+  width: 100%;
+  background-color: #fff;
+  background-color: #f2f2f2;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border-radius: 10px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}

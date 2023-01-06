@@ -29,7 +29,10 @@ const QRcodeDetails = ({
     >
       <img
         style={{
-          height: '5em',
+          maxHeight: '5em',
+          minHeight: '5em',
+          minWidth: '5em',
+          maxWidth: '5em',
           borderRadius: '20px',
         }}
         src={`/img/users/${codeDetails ? codeDetails.photo : 'padlock.jpeg'}`}

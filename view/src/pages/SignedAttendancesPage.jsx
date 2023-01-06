@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import CountUp from 'react-countup';
 import { useParams, useNavigate } from 'react-router-dom';
 import { UilPlus, UilSearch, UilUserPlus } from '@iconscout/react-unicons';
 
@@ -99,11 +100,18 @@ const SignedAttendancesPage = () => {
             </div>
           )}
         </span>
-        {/* TODO: INSTALL REACT COUNT-UP */}
+
         <h1 className="flex__2">
-          {!attendanceContxt.signedAttendances
-            ? 0
-            : attendanceContxt.signedAttendances.length}
+          {!attendanceContxt.signedAttendances ? (
+            0
+          ) : (
+            <CountUp
+              start={0}
+              end={attendanceContxt.signedAttendances.length}
+              delay={1}
+              duration={1.2}
+            />
+          )}
         </h1>
         <p className="flex__3">Students present</p>
       </div>

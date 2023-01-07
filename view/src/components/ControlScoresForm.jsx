@@ -11,7 +11,7 @@ import './../styles/profileStyle.scss';
  * as well as the faculties and courses
  * @returns JSX form
  */
-const ControlScoresForm = () => {
+const ControlScoresForm = ({ isModalActive, setIsModalActive }) => {
   const resourceContxt = useContext(resourceContext);
   const attendanceContxt = useContext(attendanceContext);
 
@@ -56,7 +56,12 @@ const ControlScoresForm = () => {
   };
   return (
     <form onSubmit={onsubmit} className={`control__form`}>
-      <div className="cancel__icon">
+      <div
+        className="cancel__icon"
+        onClick={() => {
+          setIsModalActive(!isModalActive);
+        }}
+      >
         <UilTimes color="#5F5E5E" size="30" />
       </div>
       <div className="illustration__container">

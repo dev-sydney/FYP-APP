@@ -1,12 +1,19 @@
-import React, { useContext, useEffect, useState, Fragment } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { UilCog, UilFileInfoAlt } from '@iconscout/react-unicons';
 import { useNavigate } from 'react-router-dom';
+
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 import resourceContext from '../contexts/ResourceContext';
 import attendanceContext from '../contexts/AttendanceContext';
 import authContext from '../contexts/AuthContext';
+
+import ModalBackground from './../components/ModalBackground';
+import ControlScoresForm from '../components/ControlScoresForm';
+
 import './../styles/profileStyle.scss';
+import './../styles/scoresStyle.scss';
 
 const stat = 1;
 /**
@@ -21,11 +28,7 @@ const AttendanceScoresPage = () => {
 
   const navigateTo = useNavigate();
 
-  const [formData, setFormData] = useState({
-    startDate: '',
-    endDate: '',
-  });
-  const [courseId, setCourseId] = useState(0);
+  const [isModalActive, setIsModalActive] = useState(false);
 
   useEffect(() => {
     //EDGE-CASE: IF THE USER ISN'T LOGGED IN
@@ -40,41 +43,6 @@ const AttendanceScoresPage = () => {
   }, [stat]);
 
   /* -------THE SELECT OPTIONS ONCHANGE EVENT HANDLERS------- */
-
-  /**
-   *The Faculties Select-Option Input:
-   *This "onChange" event handler loads all the courses belonging to the selected faculty
-   * @param {Object} e The event Object
-   */
-  const onFacultySelectChange = (e) => {
-    resourceContxt.loadAllCourses(e.target.value);
-  };
-
-  /**
-   *The Date Select-Option Input:
-   *This "onChange" event handler is responsible for changing the date input values
-   * @param {*} e The event Object
-   */
-  const onDateInputsChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  /**
-   * The courses Select-Option Input:
-   * This "onChange" event handler is responsible for changing the courses selct-option input values
-   * @param {*} e The event Object
-   */
-  const onCourseSelectChange = (e) => {
-    setCourseId(e.target.value);
-  };
-
-  /* -------THE FORM ONSUBMIT EVEVNT HANDLERS------- */
-  const onsubmit = (e) => {
-    e.preventDefault();
-    //EDGE-CASE: IF THERES NO SELECTED FACULTY AND COURSE
-    if (courseId === 0) return;
-    attendanceContxt.loadAttendanceScores(formData, courseId);
-  };
   const onDownloadBtnClick = () => {
     //TODO: create a new jsPDF instance
     const pdf = new jsPDF();
@@ -82,66 +50,31 @@ const AttendanceScoresPage = () => {
     pdf.save(`attendanceScores.pdf`);
   };
   return (
-    <Fragment>
-      <h2>Get Attendance Scores</h2>
-      <div>
-        <form onSubmit={onsubmit}>
-          <div className="form-group">
-            <label>From: </label>
-            <input
-              required
-              name="startDate"
-              type={'datetime-local'}
-              value={formData.startDate}
-              onChange={onDateInputsChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>To: </label>
-            <input
-              required
-              name="endDate"
-              type={'datetime-local'}
-              value={formData.endDate}
-              onChange={onDateInputsChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Filter by: </label>
-            <select onChange={onFacultySelectChange}>
-              <option>faculty</option>
-              {/*EDGE-CASE: IF THERES NO FACULTIES LOADED YET RENDER "LOADING..."  */}
-              {!resourceContxt.faculties ? (
-                <option> loading... </option>
-              ) : (
-                resourceContxt.faculties.map((faculty) => (
-                  <option value={faculty.facultyId} key={faculty.facultyId}>
-                    {faculty.facultyName}
-                  </option>
-                ))
-              )}
-            </select>
-
-            <select onChange={onCourseSelectChange}>
-              <option>course</option>
-              {/*EDGE-CASE: IF THERES NO COURSES LOADED YET, RENDER "NO RESULTS FOUND..."  */}
-              {!resourceContxt.courses ||
-              resourceContxt.courses.length === 0 ? (
-                <option> No results found </option>
-              ) : (
-                resourceContxt.courses.map((course) => (
-                  <option value={course.courseId} key={course.courseId}>
-                    {course.courseName}
-                  </option>
-                ))
-              )}
-            </select>
-          </div>
-          <input type={'submit'} />
-        </form>
+    <div className={`attendance_scores__container`}>
+      {/* NOTE: CONDITIONAL RENDERING FOR THE MODAL WITH THE ControlScoreForm */}
+      {isModalActive ? (
+        <ModalBackground>
+          <ControlScoresForm
+            setIsModalActive={setIsModalActive}
+            isModalActive={isModalActive}
+          />
+        </ModalBackground>
+      ) : (
+        ''
+      )}
+      <div className="form__icon" style={{ textAlign: 'right' }}>
+        <span
+          onClick={() => {
+            setIsModalActive(true);
+          }}
+        >
+          <UilFileInfoAlt color="#5F5E5E" size="30" />
+        </span>
       </div>
+      <h1 style={{ outline: '1px solid gray', textAlign: 'left' }}>
+        Get Attendance Scores, <br /> For The Semester
+      </h1>
+
       {attendanceContxt.attendanceScores &&
         (attendanceContxt.attendanceScores.length > 0 ? (
           <button onClick={onDownloadBtnClick}>
@@ -187,7 +120,9 @@ const AttendanceScoresPage = () => {
             </tbody>
           </table>
         ))}
-    </Fragment>
+
+      {/* NOTE: CONDITIONAL RENDERING FOR WHEN THERE ARE NO SCORES QUERIED YET */}
+    </div>
   );
 };
 

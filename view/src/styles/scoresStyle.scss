@@ -1,0 +1,172 @@
+@import 'main';
+.attendance_scores__container {
+  @include page-container;
+  background-color: #eeeeee90;
+  min-height: inherit;
+  .save__container {
+    // outline: 1px solid blue;
+    text-align: right;
+    padding: 0 0.5em;
+    margin: 0.9em 0;
+    .save__btn {
+      width: fit-content;
+      font-size: 1.3em;
+      color: #ffff;
+      border-radius: 50%;
+      padding: 0.4em 0.5em;
+      border: none;
+      // text-transform: uppercase;
+    }
+  }
+  .form__icon {
+    // outline: 1px solid gray;
+    height: fit-content;
+    // background-color: rgba(128, 128, 128, 0.174);
+    background-color: #1479d22f;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 50%;
+    padding: 9px 10px;
+    margin-left: auto;
+
+    // span {
+    //   // height: 3em;
+    //   // width: 3em;
+    //   border-radius: 50%;
+    // }
+  }
+  .control__form {
+    // outline: 2px solid orange;
+    text-align: left;
+    padding: 2.5em 1em;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    overflow: hidden;
+    box-shadow: 0px 8px 23px -3px rgba(100, 91, 91, 0.84);
+    -webkit-box-shadow: 0px 8px 23px -3px rgba(100, 91, 91, 0.84);
+    -moz-box-shadow: 0px 8px 23px -3px rgba(100, 91, 91, 0.84);
+    // height: 0em;
+    max-width: inherit;
+    background-color: white;
+    border-radius: 20px;
+    .cancel__icon {
+      text-align: right;
+      padding-right: 0.5em;
+      // background-color: #5f5e5e;
+    }
+    .illustration__container {
+      // outline: 1px solid gray;
+      margin-bottom: 1em;
+      text-align: center;
+      //   padding: 0 5em;
+      // overflow: hidden;
+      img {
+        min-height: 8em;
+        max-height: 8em;
+      }
+      p {
+        color: gray;
+        font-weight: 900;
+      }
+    }
+    .form__group {
+      display: flex;
+      //   outline: 1px solid gray;
+      margin-bottom: 1em;
+      margin-top: 0.4em;
+      .dash {
+        margin: 0.7em 0.4em;
+        font-weight: 900;
+      }
+      .form__input {
+        @include form-input;
+        // outline: 1px solid blue;
+        text-align: left;
+        padding: 0.7rem 1rem;
+        border-radius: 5px;
+        font-size: 1.2em;
+      }
+    }
+    .form__label {
+      font-weight: 600;
+      font-size: 1.2em;
+    }
+    .faculty__course {
+      column-gap: 5px;
+    }
+    .sub__btn {
+      @include btn;
+      background-color: black;
+    }
+  }
+  .no_scores_container {
+    padding: 0 3em;
+    // min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+    background: transparent;
+    margin: 0 1.5em;
+    // outline: 2px solid gray;
+    h2 {
+      font-size: 1.7em;
+      text-align: center;
+      // outline: 2px solid gray;
+    }
+    p {
+      font-size: 1.1em;
+      font-weight: 900;
+      color: gray;
+      text-align: center;
+      margin-top: 0.3em;
+      // outline: 2px solid gray;
+    }
+    button {
+      // outline: 2px solid gray;
+      // margin: 1em 0;
+      margin-top: 1em;
+      @include btn;
+      background-color: black;
+    }
+    .lists__illustration {
+      // outline: 2px solid gray;
+      margin: 0;
+    }
+  }
+  #attendanceTable {
+    border-collapse: collapse;
+    text-align: center;
+    // background-color: white;
+    margin: 0.4em 0.4em;
+    thead tr {
+      border-bottom: 1px solid gray;
+    }
+    thead tr th {
+      color: rgb(81, 80, 80);
+      padding-bottom: 10px;
+    }
+    tbody tr {
+      // border-bottom: 1px solid darkgray;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      height: 3em;
+    }
+    tbody tr td {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+    .photo__name {
+      display: flex;
+      padding: 5px 0;
+      p {
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+.save__btn:focus {
+  border: none;
+}

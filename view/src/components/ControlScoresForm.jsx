@@ -53,6 +53,7 @@ const ControlScoresForm = ({ isModalActive, setIsModalActive }) => {
     //EDGE-CASE: IF THERES NO SELECTED FACULTY AND COURSE
     if (courseId === 0) return;
     attendanceContxt.loadAttendanceScores(formData, courseId);
+    setIsModalActive(!isModalActive);
   };
   return (
     <form onSubmit={onsubmit} className={`control__form`}>

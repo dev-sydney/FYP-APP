@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { UilCog, UilFileInfoAlt } from '@iconscout/react-unicons';
+import { UilFileInfoAlt, UilImport } from '@iconscout/react-unicons';
 import { useNavigate } from 'react-router-dom';
 
 import jsPDF from 'jspdf';
@@ -62,24 +62,35 @@ const AttendanceScoresPage = () => {
       ) : (
         ''
       )}
-      <div className="form__icon" style={{ textAlign: 'right' }}>
+      <div
+        className="form__icon"
+        style={{ textAlign: 'right', paddingRight: '.4em' }}
+      >
         <span
           onClick={() => {
             setIsModalActive(true);
           }}
         >
-          <UilFileInfoAlt color="#5F5E5E" size="30" />
+          <UilFileInfoAlt color="#1479D2" size="30" />
         </span>
       </div>
-      <h1 style={{ outline: '1px solid gray', textAlign: 'left' }}>
+      <h1
+        style={{ textAlign: 'left', padding: '0 .4em', marginBottom: '.5em' }}
+      >
         Get Attendance Scores, <br /> For The Semester
       </h1>
 
       {attendanceContxt.attendanceScores &&
         (attendanceContxt.attendanceScores.length > 0 ? (
-          <button onClick={onDownloadBtnClick}>
-            DOWNLOAD ATTENDANCE SCORES
-          </button>
+          <div className="save__container">
+            <button
+              className="save__btn"
+              onClick={onDownloadBtnClick}
+              style={{ background: '#14D24C' }}
+            >
+              <UilImport color="#FFFFFF" size="25" />
+            </button>
+          </div>
         ) : (
           ''
         ))}
@@ -93,8 +104,8 @@ const AttendanceScoresPage = () => {
               <tr>
                 <th>#</th>
                 <th>STUDENT</th>
-                <th>INDEX NO</th>
-                <th>SCORES</th>
+                <th>INDEX</th>
+                <th>SCORE</th>
               </tr>
             </thead>
 
@@ -102,19 +113,32 @@ const AttendanceScoresPage = () => {
               {attendanceContxt.attendanceScores.map((score, i) => (
                 <tr key={score.indexNumber}>
                   <td>{i + 1}</td>
-                  <td style={{ border: '1px solid black' }}>
-                    <div>
+                  <td>
+                    <div
+                      style={{
+                        maxWidth: 'fit-content',
+                        margin: 'none',
+                      }}
+                      className="photo__name"
+                    >
                       <img
                         src={`/img/users/${score.photo}`}
-                        className="form__user-photo"
+                        // className="form__user-photo"
+                        style={{
+                          minHeight: '4em',
+                          maxHeight: '4em',
+                          maxWidth: '4em',
+                          minWidth: '4em',
+                          borderRadius: '10px',
+                        }}
                       />
-                      <span
-                        style={{ border: '1px solid red' }}
-                      >{`${score.surName} ${score.otherNames}`}</span>
+                      <p
+                        style={{ marginTop: '5px' }}
+                      >{`${score.surName} ${score.otherNames}`}</p>
                     </div>
                   </td>
                   <td>{score.indexNumber}</td>
-                  <td>{+score.Total}</td>
+                  <td style={{ fontWeight: '600' }}>{+score.Total}</td>
                 </tr>
               ))}
             </tbody>
@@ -122,6 +146,24 @@ const AttendanceScoresPage = () => {
         ))}
 
       {/* NOTE: CONDITIONAL RENDERING FOR WHEN THERE ARE NO SCORES QUERIED YET */}
+      {!attendanceContxt.attendanceScores && (
+        <div className="no_scores_container">
+          <img
+            src="/img/empty-box.png"
+            alt=""
+            className="lists__illustration"
+          />
+          <h2>No Scores</h2>
+          <p>Let's get started, shall we ?</p>
+          <button
+            onClick={() => {
+              setIsModalActive(!isModalActive);
+            }}
+          >
+            Get Scores
+          </button>
+        </div>
+      )}
     </div>
   );
 };

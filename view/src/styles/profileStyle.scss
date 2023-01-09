@@ -1,5 +1,64 @@
 @import 'main';
+.profile__container {
+  // background-color: rgba(0, 0, 255, 0.155);
+  min-height: inherit;
+  overflow: auto;
+  .form__input {
+    @include form-input;
+    margin: 0.5em 0;
+    font-size: 1.2em;
+    outline: 1px solid rgba(128, 128, 128, 0.491);
+    // background: white;
+  }
+  .save__btn {
+    @include btn;
+    width: fit-content;
+    margin: 0.5em 0;
+    padding-top: 0.9em;
+  }
 
+  //NOTE: STYLING FOR THE FIRST SECTION (ACCOUNT SETTINGS)
+  .acc_setting__section {
+    // outline: 1px solid gray;
+    .acc_setting__form {
+      padding: 0 0.7em;
+      // outline: 1px solid gray;
+      text-align: right;
+      .photo__surname {
+        display: flex;
+        // outline: 2px solid black;
+        padding: 1em 0;
+        .file__upload {
+          cursor: pointer;
+          // outline: 1px solid black;
+          // padding-top: 5em;
+          // min-height: 4em;
+          // min-width: 4em;
+          border-radius: 50%;
+          background-color: #dddddd68;
+        }
+        .surname__input {
+          margin-left: 0.5em;
+          margin-top: 0.8em;
+          margin-bottom: 0.8em;
+        }
+      }
+    }
+  }
+  .security_setting__section {
+    // outline: 1px solid gray;
+    .security_setting__form {
+      // outline: 1px solid gray;
+      padding: 0 1em;
+      text-align: right;
+      margin: 0.5em 0;
+    }
+    .logout__btn {
+      background: black;
+      margin: 0.5em 0;
+    }
+  }
+}
 .form__user-photo {
   height: 5rem;
   width: 5rem;

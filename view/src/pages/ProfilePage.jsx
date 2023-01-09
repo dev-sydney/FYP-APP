@@ -1,16 +1,11 @@
-import React, {
-  useContext,
-  useState,
-  Fragment,
-  useRef,
-  useEffect,
-} from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
+import { UilUser } from '@iconscout/react-unicons';
 
 import authContext from '../contexts/AuthContext';
-
 import './../styles/profileStyle.scss';
+
 const ProfilePage = () => {
   const authContxt = useContext(authContext);
   const navigateTo = useNavigate();
@@ -71,58 +66,19 @@ const ProfilePage = () => {
     authContxt.updateUserAccountInfo(formData);
   };
   return (
-    <Fragment>
-      <div>
+    <div className="profile__container">
+      <section className="acc_setting__section">
         {/*------ACCOUNT INFORMATION SETTINGS------ */}
 
         <h1>ACCOUNT SETTINGS</h1>
-        <form encType="multipart/form-data" onSubmit={onAccountInfoFormSubmit}>
-          <div className="form-group">
-            <label>Surname: </label>
-            <input
-              type="text"
-              className="input"
-              placeholder="surname"
-              name="surName"
-              value={accountInfoFormData.surName}
-              onChange={onAccountInfoChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Other Names: </label>
-            <input
-              type="text"
-              className="input"
-              placeholder="other names"
-              name="otherNames"
-              value={accountInfoFormData.otherNames}
-              onChange={onAccountInfoChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Email Address:</label>
-            <input
-              type={'email'}
-              className="input"
-              name="emailAddress"
-              value={accountInfoFormData.emailAddress}
-              placeholder="you@example.com"
-              onChange={onAccountInfoChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <img
-              className="form__user-photo"
-              src={`/img/users/${
-                authContxt.user ? authContxt.user.photo : 'default.jpg'
-              }`}
-              alt="profile"
-            />
-            <label htmlFor="photo" className="form__upload">
-              Choose new photo.
+        <form
+          encType="multipart/form-data"
+          onSubmit={onAccountInfoFormSubmit}
+          className="acc_setting__form"
+        >
+          <div className="photo__surname">
+            <label htmlFor="photo" className="file__upload">
+              <UilUser color="#828282" size="40" style={{ margin: '1.5em' }} />
               <input
                 type="file"
                 name="photo"
@@ -131,69 +87,104 @@ const ProfilePage = () => {
                 className="form__upload"
                 ref={userPhotoInput}
                 onChange={onAccountInfoChange}
+                style={{ display: 'none' }}
               />
             </label>
+            <input
+              type="text"
+              className="form__input surname__input"
+              placeholder="Surname"
+              name="surName"
+              value={accountInfoFormData.surName}
+              onChange={onAccountInfoChange}
+            />
           </div>
 
-          <input type={'submit'} value="save changes" />
+          <div className="form-group">
+            <input
+              type="text"
+              className="form__input"
+              placeholder="Other names"
+              name="otherNames"
+              value={accountInfoFormData.otherNames}
+              onChange={onAccountInfoChange}
+            />
+          </div>
+
+          <div className="form-group">
+            <input
+              type={'email'}
+              className="form__input"
+              name="emailAddress"
+              value={accountInfoFormData.emailAddress}
+              placeholder="Email"
+              onChange={onAccountInfoChange}
+            />
+          </div>
+
+          <input type={'submit'} value="save" className="save__btn" />
         </form>
-      </div>
+      </section>
       <hr />
 
       {/* ------PASSWORD & SECURITY-RELATED SETTINGS------ */}
-      <div>
+      <section className="security_setting__section">
         <h1>SECURITY SETTINGS</h1>
-        <form onSubmit={onPasswordFormSubmit}>
+        <form
+          onSubmit={onPasswordFormSubmit}
+          className="security_setting__form"
+        >
           <div className="form__group">
-            <label htmlFor="current">Current password:</label>
             <input
               type="password"
               name="currentPassword"
               value={securityFormData.currentPassword}
               id="current"
               onChange={onPasswordFieldsChange}
-              placeholder="••••••••"
+              placeholder="Current Password"
+              className="form__input"
             />
           </div>
 
           <div className="form__group">
-            <label htmlFor="newpassword">New password:</label>
             <input
               type="password"
               name="newPassword"
               value={securityFormData.newPassword}
               id="newpassword"
               onChange={onPasswordFieldsChange}
-              placeholder="••••••••"
+              placeholder="New Password"
+              className="form__input"
             />
           </div>
 
           <div className="form__group">
-            <label htmlFor="newPasswordConfirm">Confirm password:</label>
             <input
               type="password"
               name="newPasswordConfirm"
               vaue={securityFormData.newPasswordConfirm}
               id="passwordconfirm"
               onChange={onPasswordFieldsChange}
-              placeholder="••••••••"
+              placeholder="Confirm Password"
+              className="form__input"
             />
           </div>
           <input
             type="submit"
-            value="SAVE PASSWORD"
-            className="save_password btn"
+            value="done"
+            className="save_password save__btn"
           />
         </form>
         <button
           onClick={() => {
             authContxt.signUserOut(navigateTo);
           }}
+          className="logout__btn save__btn"
         >
           LOG OUT
         </button>
-      </div>
-    </Fragment>
+      </section>
+    </div>
   );
 };
 export default ProfilePage;

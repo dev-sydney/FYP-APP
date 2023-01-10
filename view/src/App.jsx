@@ -14,6 +14,7 @@ import ProfilePage from './pages/ProfilePage';
 import ResourcePage from './pages/ResourcePage';
 import AttendanceScoresPage from './pages/AttendanceScoresPage';
 import SignupPage from './pages/SignupPage';
+import ProfessorResourcePage from './pages/ProfessorResourcePage';
 import Empty from './pages/Empty';
 import NavBar from './components/NavBar';
 import './App.css';
@@ -40,6 +41,10 @@ function App() {
                   />
                   <Route path="/me" element={<ProfilePage />} />
                   <Route path="/resourceManager" element={<ResourcePage />} />
+                  <Route
+                    path="/resourceManager/professors"
+                    element={<ProfessorResourcePage />}
+                  />
                   <Route
                     path="/attendance-scores"
                     element={<AttendanceScoresPage />}

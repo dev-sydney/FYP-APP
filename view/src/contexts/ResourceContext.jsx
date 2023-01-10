@@ -146,7 +146,7 @@ export const ResourceContextProvider = ({ children }) => {
       dispatch({
         type: Types.SET_RESOURCE_LOADING,
       });
-      const res = await fetch(`/api/v1/professors`);
+      const res = await fetch(`/api/v1/users/professors`);
       if (res.status === 200) {
         const results = await res.json();
         dispatch({

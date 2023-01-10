@@ -62,37 +62,39 @@
     }
   }
 }
+.heading_btn__section {
+  background-color: white;
+  h1 {
+    text-align: left;
+    font-size: 1.5em;
+  }
+}
+.icon {
+  // outline: 1px solid gray;
+  text-align: right;
+}
 
+section {
+  padding: 0.4em 1em;
+}
+.list__item {
+  outline: 1px solid lightgray;
+  background-color: white;
+  margin: 1em 0;
+  padding: 1em;
+  border-radius: 20px;
+  box-shadow: 1px 8px 23px -8px rgba(0, 0, 0, 0.68);
+  -webkit-box-shadow: 1px 8px 23px -8px rgba(0, 0, 0, 0.68);
+  -moz-box-shadow: 1px 8px 23px -8px rgba(0, 0, 0, 0.68);
+}
 /* NOTE:: STYLING FOR THE PROFESSOR REOSURCE PAGE */
 .professors__container {
   // outline: 2px solid #8e18b912;
   // background-color: #efeeeead;
   min-height: inherit;
-  section {
-    padding: 0.4em 1em;
-  }
-  .heading_btn__section {
-    background-color: white;
-    h1 {
-      text-align: left;
-      font-size: 1.5em;
-    }
-  }
-  .icon {
-    // outline: 1px solid gray;
-    text-align: right;
-  }
   .lists__section {
     // outline: 2px solid gray;
     .list__item {
-      outline: 1px solid lightgray;
-      background-color: white;
-      margin: 1em 0;
-      padding: 1em;
-      border-radius: 20px;
-      box-shadow: 1px 8px 23px -8px rgba(0, 0, 0, 0.68);
-      -webkit-box-shadow: 1px 8px 23px -8px rgba(0, 0, 0, 0.68);
-      -moz-box-shadow: 1px 8px 23px -8px rgba(0, 0, 0, 0.68);
       .prof__info {
         display: flex;
         // outline: 1px solid violet;
@@ -116,5 +118,35 @@
         }
       }
     }
+  }
+}
+
+.lectureHalls__container {
+  .hall__info {
+    display: flex;
+    .edit {
+      margin-left: auto;
+      margin-top: auto;
+      // outline: 1px solid gray;
+    }
+  }
+  // .name__status{
+  //   display: flex;
+  // }
+  .lock__status {
+    // outline: 1px solid gray;
+    width: fit-content;
+    padding: 0.4em 0.5em;
+    border-radius: 5px;
+    // text-transform: uppercase;
+    font-weight: 900;
+  }
+  .locked {
+    color: #dc1a1a;
+    background-color: #dc1a1a15;
+  }
+  .unlocked {
+    color: #139624;
+    background-color: #13962418;
   }
 }

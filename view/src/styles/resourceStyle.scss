@@ -65,40 +65,54 @@
 
 /* NOTE:: STYLING FOR THE PROFESSOR REOSURCE PAGE */
 .professors__container {
-  outline: 2px solid blue;
-  // background-color: #626262;
+  // outline: 2px solid #8e18b912;
+  // background-color: #efeeeead;
   min-height: inherit;
   section {
     padding: 0.4em 1em;
   }
   .heading_btn__section {
-    outline: 2px solid gray;
+    background-color: white;
+    h1 {
+      text-align: left;
+      font-size: 1.5em;
+    }
+  }
+  .icon {
+    // outline: 1px solid gray;
+    text-align: right;
   }
   .lists__section {
-    outline: 2px solid gray;
+    // outline: 2px solid gray;
     .list__item {
-      outline: 2px solid red;
+      outline: 1px solid lightgray;
+      background-color: white;
       margin: 1em 0;
-      padding: 0.7em;
-      .icon {
-        outline: 1px solid gray;
-        text-align: right;
-      }
+      padding: 1em;
+      border-radius: 20px;
+      box-shadow: 1px 8px 23px -8px rgba(0, 0, 0, 0.68);
+      -webkit-box-shadow: 1px 8px 23px -8px rgba(0, 0, 0, 0.68);
+      -moz-box-shadow: 1px 8px 23px -8px rgba(0, 0, 0, 0.68);
       .prof__info {
         display: flex;
-        outline: 1px solid violet;
+        // outline: 1px solid violet;
         img {
           margin-right: 0.5em;
         }
         .name__privilege {
           margin-top: 0.5em;
-          outline: 1px solid gray;
+          // outline: 1px solid gray;
           text-align: left;
           p {
             color: gray;
             font-weight: 900;
             font-size: 1.1em;
           }
+        }
+        .edit {
+          margin-left: auto;
+          margin-top: auto;
+          // outline: 1px solid gray;
         }
       }
     }

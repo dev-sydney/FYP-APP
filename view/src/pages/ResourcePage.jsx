@@ -52,7 +52,7 @@ const ResourcePage = () => {
             <br /> Professors
           </h2>
 
-          <NavLink to="/#">
+          <NavLink to="/resourceManager/professors">
             <UilArrowRight
               size="30"
               color="#FFFFFF"

@@ -2,9 +2,27 @@ import * as Types from '../utils/types';
 
 const resourceReducer = (state, action) => {
   switch (action.type) {
+    case Types.SET_RESOURCE_LOADING:
+      return {
+        ...state,
+        isResourceLoading: !state.isResourceLoading ? true : null,
+      };
     case Types.ADD_PROFESSOR_SUCCESS:
       return {
         ...state,
+        resourceContextAlert: action.payload,
+      };
+    case Types.LOAD_PROFESSORS:
+      return {
+        ...state,
+        professors: action.payload,
+        isResourceLoading: null,
+      };
+    case Types.LOAD_PROFESSORS_ERROR:
+      return {
+        ...state,
+        professors: null,
+        isResourceLoading: null,
         resourceContextAlert: action.payload,
       };
     case Types.ADD_COURSE_SUCCESS:
@@ -48,7 +66,7 @@ const resourceReducer = (state, action) => {
         ...state,
         courses: action.payload,
       };
-      case Types.LOAD_COURSES_ERROR:
+    case Types.LOAD_COURSES_ERROR:
       return {
         ...state,
         courses: null,

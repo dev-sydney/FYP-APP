@@ -72,6 +72,19 @@ const resourceReducer = (state, action) => {
         courses: null,
         resourceContextAlert: action.payload,
       };
+    case Types.LOAD_LECTURE_HALL_QRCODES:
+      return {
+        ...state,
+        LectureHallQRcodes: action.payload,
+        isResourceLoading: null,
+      };
+    case Types.LOAD_LECTURE_HALL_QRCODES_ERROR:
+      return {
+        ...state,
+        LectureHallQRcodes: null,
+        isResourceLoading: null,
+        resourceContextAlert: action.payload,
+      };
     default:
       return state;
   }

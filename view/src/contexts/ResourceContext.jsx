@@ -13,6 +13,7 @@ export const ResourceContextProvider = ({ children }) => {
     courses: null,
     isResourceLoading: null,
     professors: null,
+    LectureHallQRcodes: null,
   };
   const [state, dispatch] = useReducer(resourceReducer, initialState);
 
@@ -166,6 +167,34 @@ export const ResourceContextProvider = ({ children }) => {
       });
     }
   };
+  /**
+   * This function fetchs and sets the lecture hall's QRcodes in the state
+   */
+  const loadLectureHallQRcodes = async () => {
+    try {
+      dispatch({
+        type: Types.SET_RESOURCE_LOADING,
+      });
+      const res = await fetch(`/api/v1/qrcodes`);
+      if (res.status === 200) {
+        const results = await res.json();
+        dispatch({
+          type: Types.LOAD_LECTURE_HALL_QRCODES,
+          payload: results.lectureHallQRcodes,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: Types.LOAD_LECTURE_HALL_QRCODES_ERROR,
+        payload: {
+          heading: 'Uh, oh',
+          detail: 'Something went very wrong',
+          type: 'error',
+        },
+      });
+    }
+  };
   return (
     <resourceContext.Provider
       value={{
@@ -175,12 +204,14 @@ export const ResourceContextProvider = ({ children }) => {
         courses: state.courses,
         isResourceLoading: state.isResourceLoading,
         professors: state.professors,
+        LectureHallQRcodes: state.LectureHallQRcodes,
         addProfessor,
         addCourse,
         addFaculty,
         loadAllFaculties,
         loadAllCourses,
         loadAllProfessors,
+        loadLectureHallQRcodes,
       }}
     >
       {children}

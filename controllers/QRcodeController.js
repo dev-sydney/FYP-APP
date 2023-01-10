@@ -49,3 +49,11 @@ exports.generateQRcode = catchAsyncErrors(async (req, res, next) => {
     // qrCodeEntity,
   });
 });
+
+exports.getAllQRcodes = catchAsyncErrors(async (req, res, next) => {
+  const [lectureHallQRcodes] = await pool.query(`SELECT * FROM QRcodes`);
+  res.status(200).json({
+    status: 'success',
+    lectureHallQRcodes,
+  });
+});

@@ -1,15 +1,16 @@
-import React, { Fragment, useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate, NavLink } from 'react-router-dom';
+import {
+  UilGraduationCap,
+  UilPodium,
+  UilDiary,
+  UilUniversity,
+  UilArrowRight,
+} from '@iconscout/react-unicons';
 import authContext from '../contexts/AuthContext';
 
-/* ------FORM COMPONENTS FOR ADDING RESOURCES------ */
-import AddProfessorForm from '../components/AddProfessorForm';
-import AddLectureRoomForm from '../components/AddLectureRoomForm';
-import AddCourseForm from '../components/AddCourseForm';
-import AddFacultyForm from '../components/AddFacultyForm';
+import './../styles/resourceStyle.scss';
 
-import ModalBackground from '../components/ModalBackground';
 /**
  * This component renders all the controls for managing the various resources(lecture rooms,faculties,professors, etc)
  * @returns
@@ -26,90 +27,100 @@ const ResourcePage = () => {
     if (!['admin', 'head_of_department'].includes(authContxt.user.privilege))
       navigateTo('/');
   });
-  const [isAddProfessorActive, setIsAddProfessorActive] = useState(false);
-  const [isAddLectureRoomActive, setIsAddLectureRoomActive] = useState(false);
-  const [isAddNewCourseActive, setIsAddNewCourseActive] = useState(false);
-  const [isAddNewFacultyActive, setIsAddNewFacultyActive] = useState(false);
 
   const onBtnClick = (state, setStateFn) => () => {
     setStateFn(!state);
   };
   return (
-    <Fragment>
-      <h2>ResourcePage</h2>
-      <button
-        onClick={onBtnClick(isAddProfessorActive, setIsAddProfessorActive)}
-      >
-        Add professor
-      </button>
-      <button
-        onClick={onBtnClick(isAddLectureRoomActive, setIsAddLectureRoomActive)}
-      >
-        Add lecture room
-      </button>
-      <button
-        onClick={onBtnClick(isAddNewCourseActive, setIsAddNewCourseActive)}
-      >
-        Add new course
-      </button>
-      <button
-        onClick={onBtnClick(isAddNewFacultyActive, setIsAddNewFacultyActive)}
-      >
-        Add new faculty
-      </button>
-      {/* NOTE:----CONDTIONAL RENDERING FOR THE ADD PROFESSOR FORM MODAL---- */}
-      {isAddProfessorActive ? (
-        <ModalBackground
-          children={
-            <AddProfessorForm
-              isAddProfessorActive={isAddProfessorActive}
-              setIsAddProfessorActive={setIsAddProfessorActive}
+    <div className="resource__container">
+      <h1 style={{ textAlign: 'left', padding: '.3em .7em' }}>
+        Manage
+        <br /> Resources
+      </h1>
+      <hr />
+      <div className="controls__container">
+        <div className="control">
+          <div className="icon" style={{ background: '#4d4df02b' }}>
+            <UilGraduationCap
+              size="30"
+              color="#3434E6"
+              style={{ margin: '.5em' }}
             />
-          }
-        />
-      ) : (
-        ''
-      )}
-      {/* NOTE:----CONDTIONAL RENDERING FOR THE ADD LECTURE-ROOM FORM MODAL---- */}
-      {isAddLectureRoomActive ? (
-        <ModalBackground
-          children={
-            <AddLectureRoomForm
-              isAddLectureRoomActive={isAddLectureRoomActive}
-              setIsAddLectureRoomActive={setIsAddLectureRoomActive}
+          </div>
+          <h2>
+            Manage
+            <br /> Professors
+          </h2>
+
+          <NavLink to="/#">
+            <UilArrowRight
+              size="30"
+              color="#FFFFFF"
+              style={{ margin: '.4em' }}
             />
-          }
-        />
-      ) : (
-        ''
-      )}
-      {/* NOTE:----CONDTIONAL RENDERING FOR THE ADD FACULTY FORM MODAL---- */}
-      {isAddNewFacultyActive ? (
-        <ModalBackground
-          children={
-            <AddFacultyForm
-              isAddNewFacultyActive={isAddNewFacultyActive}
-              setIsAddNewFacultyActive={setIsAddNewFacultyActive}
+          </NavLink>
+        </div>
+
+        <div className="control">
+          <div className="icon" style={{ background: ' #f9b94a51' }}>
+            <UilPodium size="37" color="#efa92f" style={{ margin: '.5em' }} />
+          </div>
+          <h2>
+            Lecture
+            <br /> Halls
+          </h2>
+
+          <NavLink to="/#">
+            <UilArrowRight
+              size="30"
+              color="#FFFFFF"
+              style={{ margin: '.45em' }}
             />
-          }
-        />
-      ) : (
-        ''
-      )}
-      {/* NOTE:----CONDTIONAL RENDERING FOR THE ADD COURSE FORM MODAL---- */}
-      {isAddNewCourseActive ? (
-        <ModalBackground
-          children={
-            <AddCourseForm
-              isAddNewCourseActive={isAddNewCourseActive}
-              setIsAddNewCourseActive={setIsAddNewCourseActive}
+          </NavLink>
+        </div>
+
+        <div className="control">
+          <div className="icon" style={{ background: '#0d903037' }}>
+            <UilDiary size="30" color="#0D9030" style={{ margin: '.7em' }} />
+          </div>
+          <h2>
+            Manage
+            <br /> Courses
+          </h2>
+
+          <NavLink to="/#">
+            <UilArrowRight
+              size="30"
+              color="#FFFFFF"
+              style={{ margin: '.4em' }}
             />
-          }
-        />
-      ) : (
-        ''
-      )}
-    </Fragment>
+          </NavLink>
+        </div>
+
+        <div className="control">
+          <div className="icon" style={{ background: '#5f10903d' }}>
+            <UilUniversity
+              size="30"
+              color="#5E1090"
+              style={{ margin: '.5em' }}
+            />
+          </div>
+          <h2>
+            Manage
+            <br /> Faculties
+          </h2>
+
+          <NavLink to="/#">
+            <UilArrowRight
+              size="30"
+              color="#FFFFFF"
+              style={{ margin: '.4em' }}
+            />
+          </NavLink>
+        </div>
+      </div>
+      <div style={{ minHeight: '5em' }}></div>
+    </div>
   );
 };
 

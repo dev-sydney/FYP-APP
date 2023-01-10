@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import {
   UilTimes,
   UilUserPlus,
-  UilTrashAlt,
   UilFileEditAlt,
 } from '@iconscout/react-unicons';
 
@@ -15,7 +14,7 @@ const stat = 1;
 const ProfessorResourcePage = () => {
   const resourceContxt = useContext(resourceContext);
 
-  const [didMoreOptionsClicked, setDidMoreOptionsClciked] = useState(false);
+  const [isModalActive, setIsModalActive] = useState(false);
 
   useEffect(() => {
     resourceContxt.loadAllProfessors();
@@ -23,6 +22,18 @@ const ProfessorResourcePage = () => {
 
   return (
     <div className="professors__container">
+      {isModalActive ? (
+        <ModalBackground
+          children={
+            <AddProfessorForm
+              setIsModalActive={setIsModalActive}
+              isModalActive={isModalActive}
+            />
+          }
+        />
+      ) : (
+        ''
+      )}
       <section className="heading_btn__section">
         <div className="icon">
           <UilUserPlus
@@ -33,6 +44,9 @@ const ProfessorResourcePage = () => {
               outline: '1px solid gray',
               borderRadius: '50%',
               background: '#8e18b930',
+            }}
+            onClick={() => {
+              setIsModalActive(!isModalActive);
             }}
           />
         </div>

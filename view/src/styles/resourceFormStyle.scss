@@ -1,0 +1,62 @@
+@import 'main';
+.form__input {
+  @include form-input;
+}
+.submit__btn {
+  @include btn;
+}
+.form__group {
+  margin-bottom: 0.7em;
+}
+.form__label {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+.add_prof__form {
+  //   outline: 2px solid orange;
+  text-align: left;
+  padding: 1.5em 1em;
+  transition: 0.5s all;
+  -webkit-transition: 0.5s all;
+  overflow: hidden;
+  box-shadow: 0px 8px 23px -3px rgba(100, 91, 91, 0.84);
+  -webkit-box-shadow: 0px 8px 23px -3px rgba(100, 91, 91, 0.84);
+  -moz-box-shadow: 0px 8px 23px -3px rgba(100, 91, 91, 0.84);
+  // height: 0em;
+  max-width: inherit;
+  background-color: white;
+  border-radius: 20px;
+  .cancel__icon {
+    text-align: right;
+    padding-right: 0.5em;
+    // background-color: #5f5e5e;
+  }
+  .illustration__container {
+    // outline: 1px solid gray;
+    margin-bottom: 1em;
+    text-align: center;
+    //   padding: 0 5em;
+    // overflow: hidden;
+    img {
+      min-height: 8em;
+      max-height: 8em;
+    }
+    p {
+      color: gray;
+      font-weight: 900;
+    }
+  }
+  .double_field {
+    display: flex;
+  }
+  .othername__input,
+  .faculty__input {
+    margin-left: 0.4em;
+  }
+  .prof_sub {
+    background: #8e18b9;
+    margin-top: 0.7em;
+  }
+}

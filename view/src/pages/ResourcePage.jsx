@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import {
   UilGraduationCap,
@@ -70,7 +70,7 @@ const ResourcePage = () => {
             <br /> Halls
           </h2>
 
-          <NavLink to="/#">
+          <NavLink to="/resourceManager/lecture-halls">
             <UilArrowRight
               size="30"
               color="#FFFFFF"

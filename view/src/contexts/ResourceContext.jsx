@@ -11,6 +11,8 @@ export const ResourceContextProvider = ({ children }) => {
     lectureRoomQRcode: null,
     faculties: null,
     courses: null,
+    isResourceLoading: null,
+    professors: null,
   };
   const [state, dispatch] = useReducer(resourceReducer, initialState);
 
@@ -113,6 +115,10 @@ export const ResourceContextProvider = ({ children }) => {
   };
   const loadAllCourses = async (facultyId) => {
     try {
+      dispatch({
+        type: Types.SET_RESOURCE_LOADING,
+      });
+
       const res = await fetch(`/api/v1/courses?facultyId=${facultyId}`);
       if (res.status === 200) {
         const results = await res.json();
@@ -120,11 +126,43 @@ export const ResourceContextProvider = ({ children }) => {
           type: Types.LOAD_COURSES_SUCCESS,
           payload: results.courses,
         });
+        dispatch({
+          type: Types.SET_RESOURCE_LOADING,
+        });
       }
     } catch (err) {
       dispatch({
         type: Types.LOAD_COURSES_ERROR,
         payload: 'Trouble loading courses',
+      });
+    }
+  };
+  /**
+   * This function fetches all the users that are professors (those with privilge = professor or head_of_department)
+   * and sets the results gotten as the professors in the context
+   */
+  const loadAllProfessors = async () => {
+    try {
+      dispatch({
+        type: Types.SET_RESOURCE_LOADING,
+      });
+      const res = await fetch(`/api/v1/professors`);
+      if (res.status === 200) {
+        const results = await res.json();
+        dispatch({
+          type: Types.LOAD_PROFESSORS,
+          payload: results.professors,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: Types.LOAD_PROFESSORS_ERROR,
+        payload: {
+          heading: 'Uh, oh',
+          detail: 'Something went very wrong',
+          type: 'error',
+        },
       });
     }
   };
@@ -135,11 +173,14 @@ export const ResourceContextProvider = ({ children }) => {
         lectureRoomQRcode: state.lectureRoomQRcode,
         faculties: state.faculties,
         courses: state.courses,
+        isResourceLoading: state.isResourceLoading,
+        professors: state.professors,
         addProfessor,
         addCourse,
         addFaculty,
         loadAllFaculties,
         loadAllCourses,
+        loadAllProfessors,
       }}
     >
       {children}

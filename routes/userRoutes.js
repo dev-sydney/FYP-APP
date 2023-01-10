@@ -39,10 +39,16 @@ router.patch(
   userController.uploadUserPhoto,
   userController.updateUser
 );
+
 router
   .route('/professors/')
+  .get(
+    authController.restrictTo('head_of_department'),
+    userController.getAllProfessors
+  )
   .post(
     authController.restrictTo('admin', 'head_of_department'),
     userController.addNewProfessor
   );
+
 module.exports = router;

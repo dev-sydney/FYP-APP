@@ -27,7 +27,7 @@ const AddProfessorForm = ({ isModalActive, setIsModalActive }) => {
     resourceContxt.addProfessor(formData);
   };
   return (
-    <form onSubmit={onSubmit} className="add_prof__form">
+    <form onSubmit={onSubmit} className="add_prof__form resource__form">
       <div
         className="cancel__icon"
         onClick={() => {

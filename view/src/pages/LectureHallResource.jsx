@@ -21,6 +21,18 @@ const LectureHallResource = () => {
   }, [stat]);
   return (
     <div className="lectureHalls__container">
+      {isModalActive ? (
+        <ModalBackground
+          children={
+            <AddLectureRoomForm
+              setIsModalActive={setIsModalActive}
+              isModalActive={isModalActive}
+            />
+          }
+        />
+      ) : (
+        ''
+      )}
       <section className="heading_btn__section">
         <div className="icon">
           <UilFocusAdd

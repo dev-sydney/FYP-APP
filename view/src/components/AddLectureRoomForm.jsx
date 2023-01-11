@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react';
+import { UilTimes } from '@iconscout/react-unicons';
+
 import resourceContext from '../contexts/ResourceContext';
 
-const AddLectureRoomForm = ({
-  isAddLectureRoomActive,
-  setIsAddLectureRoomActive,
-}) => {
+const AddLectureRoomForm = ({ isModalActive, setIsModalActive }) => {
   const resourceContxt = useContext(resourceContext);
 
   const [formData, setFormData] = useState({
@@ -35,35 +34,21 @@ const AddLectureRoomForm = ({
     }
   };
   return (
-    <div>
-      <h3>ADD LECTURE ROOMS</h3>
-      <button
+    <form onSubmit={onSubmit} className="add_hall__form resource__form">
+      {/* NOTE: THE CANCEL SVG CONTAINER */}
+      <div
+        className="cancel__icon"
         onClick={() => {
-          setIsAddLectureRoomActive(!isAddLectureRoomActive);
+          setIsModalActive(!isModalActive);
         }}
       >
-        ❌
-      </button>
-      <form onSubmit={onSubmit}>
-        <div className="form-group">
-          <label>Lecture room: </label>
-          <input
-            type="text"
-            className="input"
-            placeholder="eg LBC1234"
-            name="lectureRoom"
-            value={formData.lectureRoom}
-            onChange={onChange}
-            required
-            mmin="4"
-          />
-        </div>
-        <input type={'submit'} value={'Add'} onClick={onSubmit} />
-      </form>
+        <UilTimes color="#5F5E5E" size="30" />
+      </div>
 
-      {lectureRoomQRcode !== '' && (
-        <div>
-          <h3>Tap on the code to download</h3>
+      {/* NOTE: THE ILLUSRTATION CONTAINER & QR CODE CONTAINER*/}
+      <div className="illustration__container">
+        {/* NOTE: BELOW IS THE CONDITIONAL RENDERING FOR THE QR CODE IMAGE & ILLUSTRATION IMAGE */}
+        {lectureRoomQRcode !== '' ? (
           <a
             download={formData.lectureRoom}
             target={'_blank'}
@@ -72,9 +57,43 @@ const AddLectureRoomForm = ({
           >
             <img src={lectureRoomQRcode} />
           </a>
-        </div>
-      )}
-    </div>
+        ) : (
+          <img src={`/img/businessman-explaining-the-strategy.png`} />
+        )}
+
+        {/* NOTE: CONDITIONAL RENDERING FOR THE HEADING WHEN A QRCDODE HAS BEEN CREATED */}
+        <h1>
+          {lectureRoomQRcode !== '' ? "Here's Your Code" : "Let's Get Started."}
+        </h1>
+
+        {/* NOTE: CONDITIONAL RENDERING FOR THE PARAGRAPH WHEN A QRCDODE HAS BEEN CREATED */}
+        <p>
+          {lectureRoomQRcode !== ''
+            ? 'Please Tap On The Code To DownLoad'
+            : 'Please enter the name of the lecture to create a QR code for that hall'}
+        </p>
+      </div>
+
+      <div className="form__group">
+        <label className="form__label">Lecture room: </label>
+        <input
+          type="text"
+          className="form__input"
+          placeholder="eg LBC1234"
+          name="lectureRoom"
+          value={formData.lectureRoom}
+          onChange={onChange}
+          required
+          mmin="4"
+        />
+      </div>
+      <input
+        type={'submit'}
+        value={'Add'}
+        onClick={onSubmit}
+        className="submit__btn hall__sub"
+      />
+    </form>
   );
 };
 

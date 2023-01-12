@@ -3,7 +3,7 @@ import { useNavigate, NavLink } from 'react-router-dom';
 import {
   UilGraduationCap,
   UilPodium,
-  UilDiary,
+  UilBooks,
   UilUniversity,
   UilArrowRight,
 } from '@iconscout/react-unicons';
@@ -81,7 +81,7 @@ const ResourcePage = () => {
 
         <div className="control">
           <div className="icon" style={{ background: '#0d903037' }}>
-            <UilDiary size="30" color="#0D9030" style={{ margin: '.7em' }} />
+            <UilBooks size="30" color="#0D9030" style={{ margin: '.7em' }} />
           </div>
           <h2>
             Manage
@@ -110,7 +110,7 @@ const ResourcePage = () => {
             <br /> Faculties
           </h2>
 
-          <NavLink to="/#">
+          <NavLink to="/resourceManager/faculties">
             <UilArrowRight
               size="30"
               color="#FFFFFF"

@@ -17,6 +17,7 @@ import SignupPage from './pages/SignupPage';
 import ProfessorResourcePage from './pages/ProfessorResourcePage';
 import LectureHallResource from './pages/LectureHallResource';
 import CoursesResourcePage from './pages/CoursesResourcePage';
+import FacultyResourcePage from './pages/FacultyResourcePage';
 
 import Empty from './pages/Empty';
 import NavBar from './components/NavBar';
@@ -55,6 +56,10 @@ function App() {
                   <Route
                     path="/resourceManager/courses"
                     element={<CoursesResourcePage />}
+                  />
+                  <Route
+                    path="/resourceManager/faculties"
+                    element={<FacultyResourcePage />}
                   />
                   <Route
                     path="/attendance-scores"

@@ -169,3 +169,38 @@ section {
     margin-top: auto;
   }
 }
+.faculty_resource__container {
+  .lists__section {
+    // background: rgba(240, 128, 128, 0.475);
+    .list__items {
+      outline: 1px solid gray;
+      border-radius: 20px;
+      padding: 0.5em 0.7em;
+      margin: 0.5em 0;
+      .faculty_item {
+        // outline: 1px solid gray;
+        display: flex;
+        h2 {
+          text-align: left;
+          margin-left: 0.4em;
+          padding: 15px 0;
+        }
+        .icon {
+          margin-left: auto;
+          margin-top: 0.5em;
+        }
+        .edit {
+          display: flex;
+          justify-content: center;
+          min-height: 3em;
+          max-height: 3em;
+          min-width: 3em;
+          max-width: 3em;
+          border-radius: 50%;
+          margin-top: 0.5em;
+          background: #f9b94a14;
+        }
+      }
+    }
+  }
+}

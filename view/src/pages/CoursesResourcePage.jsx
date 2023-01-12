@@ -5,8 +5,11 @@ import {
   UilBookMedical,
 } from '@iconscout/react-unicons';
 import resourceContext from '../contexts/ResourceContext';
-const stat = 1;
 
+import ModalBackground from '../components/ModalBackground';
+import AddCourseForm from './../components/AddCourseForm';
+
+const stat = 1;
 const CoursesResourcePage = () => {
   const resourceContxt = useContext(resourceContext);
 
@@ -29,6 +32,19 @@ const CoursesResourcePage = () => {
 
   return (
     <div className="course_resource__container">
+      {/* NOTE: CONDTIONAL RENDERING FOR THE MODAL BACKGROUND & FORM */}
+      {isModalActive ? (
+        <ModalBackground
+          children={
+            <AddCourseForm
+              isModalActive={isModalActive}
+              setIsModalActive={setIsModalActive}
+            />
+          }
+        />
+      ) : (
+        ''
+      )}
       <section className="heading_btn__section">
         <div className="icon">
           <UilBookMedical

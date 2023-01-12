@@ -88,7 +88,7 @@ const ResourcePage = () => {
             <br /> Courses
           </h2>
 
-          <NavLink to="/#">
+          <NavLink to="/resourceManager/courses">
             <UilArrowRight
               size="30"
               color="#FFFFFF"

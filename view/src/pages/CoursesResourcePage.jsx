@@ -1,13 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {
-  UilTimes,
-  UilFileEditAlt,
-  UilBookMedical,
-} from '@iconscout/react-unicons';
+import { UilTrashAlt, UilPen, UilBookMedical } from '@iconscout/react-unicons';
 import resourceContext from '../contexts/ResourceContext';
 
 import ModalBackground from '../components/ModalBackground';
 import AddCourseForm from './../components/AddCourseForm';
+
+import './../styles/resourceStyle.scss';
 
 const stat = 1;
 const CoursesResourcePage = () => {
@@ -90,33 +88,45 @@ const CoursesResourcePage = () => {
       </section>
 
       <section className="lists__section">
-        {resourceContxt.courses &&
-          (resourceContxt.courses.length > 0
-            ? resourceContxt.courses.map((course) => (
-                <div className="list__item" key={course.courseId}>
-                  <div className="icon">
-                    <UilTimes size="30" color="#CA1414" />
-                  </div>
-                  <div className="course__info">
+        <div className="list__items">
+          {resourceContxt.courses &&
+            (resourceContxt.courses.length > 0
+              ? resourceContxt.courses.map((course) => (
+                  <div className="faculty_item" key={course.courseId}>
                     <div className="coursename__code">
-                      <h2 style={{ textAlign: 'left', margin: '.4em 0' }}>
+                      <h2 style={{ textAlign: 'left', margin: '0' }}>
                         {course.courseName}
                       </h2>
                       <p className="course_code">{course.courseCode}</p>
                     </div>
-                    <div className="edit">
-                      <UilFileEditAlt
-                        size="30"
-                        color="#1414B3"
-                        style={{
-                          display: 'inline',
-                        }}
-                      />
+
+                    <div
+                      className="list_controls"
+                      style={{ display: 'flex', marginLeft: 'auto' }}
+                    >
+                      <div className="edit" style={{ marginRight: '.4em' }}>
+                        <UilPen
+                          size="30"
+                          color="#efa92f"
+                          style={{
+                            margin: '.5em 0',
+                          }}
+                        />
+                      </div>
+                      <div className="icon">
+                        <UilTrashAlt
+                          size="30"
+                          color="#CA1414"
+                          style={{
+                            margin: '.5em 0',
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))
-            : 'No Courses Yet!')}
+                ))
+              : 'No Courses Yet!')}
+        </div>
       </section>
     </div>
   );

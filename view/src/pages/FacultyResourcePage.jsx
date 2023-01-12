@@ -71,8 +71,14 @@ const FacultyResourcePage = () => {
                       />
                     </div>
                     <h2>{faculty.facultyName}</h2>
-                    <div className="icon">
-                      <UilTimes size="30" color="#D6D6D6" />
+                    <div className="icon" style={{ background: 'none' }}>
+                      <UilTimes
+                        size="30"
+                        color="#CA1414"
+                        style={{
+                          margin: '.5em 0',
+                        }}
+                      />
                     </div>
                   </div>
                 ))

@@ -1,14 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {
-  UilTimes,
-  UilUserPlus,
-  UilFileEditAlt,
-} from '@iconscout/react-unicons';
+import { UilTrashAlt, UilUserPlus, UilPen } from '@iconscout/react-unicons';
 
 import resourceContext from '../contexts/ResourceContext';
 
 import AddProfessorForm from './../components/AddProfessorForm';
 import ModalBackground from '../components/ModalBackground';
+
+import './../styles/resourceStyle.scss';
+
 const stat = 1;
 
 const ProfessorResourcePage = () => {
@@ -55,43 +54,59 @@ const ProfessorResourcePage = () => {
           Professors
         </h1>
       </section>
+
       <section className="lists__section">
-        {resourceContxt.professors &&
-          (resourceContxt.professors.length > 0
-            ? resourceContxt.professors.map((prof) => (
-                <div key={prof.userId} className="list__item">
-                  <div className="icon">
-                    <UilTimes size="30" color="#CA1414" />
-                  </div>
-                  <div className="prof__info">
-                    <img
-                      src={`/img/users/${prof.photo}`}
-                      style={{
-                        maxHeight: '4em',
-                        minHeight: '4em',
-                        minWidth: '4em',
-                        maxWidth: '4em',
-                        borderRadius: '20px',
-                        marginTop: '.4em',
-                      }}
-                    />
-                    <div className="name__privilege">
-                      <h2>{prof.surName.concat(` ${prof.otherNames}`)}</h2>
-                      <p>{prof.privilege.replaceAll('_', ' ')}</p>
-                    </div>
-                    <div className="edit">
-                      <UilFileEditAlt
-                        size="30"
-                        color="#1414B3"
+        <div className="list__items">
+          {resourceContxt.professors &&
+            (resourceContxt.professors.length > 0
+              ? resourceContxt.professors.map((prof) => (
+                  <div key={prof.userId} className="faculty_item">
+                    <div className="prof__info">
+                      <img
+                        src={`/img/users/${prof.photo}`}
                         style={{
-                          display: 'inline',
+                          maxHeight: '4em',
+                          minHeight: '4em',
+                          minWidth: '4em',
+                          maxWidth: '4em',
+                          borderRadius: '20px',
+                          marginTop: '.4em',
                         }}
+                        className="prof_photo"
                       />
+                      <div className="name__privilege">
+                        <h2>{prof.surName.concat(` ${prof.otherNames}`)}</h2>
+                        <p>{prof.privilege.replaceAll('_', ' ')}</p>
+                      </div>
+                    </div>
+
+                    <div
+                      className="list_controls"
+                      style={{ display: 'flex', marginLeft: 'auto' }}
+                    >
+                      <div className="edit" style={{ marginRight: '.4em' }}>
+                        <UilPen
+                          size="30"
+                          color="#efa92f"
+                          style={{
+                            margin: '.5em 0',
+                          }}
+                        />
+                      </div>
+                      <div className="icon">
+                        <UilTrashAlt
+                          size="30"
+                          color="#CA1414"
+                          style={{
+                            margin: '.5em 0',
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))
-            : 'No professors yet!')}
+                ))
+              : 'No professors yet!')}
+        </div>
       </section>
     </div>
   );

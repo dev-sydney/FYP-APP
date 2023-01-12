@@ -150,3 +150,22 @@ section {
     background-color: #13962418;
   }
 }
+.course_resource__container {
+  .course__info {
+    display: flex;
+  }
+  .coursename__code {
+    outline: 1px solid gray;
+    text-align: left;
+    P {
+      font-size: 1.1em;
+      font-weight: 600;
+      color: gray;
+    }
+  }
+  .edit {
+    outline: 1px solid gray;
+    margin-left: auto;
+    margin-top: auto;
+  }
+}

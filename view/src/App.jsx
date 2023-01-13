@@ -18,6 +18,7 @@ import ProfessorResourcePage from './pages/ProfessorResourcePage';
 import LectureHallResource from './pages/LectureHallResource';
 import CoursesResourcePage from './pages/CoursesResourcePage';
 import FacultyResourcePage from './pages/FacultyResourcePage';
+import CollectUserSecurityQnAPage from './pages/CollectUserSecurityQnAPage';
 
 import Empty from './pages/Empty';
 import NavBar from './components/NavBar';
@@ -66,6 +67,10 @@ function App() {
                     element={<AttendanceScoresPage />}
                   />
                   <Route path="/empty" element={<Empty />} />
+                  <Route
+                    path="/user-securityQnAs"
+                    element={<CollectUserSecurityQnAPage />}
+                  />
                 </Routes>
                 <NavBar />
               </BrowserRouter>

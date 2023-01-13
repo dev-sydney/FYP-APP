@@ -1,7 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { UilArrowRight, UilArrowLeft } from '@iconscout/react-unicons';
+
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
 import authContext from '../contexts/AuthContext';
 
 import './../styles/modalStyles.scss';
+import './../styles/CollectQnAStyle.scss';
+
 const staticValue = 1;
 /**
  * This component is the form that will recieve a series of random questions from 'AttendanceContext'
@@ -24,6 +31,8 @@ const SecurityQForm = ({ setIsModalActive, isModalActive }) => {
 
   const onSaveBtnClick = (e) => {
     e.preventDefault();
+    if (currentSlide + 1 !== authContxt.securityQuestions?.length) return;
+
     //EDGE-CASE: IF THERE IS AN EMPTY FIELD
     if (Object.values(formData).some((answer) => answer === '')) {
       console.log('No Duplicate fields allowed');
@@ -41,32 +50,55 @@ const SecurityQForm = ({ setIsModalActive, isModalActive }) => {
     authContxt.answerSecurityQuestions(formData);
   };
   return (
-    <div className="test_styling">
-      Security Question Modal
-      <span
-        onClick={() => {
-          setIsModalActive(!isModalActive);
-        }}
-      >
-        ❌
-      </span>
-      <div>
-        {currentSlide + 1} /{' '}
-        {authContxt.securityQuestions && authContxt.securityQuestions.length}
+    <div className="QnA__container">
+      <div className="progress_heading">
+        <div style={{ width: 100, height: 100 }}>
+          <CircularProgressbar
+            value={currentSlide + 1}
+            maxValue={
+              authContxt.securityQuestions &&
+              authContxt.securityQuestions.length
+            }
+            text={`${currentSlide + 1} of ${
+              authContxt.securityQuestions &&
+              authContxt.securityQuestions.length
+            }`}
+            strokeWidth={5}
+            styles={buildStyles({
+              pathColor: `#AD1CEA`,
+              textColor: '#000000',
+            })}
+          />
+        </div>
+        <div className="heading">
+          <h2>Security Questions</h2>
+          {/* NOTE: CONDTIONAL RENDERING BELOW FOR WHEN THE USER IS HALFWAY THROUGH ANSWERING THE QUESTIONS*/}
+          <p>
+            {(currentSlide + 1) * 2 >= authContxt.securityQuestions?.length
+              ? 'Almost there!'
+              : 'Lets get started'}
+          </p>
+        </div>
       </div>
+
       {/* TODO: THIS RIGHT HERE,BELOW WILL BE THE FORM */}
       <form className="qs_container">
         {/* TODO: INSIDE THE FORMS WILL BE THE DYNAMICALLY RENDERED FORM GROUPS */}
         {authContxt.securityQuestions &&
           authContxt.securityQuestions.map((question, i) => (
             <div
-              className="question form-group"
+              className="question form__group securityQ__group"
               key={i}
               style={{
                 transform: `translateX(${100 * (i - currentSlide)}%)`,
               }}
             >
-              <label>{question.question} </label>
+              <label
+                // style={{ color: 'black' }}
+                className="form__label securityQ__label"
+              >
+                {question.question}{' '}
+              </label>
               <input
                 required
                 autoComplete="on"
@@ -74,47 +106,62 @@ const SecurityQForm = ({ setIsModalActive, isModalActive }) => {
                 minLength={3}
                 name={question.question}
                 onChange={onChange}
+                className="form__input securityQ__input"
               />
             </div>
           ))}
       </form>
-      {/* CONDITIONAL RENDERING FOR THE BACK BUTTON */}
-      {currentSlide > 0 ? (
-        <button
-          onClick={() => {
-            setCurrentSlide(currentSlide - 1);
-          }}
-        >
-          back
-        </button>
-      ) : (
-        ''
-      )}
-      {/* CONDITIONAL RENDERING FOR THE NEXT BUTTON BELOW*/}
-      {/* NOTE: If the current slide value LESSER THAN OR EQUAL TO THE LENGTH OF THE Qs? Render the next btn*/}
-      {authContxt.securityQuestions &&
-        (currentSlide <= authContxt.securityQuestions.length - 2 ? (
+      <div className="nav_buttons">
+        {/* CONDITIONAL RENDERING FOR THE BACK BUTTON */}
+        {currentSlide > 0 ? (
           <button
             onClick={() => {
-              setCurrentSlide(currentSlide + 1);
+              setCurrentSlide(currentSlide - 1);
             }}
+            className="navigation__btn"
           >
-            next
+            <span style={{ display: 'flex' }}>
+              <UilArrowLeft size="30" color="#FFFFFF" />
+              <span style={{ marginTop: '.4em' }}>back</span>
+            </span>
           </button>
         ) : (
           ''
-        ))}
+        )}
+
+        {/* CONDITIONAL RENDERING FOR THE NEXT BUTTON BELOW*/}
+        {/* NOTE: If the current slide value LESSER THAN OR EQUAL TO THE LENGTH OF THE Qs? Render the next btn*/}
+        {authContxt.securityQuestions &&
+          (currentSlide <= authContxt.securityQuestions.length - 2 ? (
+            <button
+              onClick={() => {
+                setCurrentSlide(currentSlide + 1);
+              }}
+              className="navigation__btn"
+            >
+              <span style={{ display: 'flex' }}>
+                <span style={{ marginTop: '.4em' }}>next</span>
+                <UilArrowRight size="30" color="#FFFFFF" />
+              </span>
+            </button>
+          ) : (
+            ''
+          ))}
+      </div>
+
       {/* CONDITIONAL RENDERING FOR THE SAVE BUTTON BELOW*/}
-      {authContxt.securityQuestions &&
-      currentSlide + 1 === authContxt.securityQuestions.length ? (
-        <div>
-          <button onClick={onSaveBtnClick}>
-            {authContxt.isLoading ? 'sending...' : 'save'}
-          </button>
-        </div>
-      ) : (
-        ''
-      )}
+
+      <div
+        className={`sub_container ${
+          currentSlide + 1 === authContxt.securityQuestions?.length
+            ? 'show_sub'
+            : 'hide_btn'
+        }`}
+      >
+        <button onClick={onSaveBtnClick} className={`submit__btn`}>
+          {authContxt?.isLoading ? 'sending...' : 'save'}
+        </button>
+      </div>
     </div>
   );
 };

@@ -16,7 +16,7 @@ const staticValue = 1;
  * @param {*} param0
  * @returns
  */
-const SecurityQForm = ({ setIsModalActive, isModalActive }) => {
+const SecurityQForm = () => {
   const authContxt = useContext(authContext);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [formData, setFormData] = useState({});

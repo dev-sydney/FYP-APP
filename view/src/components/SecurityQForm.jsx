@@ -52,7 +52,7 @@ const SecurityQForm = ({ setIsModalActive, isModalActive }) => {
   return (
     <div className="QnA__container">
       <div className="progress_heading">
-        <div style={{ width: 100, height: 100 }}>
+        <div style={{ width: 96, height: 96 }}>
           <CircularProgressbar
             value={currentSlide + 1}
             maxValue={

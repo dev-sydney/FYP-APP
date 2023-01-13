@@ -82,9 +82,9 @@ export const AuthContextProvider = ({ children }) => {
           payload: result.data.user,
         });
 
-        //TODO: Navigate the user to the home page
+        //TODO: Navigate the user to the page that collects their security Q&A's
         setTimeout(() => {
-          navigateTo('/');
+          navigateTo('/user-securityQnAs');
         }, 500);
       }
     } catch (err) {

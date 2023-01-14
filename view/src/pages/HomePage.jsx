@@ -35,8 +35,8 @@ const HomePage = () => {
 
     //EDGE-CASE: IF THE USER IS A STUDENT & HAS NO SECURITY QUESTIONS SET
     if (
-      authContxt.user.privilege === 'student' &&
-      authContxt.user.hasSecurityQuestionsSet === 0
+      authContxt?.user?.privilege === 'student' &&
+      authContxt?.user?.hasSecurityQuestionsSet === 0
     ) {
       navigateTo('/user-securityQnAs');
     }

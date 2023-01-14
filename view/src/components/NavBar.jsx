@@ -24,21 +24,25 @@ const NavBar = () => {
         <UilEstate size="35" color="#1D2021" />
       </NavLink>
       {/* NOTE: CONDTIONAL RENDERING FOT THE ONGOING ATTENDANCES LINK */}
-      {['professor', 'head_of_department'].includes(
-        authContxt.user.privilege
-      ) && (
-        <NavLink to="/attendances/ongoingAttendances">
-          <UilHistoryAlt size="35" color="#1D2021" />
-        </NavLink>
-      )}
+      {authContxt?.user?.privilege &&
+        ['professor', 'head_of_department'].includes(
+          authContxt.user.privilege
+        ) && (
+          <NavLink to="/attendances/ongoingAttendances">
+            <UilHistoryAlt size="35" color="#1D2021" />
+          </NavLink>
+        )}
+
       {/* NOTE: CONDTIONAL RENDERING FOT THE ONGOING ATTENDANCES LINK */}
-      {['professor', 'head_of_department'].includes(
-        authContxt.user.privilege
-      ) && (
-        <NavLink to="/attendance-scores">
-          <UilAnalytics size="35" color="#1D2021" />
-        </NavLink>
-      )}
+      {authContxt?.user?.privilege &&
+        ['professor', 'head_of_department'].includes(
+          authContxt.user.privilege
+        ) && (
+          <NavLink to="/attendance-scores">
+            <UilAnalytics size="35" color="#1D2021" />
+          </NavLink>
+        )}
+
       {/* NOTE: CONDITIONAL RENDERING FOR RESOURCE MANAGER LINK */}
       {authContxt.user &&
         (['admin', 'head_of_department'].includes(authContxt.user.privilege) ? (

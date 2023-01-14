@@ -33,6 +33,10 @@ export const AuthContextProvider = ({ children }) => {
    */
   const loginUser = async (formData, navigateTo) => {
     try {
+      dispatch({
+        type: Types.IS_AUTH_LOADING,
+      });
+
       const res = await fetch('/api/v1/users/login', {
         method: 'POST',
         headers: {
@@ -40,29 +44,42 @@ export const AuthContextProvider = ({ children }) => {
         },
         body: JSON.stringify(formData),
       });
+      const result = await res.json();
 
       //EDGE-CASE: IF THERE WAS WERE INCORRECT CREDENTIALS
-      if (res.status === 404)
-        throw new Error('Invalid email or password, please try again.');
+      if (res.status >= 400) throw new Error(result.message);
 
       //TODO: GET THE USERS DATA FROM THE RESPONSE & DISPATCH TO THE REDUCER
-      if (res.ok) {
-        const results = await res.json();
-        state.user = results.data.user;
+      if (res.status === 200) {
+        // const results = await res.json();
+        dispatch({
+          type: Types.SET_AUTH_ALERT,
+          payload: {
+            heading: 'Awesome!',
+            detail: 'logged in successfully',
+            type: 'success',
+          },
+        });
+        clearContextAlerts(1500);
+        state.user = result.data.user;
         dispatch({
           type: Types.SIGN_IN,
-          payload: results.data.user,
+          payload: result.data.user,
         });
 
         //TODO: REDIRECT USER TO THE HOMEPAGE
         setTimeout(() => {
           navigateTo('/');
-        }, 500);
+        }, 2000);
       }
     } catch (err) {
       dispatch({
         action: Types.SIGN_IN_ERROR,
-        payload: err.message,
+        payload: {
+          heading: 'Uh Oh',
+          detail: err.message,
+          type: 'error',
+        },
       });
     }
   };

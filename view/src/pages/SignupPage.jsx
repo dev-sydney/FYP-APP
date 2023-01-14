@@ -1,7 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
+
+import AlertComponent from '../components/AlertComponent';
+
 import authContext from '../contexts/AuthContext';
 import resourceContext from '../contexts/ResourceContext';
+
 import './../styles/formStyles.scss';
 const stat = 1;
 const SignupPage = () => {
@@ -36,6 +40,7 @@ const SignupPage = () => {
   };
   return (
     <div className="signup-container">
+      <AlertComponent />
       <p className="form__name">Sign up</p>
       <h1 className="logo">LOGO</h1>
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SecurityQForm from '../components/SecurityQForm';
+import AlertComponent from '../components/AlertComponent';
 import './../styles/CollectQnAStyle.scss';
 
 const CollectUserSecurityQnAPage = () => {
@@ -16,6 +17,7 @@ const CollectUserSecurityQnAPage = () => {
   };
   return (
     <div className="collectQnA__container">
+      <AlertComponent />
       <div
         style={{ opacity: `${isInfoTransparent ? 0 : 1}` }}
         className={`info_modal ${isInfoHidden ? 'hide_info' : ''}`}

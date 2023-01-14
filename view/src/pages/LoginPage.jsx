@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
-import authContext from '../contexts/AuthContext';
 import { useNavigate, NavLink } from 'react-router-dom';
+import authContext from '../contexts/AuthContext';
+import AlertComponent from '../components/AlertComponent';
 
 import './../styles/formStyles.scss';
 
@@ -24,6 +25,7 @@ const LoginPage = () => {
 
   return (
     <div className="login-container">
+      <AlertComponent />
       <p className="form__name">login</p>
       <h1 className="logo">LOGO</h1>
       <form onSubmit={onSubmit} className={'auth__form'}>

@@ -273,23 +273,46 @@ export const AuthContextProvider = ({ children }) => {
   };
   const updateUserAccountInfo = async (formData) => {
     try {
+      dispatch({
+        type: Types.IS_AUTH_LOADING,
+      });
+
       const res = await fetch(`/api/v1/users/update-me`, {
         method: 'PATCH',
         body: formData,
       });
 
       const result = await res.json();
-      localStorage.setItem('user', JSON.stringify(result.user));
-      state.user = result.user;
-      dispatch({
-        type: Types.UPDATE_ACCOUNT_SUCCESS,
-        payload: result.msg,
-      });
+      if (res.status >= 400) throw new Error('Something went very wrong');
+
+      if (res.status === 200) {
+        localStorage.setItem('user', JSON.stringify(result.user));
+        state.user = result.user;
+
+        dispatch({
+          type: Types.UPDATE_ACCOUNT_SUCCESS,
+          payload: result.user,
+        });
+        dispatch({
+          type: Types.SET_AUTH_ALERT,
+          payload: {
+            heading: 'Awesome',
+            detail: result.message,
+            type: 'success',
+          },
+        });
+        clearContextAlerts();
+      }
     } catch (err) {
       dispatch({
         type: Types.UPDATE_ACCOUNT_ERROR,
-        payload: err.message,
+        payload: {
+          heading: 'Uh oh',
+          detail: err.message,
+          type: 'error',
+        },
       });
+      clearContextAlerts();
     }
   };
 

@@ -81,14 +81,16 @@ const authReducer = (state, action) => {
       };
 
     case Types.UPDATE_ACCOUNT_SUCCESS:
+      localStorage.setItem('user', JSON.stringify(action.payload));
       return {
         ...state,
-        authAlertMessage: action.payload,
+        isLoading: null,
       };
     case Types.UPDATE_ACCOUNT_ERROR:
       return {
         ...state,
         authAlertMessage: action.payload,
+        isLoading: null,
       };
 
     case Types.SIGN_OUT:

@@ -41,6 +41,7 @@ const authReducer = (state, action) => {
       return {
         ...state,
         isLoggedIn: true,
+        isLoading: null,
       };
     case Types.SIGN_IN_ERROR:
       localStorage.removeItem('user');
@@ -48,6 +49,7 @@ const authReducer = (state, action) => {
         ...state,
         isLoggedIn: false,
         authAlertMessage: action.payload,
+        isLoading: null,
       };
 
     case Types.LOAD_SECURITY_QUESTIONS:

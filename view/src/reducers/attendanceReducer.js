@@ -2,12 +2,12 @@ import * as Types from '../utils/types';
 
 const attendanceReducer = (state, action) => {
   switch (action.type) {
-    case Types.SET_LOADING:
+    case Types.SET_ATTENDANCE_LOADING:
       return {
         ...state,
         isLoading: state.isLoading ? null : true,
       };
-    case Types.SET_ALERT:
+    case Types.SET_ATTENDNACE_ALERT:
       return {
         ...state,
         attendanceAlert: action.payload,
@@ -21,11 +21,13 @@ const attendanceReducer = (state, action) => {
       return {
         ...state,
         attendanceAlert: action.payload,
+        isLoading: null,
       };
     case Types.START_ONGOING_ATTENDANCE_FAILURE:
       return {
         ...state,
         attendanceAlert: action.payload,
+        isLoading: null,
       };
     case Types.GET_QRCODE_DETAILS:
       return {

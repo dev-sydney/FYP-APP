@@ -27,6 +27,17 @@ export const AttendanceContextProvider = ({ children }) => {
     });
   };
   /**
+   * This function starts a timeout function which dispatches the type to clear authAlertMessage in the context
+   */
+  const clearContextAlerts = (secs = 3000) => {
+    setTimeout(() => {
+      dispatch({
+        type: Types.CLEAR_ATTENDANCE_ALERT,
+      });
+    }, secs);
+  };
+
+  /**
    * Creates a timestamp string in the format (YYYY-MM-DD hh:mm:ss)
    * @param {Object} DateObject A Date Object
    * @returns {String} TIMESTAMP string
@@ -43,6 +54,7 @@ export const AttendanceContextProvider = ({ children }) => {
    */
   const startOngoingAttendance = async (formData, QRcodeData) => {
     try {
+      dispatch({ type: Types.SET_ATTENDANCE_LOADING });
       //TODO: Create the start and end time AND adding it to the form data
       let currentTime = new Date(
         Date.now() + (+formData.duration + 1) * 60 * 1000
@@ -69,8 +81,13 @@ export const AttendanceContextProvider = ({ children }) => {
           body: JSON.stringify(formData),
         }
       );
+      const results = await res.json();
+      //EDGE-CASE: something went wrong with starting the ongoing attendance
+      if (res.status >= 400) {
+        throw new Error(results.message);
+      }
+
       if (res.status === 201) {
-        const results = await res.json();
         dispatch({
           type: Types.START_ONGOING_ATTENDANCE,
           payload: {
@@ -79,23 +96,21 @@ export const AttendanceContextProvider = ({ children }) => {
             type: 'success',
           },
         });
-        setTimeout(() => {
-          dispatch({
-            type: Types.CLEAR_ATTENDANCE_ALERT,
-          });
-        }, 2000);
+        clearContextAlerts();
       }
     } catch (err) {
       dispatch({
         type: Types.START_ONGOING_ATTENDANCE_FAILURE,
         payload: {
           heading: 'Uh, oh',
-          detail: 'Oops, trouble starting an attendance, please try again',
+          detail: err.message,
           type: 'error',
         },
       });
+      clearContextAlerts();
     }
   };
+
   /**
    * Function gets the data about a scanned QRcode whether its occupied by a professor or its locked
    * @param {*} QRcodeData The string data got from the scanned QRcode
@@ -191,7 +206,7 @@ export const AttendanceContextProvider = ({ children }) => {
   const answerQuestionAndSignAttendance = async (formData) => {
     try {
       dispatch({
-        type: Types.SET_LOADING,
+        type: Types.SET_ATTENDANCE_LOADING,
       });
       const res = await fetch(
         `/api/v1/attendances/sign-attendance/${state.studentRandomQ.ongoingAttendanceId}/${state.studentRandomQ.courseId}/${state.studentRandomQ.randomIndexNum}`,
@@ -241,7 +256,7 @@ export const AttendanceContextProvider = ({ children }) => {
         }, 2000);
       } else {
         dispatch({
-          type: Types.SET_ALERT,
+          type: Types.SET_ATTENDNACE_ALERT,
           payload: {
             heading: 'Uh, oh',
             detail: 'Something went very wrong',

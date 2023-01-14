@@ -2,13 +2,29 @@ import * as Types from '../utils/types';
 
 const authReducer = (state, action) => {
   switch (action.type) {
+    case Types.SET_AUTH_ALERT:
+      return {
+        ...state,
+        authAlertMessage: action.payload,
+      };
+    case Types.CLEAR_AUTH_ALERT:
+      return {
+        ...state,
+        authAlertMessage: null,
+      };
+    case Types.IS_AUTH_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+      };
     case Types.SIGN_UP:
       localStorage.removeItem('user');
       localStorage.setItem('user', JSON.stringify(action.payload));
       return {
         ...state,
         isLoggedIn: true,
-        authAlertMessage: 'Sign up successful!',
+        isLoading: null,
+        // authAlertMessage: 'Sign up successful!',
       };
     case Types.SIGN_UP_ERROR:
       localStorage.removeItem('user');
@@ -16,6 +32,7 @@ const authReducer = (state, action) => {
         ...state,
         isLoggedIn: false,
         authAlertMessage: action.payload,
+        isLoading: null,
       };
 
     case Types.SIGN_IN:
@@ -39,9 +56,11 @@ const authReducer = (state, action) => {
         securityQuestions: action.payload,
       };
     case Types.SET_USER_SECURITY_ANSWERS:
-      // localStorage.setItem('user', JSON.stringify(action.payload));
+      localStorage.removeItem('user');
+      localStorage.setItem('user', JSON.stringify(action.payload));
       return {
         ...state,
+        isLoading: null,
       };
 
     case Types.UPDATE_PASSWORD_SUCCESS:
@@ -76,7 +95,11 @@ const authReducer = (state, action) => {
         ...state,
         authAlertMessage: action.payload,
       };
-
+    case Types.SET_USERS_QA_ERROR:
+      return {
+        ...state,
+        authAlertMessage: action.payload,
+      };
     default:
       return state;
   }

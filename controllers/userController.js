@@ -88,7 +88,7 @@ exports.updateUser = catchAsyncErrors(async (req, res, next) => {
     );
     res.status(200).json({
       status: 'success',
-      msg: 'Update was successful',
+      message: 'Update was successful',
       user: results[0],
     });
   }

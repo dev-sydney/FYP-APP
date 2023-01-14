@@ -279,7 +279,7 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
 
     res.status(200).json({
       status: 'success',
-      msg: 'Updated password successfully :)',
+      message: 'Updated password successfully :)',
     });
   } catch (err) {
     console.log('PASSWORD UPDATE ERROR💥💥💥: ', err);

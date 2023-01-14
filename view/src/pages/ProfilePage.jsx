@@ -1,9 +1,9 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
-
 import { useNavigate } from 'react-router-dom';
 import { UilUser } from '@iconscout/react-unicons';
 
 import authContext from '../contexts/AuthContext';
+import AlertComponent from '../components/AlertComponent';
 import './../styles/profileStyle.scss';
 
 const ProfilePage = () => {
@@ -75,6 +75,7 @@ const ProfilePage = () => {
   };
   return (
     <div className="profile__container">
+      <AlertComponent />
       <section className="acc_setting__section">
         {/*------ACCOUNT INFORMATION SETTINGS------ */}
 

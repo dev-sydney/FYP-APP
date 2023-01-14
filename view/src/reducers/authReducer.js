@@ -11,6 +11,7 @@ const authReducer = (state, action) => {
       return {
         ...state,
         authAlertMessage: null,
+        isLoading: null,
       };
     case Types.IS_AUTH_LOADING:
       return {
@@ -56,6 +57,7 @@ const authReducer = (state, action) => {
       return {
         ...state,
         securityQuestions: action.payload,
+        isLoading: null,
       };
     case Types.SET_USER_SECURITY_ANSWERS:
       localStorage.removeItem('user');
@@ -69,11 +71,13 @@ const authReducer = (state, action) => {
       return {
         ...state,
         authAlertMessage: action.payload,
+        isLoading: null,
       };
     case Types.UPDATE_PASSWORD_ERROR:
       return {
         ...state,
         authAlertMessage: action.payload,
+        isLoading: null,
       };
 
     case Types.UPDATE_ACCOUNT_SUCCESS:

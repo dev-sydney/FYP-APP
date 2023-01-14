@@ -82,6 +82,7 @@ export const AuthContextProvider = ({ children }) => {
         },
       });
     }
+    clearContextAlerts();
   };
   /**
    * Function responsible for signing up new users and loggin them in
@@ -141,13 +142,18 @@ export const AuthContextProvider = ({ children }) => {
       clearContextAlerts();
     }
   };
-
+  /**
+   * This function makes a call to the API to fetch the series of random security questions
+   */
   const loadSecurityQuestions = async () => {
     try {
+      dispatch({
+        type: Types.IS_AUTH_LOADING,
+      });
       const res = await fetch(`/api/v1/users/security-questions`);
       const results = await res.json();
 
-      if (res.ok) {
+      if (res.status === 200) {
         dispatch({
           type: Types.LOAD_SECURITY_QUESTIONS,
           payload: results.securityQuestions,
@@ -155,8 +161,22 @@ export const AuthContextProvider = ({ children }) => {
       }
     } catch (err) {
       console.log(err);
+      dispatch({
+        type: Types.SET_AUTH_ALERT,
+        payload: {
+          heading: 'Uh Oh',
+          detail: err.message,
+          type: 'error',
+        },
+      });
+      clearContextAlerts();
     }
   };
+  /**
+   * This function makes a call to the API to set the users personal security questions & answers
+   * @param {*} formData an object of the users questions as keys & the corresponding answers as values
+   * @param {*} navigateTo
+   */
   const answerSecurityQuestions = async (formData, navigateTo) => {
     try {
       dispatch({ type: Types.IS_AUTH_LOADING });
@@ -212,6 +232,9 @@ export const AuthContextProvider = ({ children }) => {
    */
   const updateUserPassword = async (formData) => {
     try {
+      dispatch({
+        type: Types.IS_AUTH_LOADING,
+      });
       const res = await fetch(`/api/v1/users/update-password`, {
         method: 'PATCH',
         headers: {
@@ -222,20 +245,30 @@ export const AuthContextProvider = ({ children }) => {
       const result = await res.json();
 
       //EDGE-CASE:THERE WAS AN ISSUE WHEN TRYING TO UPDATE THE PASSWORD
+      if (res.status >= 400) throw new Error(result.message);
 
-      if (res.status === 400) throw new Error(result.message);
-      if (res.ok) {
+      if (res.status === 200) {
         dispatch({
           type: Types.UPDATE_PASSWORD_SUCCESS,
-          payload: result.msg,
+          payload: {
+            heading: 'Awesome!',
+            detail: result.message,
+            type: 'success',
+          },
         });
+        clearContextAlerts();
       }
     } catch (err) {
       // console.log(err);
       dispatch({
         type: Types.UPDATE_PASSWORD_ERROR,
-        payload: err.message,
+        payload: {
+          heading: 'Awesome!',
+          detail: err.message,
+          type: 'success',
+        },
       });
+      clearContextAlerts();
     }
   };
   const updateUserAccountInfo = async (formData) => {

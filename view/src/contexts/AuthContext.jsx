@@ -11,10 +11,20 @@ export const AuthContextProvider = ({ children }) => {
     authAlertMessage: null,
     loggedInUser: null,
     securityQuestions: null,
-    isLoading: false,
+    isLoading: null,
   };
 
   const [state, dispatch] = useReducer(authReducer, intialState);
+  /**
+   * This function starts a timeout function which dispatches the type to clear authAlertMessage in the context
+   */
+  const clearContextAlerts = (secs = 3000) => {
+    setTimeout(() => {
+      dispatch({
+        type: Types.CLEAR_AUTH_ALERT,
+      });
+    }, secs);
+  };
 
   /**
    * Function responsible for logging in the user
@@ -63,6 +73,9 @@ export const AuthContextProvider = ({ children }) => {
    */
   const signupUser = async (formData, navigateTo) => {
     try {
+      dispatch({
+        type: Types.IS_AUTH_LOADING,
+      });
       //TODO: Convert the fields that are supossed to be numeric to numbers
       formData.indexNumber = +formData.indexNumber;
       formData.facultyId = +formData.facultyId;
@@ -74,25 +87,41 @@ export const AuthContextProvider = ({ children }) => {
         },
         body: JSON.stringify(formData),
       });
+      const result = await res.json();
+      //EDGE-CASE: IF SOMETHING WENT WRONG
+      if (res.status >= 400) {
+        throw new Error(result.message);
+      }
       if (res.status === 201) {
-        const result = await res.json();
-
         dispatch({
           type: Types.SIGN_UP,
           payload: result.data.user,
         });
-
+        dispatch({
+          type: Types.SET_AUTH_ALERT,
+          payload: {
+            heading: 'Awesome',
+            detail: 'Sign up was successful',
+            type: 'success',
+          },
+        });
+        clearContextAlerts(400);
         //TODO: Navigate the user to the page that collects their security Q&A's
         setTimeout(() => {
           navigateTo('/user-securityQnAs');
-        }, 500);
+        }, 700);
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       dispatch({
         type: Types.SIGN_UP_ERROR,
-        payload: err.message,
+        payload: {
+          heading: 'Uh Oh',
+          detail: err.message,
+          type: 'error',
+        },
       });
+      clearContextAlerts();
     }
   };
 
@@ -111,9 +140,20 @@ export const AuthContextProvider = ({ children }) => {
       console.log(err);
     }
   };
-  const answerSecurityQuestions = async (formData) => {
+  const answerSecurityQuestions = async (formData, navigateTo) => {
     try {
-      state.isLoading = true;
+      dispatch({ type: Types.IS_AUTH_LOADING });
+
+      dispatch({
+        type: Types.SET_AUTH_ALERT,
+        payload: {
+          heading: 'Hang In There',
+          detail: "We're getting you all set up, this might take a while",
+          type: 'success',
+        },
+      });
+      clearContextAlerts();
+
       const res = await fetch(`/api/v1/users/security-questions`, {
         method: 'POST',
         headers: {
@@ -121,19 +161,34 @@ export const AuthContextProvider = ({ children }) => {
         },
         body: JSON.stringify(formData),
       });
-      if (res.ok) {
+
+      if (res.status === 200) {
         const results = await res.json();
         delete results.user['userPassword'];
-        localStorage.setItem('user', JSON.stringify(results.user));
-        state.user = results.user;
+
         dispatch({
           type: Types.SET_USER_SECURITY_ANSWERS,
+          payload: results.user,
         });
+
+        navigateTo('/');
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      //NOTE: SET THE authAlertMessage in the context
+      dispatch({
+        type: Types.SET_USERS_QA_ERROR,
+        payload: {
+          heading: 'Uh Oh',
+          detail:
+            'Trouble setting the your security questions, please try again',
+          type: 'error',
+        },
+      });
+      clearContextAlerts();
     }
   };
+
   /**
    * Function responsible for updating the users password
    * @param {Object} formData

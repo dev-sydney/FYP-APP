@@ -1,4 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { UilArrowRight, UilArrowLeft } from '@iconscout/react-unicons';
 
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
@@ -20,6 +22,7 @@ const SecurityQForm = () => {
   const authContxt = useContext(authContext);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [formData, setFormData] = useState({});
+  const navigateTo = useNavigate();
 
   useEffect(() => {
     authContxt.loadSecurityQuestions();
@@ -47,7 +50,7 @@ const SecurityQForm = () => {
       return;
     }
     //NOTE: ATP FORMDATA VALUES ARE VALID
-    authContxt.answerSecurityQuestions(formData);
+    authContxt.answerSecurityQuestions(formData, navigateTo);
   };
   return (
     <div className="QnA__container">

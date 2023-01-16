@@ -13,7 +13,7 @@ const LectureHallResource = () => {
   const [isModalActive, setIsModalActive] = useState(false);
 
   useEffect(() => {
-    resourceContxt.loadLectureHallQRcodes();
+    resourceContxt.loadLectureHall();
   }, [stat]);
   return (
     <div className="lectureHalls__container">

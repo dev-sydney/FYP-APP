@@ -4,6 +4,7 @@ import resourceContext from '../contexts/ResourceContext';
 
 import ModalBackground from '../components/ModalBackground';
 import AddFacultyForm from './../components/AddFacultyForm';
+import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
 
 import './../styles/resourceStyle.scss';
 
@@ -56,34 +57,38 @@ const FacultyResourcePage = () => {
       </section>
 
       <section className="lists__section">
-        <div className="list__items">
-          {resourceContxt.faculties &&
-            (resourceContxt.faculties.length > 0
-              ? resourceContxt.faculties.map((faculty) => (
-                  <div className="faculty_item">
-                    <div className="edit">
-                      <UilPen
-                        size="30"
-                        color="#efa92f"
-                        style={{
-                          margin: '.5em 0',
-                        }}
-                      />
+        {resourceContxt.isResourceLoading ? (
+          <LoadingResourcesComponent />
+        ) : (
+          <div className="list__items">
+            {resourceContxt.faculties &&
+              (resourceContxt.faculties.length > 0
+                ? resourceContxt.faculties.map((faculty, i) => (
+                    <div className="faculty_item" key={faculty.facultyId}>
+                      <div className="edit">
+                        <UilPen
+                          size="30"
+                          color="#efa92f"
+                          style={{
+                            margin: '.5em 0',
+                          }}
+                        />
+                      </div>
+                      <h2>{faculty.facultyName}</h2>
+                      <div className="icon" style={{ background: 'none' }}>
+                        <UilTimes
+                          size="30"
+                          color="#CA1414"
+                          style={{
+                            margin: '.5em 0',
+                          }}
+                        />
+                      </div>
                     </div>
-                    <h2>{faculty.facultyName}</h2>
-                    <div className="icon" style={{ background: 'none' }}>
-                      <UilTimes
-                        size="30"
-                        color="#CA1414"
-                        style={{
-                          margin: '.5em 0',
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))
-              : 'No Faculties yet')}
-        </div>
+                  ))
+                : 'No Faculties yet')}
+          </div>
+        )}
       </section>
     </div>
   );

@@ -4,6 +4,7 @@ import resourceContext from '../contexts/ResourceContext';
 
 import ModalBackground from '../components/ModalBackground';
 import AddCourseForm from './../components/AddCourseForm';
+import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
 
 import './../styles/resourceStyle.scss';
 
@@ -88,45 +89,49 @@ const CoursesResourcePage = () => {
       </section>
 
       <section className="lists__section">
-        <div className="list__items">
-          {resourceContxt.courses &&
-            (resourceContxt.courses.length > 0
-              ? resourceContxt.courses.map((course) => (
-                  <div className="faculty_item" key={course.courseId}>
-                    <div className="coursename__code">
-                      <h2 style={{ textAlign: 'left', margin: '0' }}>
-                        {course.courseName}
-                      </h2>
-                      <p className="course_code">{course.courseCode}</p>
-                    </div>
+        {resourceContxt.isResourceLoading ? (
+          <LoadingResourcesComponent />
+        ) : (
+          <div className="list__items">
+            {resourceContxt.courses &&
+              (resourceContxt.courses.length > 0
+                ? resourceContxt.courses.map((course) => (
+                    <div className="faculty_item" key={course.courseId}>
+                      <div className="coursename__code">
+                        <h2 style={{ textAlign: 'left', margin: '0' }}>
+                          {course.courseName}
+                        </h2>
+                        <p className="course_code">{course.courseCode}</p>
+                      </div>
 
-                    <div
-                      className="list_controls"
-                      style={{ display: 'flex', marginLeft: 'auto' }}
-                    >
-                      <div className="edit" style={{ marginRight: '.4em' }}>
-                        <UilPen
-                          size="30"
-                          color="#efa92f"
-                          style={{
-                            margin: '.5em 0',
-                          }}
-                        />
-                      </div>
-                      <div className="icon">
-                        <UilTrashAlt
-                          size="30"
-                          color="#CA1414"
-                          style={{
-                            margin: '.5em 0',
-                          }}
-                        />
+                      <div
+                        className="list_controls"
+                        style={{ display: 'flex', marginLeft: 'auto' }}
+                      >
+                        <div className="edit" style={{ marginRight: '.4em' }}>
+                          <UilPen
+                            size="30"
+                            color="#efa92f"
+                            style={{
+                              margin: '.5em 0',
+                            }}
+                          />
+                        </div>
+                        <div className="icon">
+                          <UilTrashAlt
+                            size="30"
+                            color="#CA1414"
+                            style={{
+                              margin: '.5em 0',
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))
-              : 'No Courses Yet!')}
-        </div>
+                  ))
+                : 'No Courses Yet!')}
+          </div>
+        )}
       </section>
     </div>
   );

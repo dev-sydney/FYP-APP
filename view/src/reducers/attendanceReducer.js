@@ -33,6 +33,7 @@ const attendanceReducer = (state, action) => {
       return {
         ...state,
         codeDetails: action.payload,
+        isLoading: null,
       };
     case Types.GET_QRCODE_DETAILS_FAILURE:
       return {
@@ -54,8 +55,9 @@ const attendanceReducer = (state, action) => {
         ...state,
         attendanceAlert: action.payload,
         studentRandomQ: null,
+        isLoading: null,
       };
-    case Types.SECURITY_ANSWER_CORRECT_INCORRECT:
+    case Types.SECURITY_ANSWER_INCORRECT:
       return {
         ...state,
         attendanceAlert: action.payload,
@@ -65,11 +67,13 @@ const attendanceReducer = (state, action) => {
       return {
         ...state,
         ongoingAttendances: action.payload,
+        isLoading: null,
       };
     case Types.GET_ONGOING_ATTENDANCES_ERROR:
       return {
         ...state,
         attendanceAlert: action.payload,
+        isLoading: null,
       };
     case Types.GET_SIGNED_ATTENDANCES:
       return {
@@ -80,22 +84,25 @@ const attendanceReducer = (state, action) => {
       return {
         ...state,
         student: action.payload,
+        isLoading: null,
       };
     case Types.SET_STUDENT_ERROR:
       return {
         ...state,
         attendanceAlert: action.payload,
+        isLoading: null,
       };
     case Types.ADD_STUDENT:
       return {
         ...state,
         signedAttendances: [action.payload, ...state.signedAttendances],
-        attendanceAlert: 'Added student successfully',
+        isLoading: null,
       };
     case Types.ADD_STUDENT_ERROR:
       return {
         ...state,
         attendanceAlert: action.payload,
+        isLoading: null,
       };
     case Types.CLEAR_STUDENT:
       return {
@@ -132,6 +139,7 @@ const attendanceReducer = (state, action) => {
       return {
         ...state,
         QRcodeStatus: action.payload,
+        isLoading: null,
       };
     default:
       return state;

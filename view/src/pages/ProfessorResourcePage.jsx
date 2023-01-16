@@ -5,6 +5,7 @@ import resourceContext from '../contexts/ResourceContext';
 
 import AddProfessorForm from './../components/AddProfessorForm';
 import ModalBackground from '../components/ModalBackground';
+import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
 
 import './../styles/resourceStyle.scss';
 
@@ -56,57 +57,62 @@ const ProfessorResourcePage = () => {
       </section>
 
       <section className="lists__section">
-        <div className="list__items">
-          {resourceContxt.professors &&
-            (resourceContxt.professors.length > 0
-              ? resourceContxt.professors.map((prof) => (
-                  <div key={prof.userId} className="faculty_item">
-                    <div className="prof__info">
-                      <img
-                        src={`/img/users/${prof.photo}`}
-                        style={{
-                          maxHeight: '4em',
-                          minHeight: '4em',
-                          minWidth: '4em',
-                          maxWidth: '4em',
-                          borderRadius: '20px',
-                          marginTop: '.4em',
-                        }}
-                        className="prof_photo"
-                      />
-                      <div className="name__privilege">
-                        <h2>{prof.surName.concat(` ${prof.otherNames}`)}</h2>
-                        <p>{prof.privilege.replaceAll('_', ' ')}</p>
+        {/* NOTE: Conditional rendering for the list of professors  */}
+        {resourceContxt.isResourceLoading ? (
+          <LoadingResourcesComponent />
+        ) : (
+          <div className="list__items">
+            {resourceContxt.professors &&
+              (resourceContxt.professors.length > 0
+                ? resourceContxt.professors.map((prof) => (
+                    <div key={prof.userId} className="faculty_item">
+                      <div className="prof__info">
+                        <img
+                          src={`/img/users/${prof.photo}`}
+                          style={{
+                            maxHeight: '4em',
+                            minHeight: '4em',
+                            minWidth: '4em',
+                            maxWidth: '4em',
+                            borderRadius: '20px',
+                            marginTop: '.4em',
+                          }}
+                          className="prof_photo"
+                        />
+                        <div className="name__privilege">
+                          <h2>{prof.surName.concat(` ${prof.otherNames}`)}</h2>
+                          <p>{prof.privilege.replaceAll('_', ' ')}</p>
+                        </div>
                       </div>
-                    </div>
 
-                    <div
-                      className="list_controls"
-                      style={{ display: 'flex', marginLeft: 'auto' }}
-                    >
-                      <div className="edit" style={{ marginRight: '.4em' }}>
-                        <UilPen
-                          size="30"
-                          color="#efa92f"
-                          style={{
-                            margin: '.5em 0',
-                          }}
-                        />
-                      </div>
-                      <div className="icon">
-                        <UilTrashAlt
-                          size="30"
-                          color="#CA1414"
-                          style={{
-                            margin: '.5em 0',
-                          }}
-                        />
+                      <div
+                        className="list_controls"
+                        style={{ display: 'flex', marginLeft: 'auto' }}
+                      >
+                        <div className="edit" style={{ marginRight: '.4em' }}>
+                          <UilPen
+                            size="30"
+                            color="#efa92f"
+                            style={{
+                              margin: '.5em 0',
+                            }}
+                          />
+                        </div>
+                        <div className="icon">
+                          <UilTrashAlt
+                            size="30"
+                            color="#CA1414"
+                            style={{
+                              margin: '.5em 0',
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))
-              : 'No professors yet!')}
-        </div>
+                  ))
+                : 'No professors yet!')}
+          </div>
+        )}
       </section>
     </div>
   );

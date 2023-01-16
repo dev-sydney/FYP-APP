@@ -22,6 +22,7 @@ exports.createFaculty = catchAsyncErrors(async (req, res, next) => {
   res.status(201).json({
     status: 'success',
     faculty: await getFaculty(results.insertId, 'Faculties', 'facultyId', next),
+    message: 'Faculty added successfully',
   });
 });
 

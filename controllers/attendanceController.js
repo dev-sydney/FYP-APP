@@ -38,7 +38,7 @@ exports.createOngoingAttendance = catchAsyncErrors(async (req, res, next) => {
   //3. send a success message
   res.status(201).json({
     status: 'success',
-    msg: 'All good, attendance ongoing...',
+    message: 'All good, attendance ongoing...',
   });
 });
 
@@ -140,8 +140,12 @@ exports.createSignedAttendance = catchAsyncErrors(async (req, res, next) => {
     message: 'Awesome job buddy! :)',
   });
 });
-
+/**
+ * This function updates the timestamp for which the ongoingAttendance ended,as well as the
+ * isLocked status of the QR code
+ */
 exports.endOngoingAttendance = catchAsyncErrors(async (req, res, next) => {
+  //NOTE: creating the timestamp for which the ongoing attendance ended
   const currentTimeStampStr = new Date(Date.now())
     .toISOString()
     .split('T')
@@ -164,7 +168,7 @@ exports.endOngoingAttendance = catchAsyncErrors(async (req, res, next) => {
 
     res.status(200).json({
       status: 'success',
-      msg: 'Attendance ended successfully',
+      message: 'Attendance ended successfully',
     });
   }
 });

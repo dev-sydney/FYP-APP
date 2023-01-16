@@ -32,7 +32,7 @@ exports.createCourse = catchAsyncErrors(async (req, res, next) => {
   res.status(201).json({
     status: 'success',
     course,
-    msg: 'Course added successfully!',
+    message: 'Course added successfully!',
   });
 });
 
@@ -69,7 +69,7 @@ exports.updateCourse = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    msg: 'Update Sucessfull :)',
+    message: 'Update Sucessfull :)',
   });
 });
 

@@ -143,7 +143,7 @@ exports.addNewProfessor = catchAsyncErrors(async (req, res, next) => {
   if (results.insertId) {
     res.status(201).json({
       status: 'success',
-      msg: 'professor Added Successfully',
+      message: 'professor Added Successfully',
     });
   }
 });

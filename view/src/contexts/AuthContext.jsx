@@ -1,6 +1,7 @@
 import { createContext, useReducer } from 'react';
 import authReducer from '../reducers/authReducer';
 import * as Types from '../utils/types';
+import { AppAlert } from '../utils/config';
 
 const authContext = createContext();
 
@@ -54,11 +55,7 @@ export const AuthContextProvider = ({ children }) => {
         // const results = await res.json();
         dispatch({
           type: Types.SET_AUTH_ALERT,
-          payload: {
-            heading: 'Awesome!',
-            detail: 'logged in successfully',
-            type: 'success',
-          },
+          payload: new AppAlert('logged in successfully', 'success'),
         });
         clearContextAlerts(1500);
         state.user = result.data.user;
@@ -75,14 +72,10 @@ export const AuthContextProvider = ({ children }) => {
     } catch (err) {
       dispatch({
         action: Types.SIGN_IN_ERROR,
-        payload: {
-          heading: 'Uh Oh',
-          detail: err.message,
-          type: 'error',
-        },
+        payload: new AppAlert(err.message, 'error'),
       });
+      clearContextAlerts();
     }
-    clearContextAlerts();
   };
   /**
    * Function responsible for signing up new users and loggin them in
@@ -117,11 +110,7 @@ export const AuthContextProvider = ({ children }) => {
         });
         dispatch({
           type: Types.SET_AUTH_ALERT,
-          payload: {
-            heading: 'Awesome',
-            detail: 'Sign up was successful',
-            type: 'success',
-          },
+          payload: new AppAlert('Sign up was successful', 'success'),
         });
         clearContextAlerts(400);
         //TODO: Navigate the user to the page that collects their security Q&A's
@@ -130,14 +119,9 @@ export const AuthContextProvider = ({ children }) => {
         }, 700);
       }
     } catch (err) {
-      // console.log(err);
       dispatch({
         type: Types.SIGN_UP_ERROR,
-        payload: {
-          heading: 'Uh Oh',
-          detail: err.message,
-          type: 'error',
-        },
+        payload: new AppAlert(err.message, 'error'),
       });
       clearContextAlerts();
     }
@@ -152,6 +136,7 @@ export const AuthContextProvider = ({ children }) => {
       });
       const res = await fetch(`/api/v1/users/security-questions`);
       const results = await res.json();
+      if (res.status >= 400) throw new Error(results.message);
 
       if (res.status === 200) {
         dispatch({
@@ -160,14 +145,10 @@ export const AuthContextProvider = ({ children }) => {
         });
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       dispatch({
         type: Types.SET_AUTH_ALERT,
-        payload: {
-          heading: 'Uh Oh',
-          detail: err.message,
-          type: 'error',
-        },
+        payload: new AppAlert(err.message, 'error'),
       });
       clearContextAlerts();
     }
@@ -250,11 +231,7 @@ export const AuthContextProvider = ({ children }) => {
       if (res.status === 200) {
         dispatch({
           type: Types.UPDATE_PASSWORD_SUCCESS,
-          payload: {
-            heading: 'Awesome!',
-            detail: result.message,
-            type: 'success',
-          },
+          payload: new AppAlert(result.message, 'success'),
         });
         clearContextAlerts();
       }
@@ -262,11 +239,7 @@ export const AuthContextProvider = ({ children }) => {
       // console.log(err);
       dispatch({
         type: Types.UPDATE_PASSWORD_ERROR,
-        payload: {
-          heading: 'Awesome!',
-          detail: err.message,
-          type: 'success',
-        },
+        payload: new AppAlert(err.message, 'error'),
       });
       clearContextAlerts();
     }
@@ -295,22 +268,14 @@ export const AuthContextProvider = ({ children }) => {
         });
         dispatch({
           type: Types.SET_AUTH_ALERT,
-          payload: {
-            heading: 'Awesome',
-            detail: result.message,
-            type: 'success',
-          },
+          payload: new AppAlert(result.message, 'success'),
         });
         clearContextAlerts();
       }
     } catch (err) {
       dispatch({
         type: Types.UPDATE_ACCOUNT_ERROR,
-        payload: {
-          heading: 'Uh oh',
-          detail: err.message,
-          type: 'error',
-        },
+        payload: new AppAlert(err.message, 'error'),
       });
       clearContextAlerts();
     }
@@ -332,8 +297,12 @@ export const AuthContextProvider = ({ children }) => {
     } catch (err) {
       dispatch({
         type: Types.SIGN_OUT_ERROR,
-        payload: 'Trouble signing out right now, please try again.',
+        payload: new AppAlert(
+          'Trouble signing out right now, please try again.',
+          'error'
+        ),
       });
+      clearContextAlerts();
     }
   };
   return (

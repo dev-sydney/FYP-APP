@@ -1,5 +1,4 @@
 import React from 'react';
-import './../../styles/resourceStyle.scss';
 import './../../styles/skeletonStyle.scss';
 /**
  * This component is a skeleton loading component

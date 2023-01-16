@@ -2,6 +2,7 @@ import { createContext, useReducer } from 'react';
 
 import attendanceReducer from '../reducers/attendanceReducer';
 import * as Types from '../utils/types';
+import { AppAlert } from '../utils/config';
 
 const attendanceContext = createContext();
 
@@ -90,33 +91,29 @@ export const AttendanceContextProvider = ({ children }) => {
       if (res.status === 201) {
         dispatch({
           type: Types.START_ONGOING_ATTENDANCE,
-          payload: {
-            heading: 'Awesome',
-            detail: results.msg,
-            type: 'success',
-          },
+          payload: new AppAlert(results.message, 'success'),
         });
         clearContextAlerts();
       }
     } catch (err) {
       dispatch({
         type: Types.START_ONGOING_ATTENDANCE_FAILURE,
-        payload: {
-          heading: 'Uh, oh',
-          detail: err.message,
-          type: 'error',
-        },
+        payload: new AppAlert(err.message, 'error'),
       });
       clearContextAlerts();
     }
   };
 
   /**
-   * Function gets the data about a scanned QRcode whether its occupied by a professor or its locked
+   * This function makes a call to the API to fetch the data about a scanned QRcode (whether its occupied by a professor or its locked)
    * @param {*} QRcodeData The string data got from the scanned QRcode
    */
-  const getAttendanceDetails = async (QRcodeData) => {
+  const getQRcodeDetails = async (QRcodeData) => {
     try {
+      dispatch({
+        type: Types.SET_ATTENDANCE_LOADING,
+      });
+
       state.QRcodeId = QRcodeData.split(' ')[0].split('=')[1]; //QRcodeId=1 --> 1
       // console.log(QRcodeData);
       const res = await fetch(
@@ -167,35 +164,25 @@ export const AttendanceContextProvider = ({ children }) => {
       const res = await fetch(
         `/api/v1/attendances/validate-attendance/${state.QRcodeId}`
       );
+      const results = await res.json();
 
       //EDGE-CASE: IF THE RESPONSE WAS UNSUCCESSFUL & ATTENDANCE TIMED OUT
-      if (res.status === 406) {
-        const result = await res.json();
-        dispatch({
-          type: Types.SET_RANDOM_SECURITY_QUESTION_FAILURE,
-          payload: {
-            heading: 'Uh, oh',
-            detail: result.message,
-            type: 'error',
-          },
-        });
+      if (res.status >= 400) throw new Error(results.message);
 
-        setTimeout(() => {
-          dispatch({
-            type: Types.CLEAR_ATTENDANCE_ALERT,
-          });
-        }, 2000);
-      }
       //TODO: RESPONSE WAS SUCCESSFUL AND USER GETS SECURITY QUESTION
-      const results = await res.json();
       delete results['status'];
-
-      dispatch({
-        type: Types.SET_RANDOM_SECURITY_QUESTION,
-        payload: results,
-      });
+      if (res.status == 200) {
+        dispatch({
+          type: Types.SET_RANDOM_SECURITY_QUESTION,
+          payload: results,
+        });
+      }
     } catch (err) {
-      console.log(err.message);
+      dispatch({
+        type: Types.SET_RANDOM_SECURITY_QUESTION_FAILURE,
+        payload: new AppAlert(err.message, 'error'),
+      });
+      clearContextAlerts();
     }
   };
   /**
@@ -221,11 +208,13 @@ export const AttendanceContextProvider = ({ children }) => {
       const result = await res.json();
       // console.log({ res, result });
       //EDGE-CASE: IF THE ANSWER IS INCORRECT
-      if (res.status === 406) {
+      /*  if (res.status === 406) {
         let incorrectAnswerError = new Error(result.message);
         incorrectAnswerError.status = 406;
         throw incorrectAnswerError;
-      }
+      } */
+
+      if (res.status >= 400) throw new Error(result.message);
 
       if (res.status === 200) {
         dispatch({
@@ -236,49 +225,30 @@ export const AttendanceContextProvider = ({ children }) => {
             type: 'success',
           },
         });
-
-        setTimeout(() => {
-          dispatch({ type: Types.CLEAR_ATTENDANCE_ALERT });
-        }, 2000);
+        clearContextAlerts(2000);
       }
     } catch (err) {
-      if (err.status === 406) {
-        dispatch({
-          type: Types.SECURITY_ANSWER_CORRECT_INCORRECT,
-          payload: {
-            heading: 'Uh, oh',
-            detail: err.message,
-            type: 'error',
-          },
-        });
-        setTimeout(() => {
-          dispatch({ type: Types.CLEAR_ATTENDANCE_ALERT });
-        }, 2000);
-      } else {
-        dispatch({
-          type: Types.SET_ATTENDNACE_ALERT,
-          payload: {
-            heading: 'Uh, oh',
-            detail: 'Something went very wrong',
-            type: 'error',
-          },
-        });
-        setTimeout(() => {
-          dispatch({ type: Types.CLEAR_ATTENDANCE_ALERT });
-        }, 2000);
-      }
+      dispatch({
+        type: Types.SECURITY_ANSWER_INCORRECT,
+        payload: new AppAlert(err.message, 'error'),
+      });
+      clearContextAlerts();
     }
   };
+
   /**
    * Function Responsible for making API calls to retrieve the attendances started by a professor
    */
   const getAttendancesStarted = async (navigateTo) => {
     try {
+      dispatch({
+        type: Types.SET_ATTENDANCE_LOADING,
+      });
       const res = await fetch(`/api/v1/attendances/ongoing/`);
 
       //EDGE-CASE: IF THE USER HAS UNAUTHORIZED ACCESS
       if (res.status === 401) navigateTo('/');
-      if (res.ok) {
+      if (res.status === 200) {
         const results = await res.json();
 
         dispatch({
@@ -289,9 +259,12 @@ export const AttendanceContextProvider = ({ children }) => {
     } catch (err) {
       dispatch({
         type: Types.GET_ONGOING_ATTENDANCES_ERROR,
-        payload:
+        payload: new AppAlert(
           'Touble getting attendances at the moment, please try again later.',
+          'error'
+        ),
       });
+      clearContextAlerts();
     }
   };
   const getSignedAttendances = async (ongoingAttendanceId) => {
@@ -313,7 +286,9 @@ export const AttendanceContextProvider = ({ children }) => {
   const getStudent = async (formData) => {
     try {
       formData.indexNumber = +formData.indexNumber;
-      state.isLoading = true;
+      dispatch({
+        type: Types.SET_ATTENDANCE_LOADING,
+      });
       const res = await fetch(`/api/v1/users/`, {
         method: 'POST',
         headers: {
@@ -322,13 +297,11 @@ export const AttendanceContextProvider = ({ children }) => {
         body: JSON.stringify(formData),
       });
 
+      const result = await res.json();
       //EDGE-CASE: IF THERES NO MATCH FOR THE INDEX NUMBER
-      if (res.status === 404) throw new Error('No results found.');
+      if (res.status >= 400) throw new Error(result.message);
 
-      if (res.ok) {
-        const result = await res.json();
-        state.isLoading = false;
-
+      if (res.status === 200) {
         dispatch({
           type: Types.SET_STUDENT,
           payload: result.student,
@@ -337,8 +310,9 @@ export const AttendanceContextProvider = ({ children }) => {
     } catch (err) {
       dispatch({
         type: Types.SET_STUDENT_ERROR,
-        payload: err.message,
+        payload: new AppAlert(err.message, 'error'),
       });
+      clearContextAlerts();
     }
   };
   /**
@@ -355,6 +329,10 @@ export const AttendanceContextProvider = ({ children }) => {
     courseId
   ) => {
     try {
+      dispatch({
+        type: Types.SET_ATTENDANCE_LOADING,
+      });
+
       const res = await fetch(
         `/api/v1/attendances/manual-attendance-sign/${+userId}/${+courseId}/${+ongoingAttendanceId}`,
         {
@@ -364,9 +342,11 @@ export const AttendanceContextProvider = ({ children }) => {
           },
         }
       );
-      if (res.ok) {
-        const result = await res.json();
+      const result = await res.json();
 
+      if (res.status >= 400) throw new Error(result.message);
+
+      if (res.status === 200) {
         dispatch({
           type: Types.ADD_STUDENT,
           payload: result.signedAttendance,
@@ -376,30 +356,41 @@ export const AttendanceContextProvider = ({ children }) => {
       // console.log(err);
       dispatch({
         type: Types.ADD_STUDENT_ERROR,
-        payload: 'Trouble Adding Student, please try again.',
+        payload: new AppAlert(
+          'Trouble Adding Student, please try again.',
+          'error'
+        ),
       });
+      clearContextAlerts();
     }
   };
+
   const eraseOngoingAttendance = async (ongoingAttendanceId) => {
     try {
       const res = await fetch(`/api/v1/ongoing/${ongoingAttendanceId}`, {
         method: 'PATCH',
       });
-      if (res.ok) {
-        const result = await res.json();
+      const result = await res.json();
+
+      if (res.status >= 400) throw new Error(result.message);
+
+      if (res.status === 200) {
         dispatch({
           type: Types.ERASED_ONGOING_ATTENDANCE,
-          payload: result.msg,
+          payload: new AppAlert(result.message, 'success'),
         });
+        clearContextAlerts();
       }
     } catch (err) {
       // console.log(err);
       dispatch({
         type: Types.ERASED_ONGOING_ATTENDANCE_ERROR,
-        payload: 'Touble ending this attendance,please connect and try again.',
+        payload: new AppAlert(err.message, 'error'),
       });
+      clearContextAlerts();
     }
   };
+
   const loadAttendanceScores = async (formData, courseId) => {
     try {
       formData.startDate = formData.startDate.replace('T', ' ');
@@ -414,9 +405,10 @@ export const AttendanceContextProvider = ({ children }) => {
           body: JSON.stringify(formData),
         }
       );
+      const data = await res.json();
+      if (res.status >= 400) throw new Error(data.message);
 
       if (res.status === 200) {
-        const data = await res.json();
         dispatch({
           type: Types.LOAD_ATTENDANCE_SCORES_SUCCESS,
           payload: data.results,
@@ -426,8 +418,9 @@ export const AttendanceContextProvider = ({ children }) => {
       // console.log(err);
       dispatch({
         type: Types.LOAD_ATTENDANCE_SCORES_ERROR,
-        payload: err.message,
+        payload: new AppAlert(err.message, 'error'),
       });
+      clearContextAlerts();
     }
   };
   const clearRandomSecurityQuestion = () => {
@@ -447,7 +440,7 @@ export const AttendanceContextProvider = ({ children }) => {
         attendanceScores: state.attendanceScores,
         QRcodeStatus: state.QRcodeStatus,
         startOngoingAttendance,
-        getAttendanceDetails,
+        getQRcodeDetails,
         getRandomSecurityQuestion,
         answerQuestionAndSignAttendance,
         getAttendancesStarted,

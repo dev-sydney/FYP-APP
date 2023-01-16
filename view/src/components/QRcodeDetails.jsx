@@ -15,7 +15,7 @@ const QRcodeDetails = ({
 
   useEffect(() => {
     if (!dataStr) return;
-    attendanceContxt.getAttendanceDetails(dataStr);
+    attendanceContxt.getQRcodeDetails(dataStr);
     return () => {};
   }, [isAttendanceDetails]);
 

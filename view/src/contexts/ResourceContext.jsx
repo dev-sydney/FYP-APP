@@ -1,6 +1,6 @@
 import { createContext, useReducer } from 'react';
 import * as Types from '../utils/types';
-
+import { AppAlert } from '../utils/config';
 import resourceReducer from '../reducers/resourcesReducer';
 
 const resourceContext = createContext();
@@ -17,8 +17,25 @@ export const ResourceContextProvider = ({ children }) => {
   };
   const [state, dispatch] = useReducer(resourceReducer, initialState);
 
+  /**
+   * This function starts a timeout function which dispatches the type to clear authAlertMessage in the context
+   */
+  const clearContextAlerts = (secs = 3000) => {
+    setTimeout(() => {
+      dispatch({
+        type: Types.CLEAR_RESOURCE_ALERT,
+      });
+    }, secs);
+  };
+
+  /**
+   * This function makes a POST request to the API and sends a form data about the newly added professor
+   * to be added to the system
+   * @param {*} formData
+   */
   const addProfessor = async (formData) => {
     try {
+      dispatch({ type: Types.SET_RESOURCE_LOADING });
       formData.facultyId = +formData.facultyId;
 
       const res = await fetch(`/api/v1/users/professors/`, {
@@ -28,24 +45,33 @@ export const ResourceContextProvider = ({ children }) => {
         },
         body: JSON.stringify(formData),
       });
-      if (res.status === 201) {
-        const result = await res.json();
+      const result = await res.json();
 
+      if (res.status >= 400) throw new Error(result.message);
+
+      if (res.status === 201) {
         dispatch({
           type: Types.ADD_PROFESSOR_SUCCESS,
-          payload: result.msg,
+          payload: new AppAlert(result.message, 'success'),
         });
+        clearContextAlerts(2000);
       }
     } catch (err) {
       dispatch({
         type: Types.ADD_PROFESSOR_ERROR,
-        payload: err.message,
+        payload: new AppAlert(err.message, 'error'),
       });
+      clearContextAlerts(2000);
     }
   };
-
+  /**
+   * This function makes a POST request to the API, and sends a form data about the newly added course
+   * @param {*} formData
+   */
   const addCourse = async (formData) => {
     try {
+      dispatch({ type: Types.SET_RESOURCE_LOADING });
+
       formData.facultyId = +formData.facultyId;
       const res = await fetch(`/api/v1/courses/`, {
         method: 'POST',
@@ -54,24 +80,30 @@ export const ResourceContextProvider = ({ children }) => {
         },
         body: JSON.stringify(formData),
       });
-      if (res.status === 201) {
-        const result = await res.json();
+      const result = await res.json();
 
+      if (res.status >= 400) throw new Error(result.message);
+
+      if (res.status === 201) {
         dispatch({
           type: Types.ADD_COURSE_SUCCESS,
-          payload: result.msg,
+          payload: new AppAlert(result.message, 'success'),
         });
+        clearContextAlerts();
       }
     } catch (err) {
       dispatch({
         type: Types.ADD_COURSE_ERROR,
-        payload: result.msg,
+        payload: new AppAlert(err.message, 'error'),
       });
+      clearContextAlerts();
     }
   };
 
   const addFaculty = async (formData) => {
     try {
+      dispatch({ type: Types.SET_RESOURCE_LOADING });
+
       const res = await fetch(`/api/v1/faculties/`, {
         method: 'POST',
         headers: {
@@ -79,22 +111,32 @@ export const ResourceContextProvider = ({ children }) => {
         },
         body: JSON.stringify(formData),
       });
+      const result = await res.json();
+      if (res.status >= 400) throw new Error(result.message);
+
       if (res.status === 201) {
-        const result = await res.json();
         dispatch({
           type: Types.ADD_FACULTY_SUCCESS,
-          payload: 'Faculty added successfully',
+          payload: new AppAlert(result.message, 'success'),
         });
+        clearContextAlerts();
       }
     } catch (err) {
       dispatch({
         type: Types.ADD_FACULTY_ERROR,
-        payload: 'Trouble adding faculty, please try again',
+        payload: new AppAlert(
+          'Trouble adding faculty, please try again',
+          'error'
+        ),
       });
+      clearContextAlerts();
     }
   };
+
   const loadAllFaculties = async (navigateTo) => {
     try {
+      dispatch({ type: Types.SET_RESOURCE_LOADING });
+
       const res = await fetch(`/api/v1/faculties/`);
       //EDGE-CASE: incase there's UNAUTHORISED ACCESS naviagteTo the homepage
       if (res.status === 401) {
@@ -110,10 +152,11 @@ export const ResourceContextProvider = ({ children }) => {
     } catch (err) {
       dispatch({
         type: Types.LOAD_FACULTIES_ERROR,
-        payload: 'Trouble loading faculties',
+        // payload: 'Trouble loading faculties',
       });
     }
   };
+
   const loadAllCourses = async (facultyId) => {
     try {
       dispatch({
@@ -126,9 +169,6 @@ export const ResourceContextProvider = ({ children }) => {
         dispatch({
           type: Types.LOAD_COURSES_SUCCESS,
           payload: results.courses,
-        });
-        dispatch({
-          type: Types.SET_RESOURCE_LOADING,
         });
       }
     } catch (err) {
@@ -148,51 +188,48 @@ export const ResourceContextProvider = ({ children }) => {
         type: Types.SET_RESOURCE_LOADING,
       });
       const res = await fetch(`/api/v1/users/professors`);
+      const results = await res.json();
+
+      if (res.status >= 400) throw new Error(results.message);
       if (res.status === 200) {
-        const results = await res.json();
         dispatch({
           type: Types.LOAD_PROFESSORS,
           payload: results.professors,
         });
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       dispatch({
         type: Types.LOAD_PROFESSORS_ERROR,
-        payload: {
-          heading: 'Uh, oh',
-          detail: 'Something went very wrong',
-          type: 'error',
-        },
+        payload: new AppAlert(err.message, 'error'),
       });
+      clearContextAlerts();
     }
   };
   /**
    * This function fetchs and sets the lecture hall's QRcodes in the state
    */
-  const loadLectureHallQRcodes = async () => {
+  const loadLectureHall = async () => {
     try {
       dispatch({
         type: Types.SET_RESOURCE_LOADING,
       });
       const res = await fetch(`/api/v1/qrcodes`);
+      const results = await res.json();
+      if (res.status >= 400) throw new Error(results.message);
+
       if (res.status === 200) {
-        const results = await res.json();
         dispatch({
           type: Types.LOAD_LECTURE_HALL_QRCODES,
           payload: results.lectureHallQRcodes,
         });
       }
     } catch (err) {
-      console.log(err);
       dispatch({
         type: Types.LOAD_LECTURE_HALL_QRCODES_ERROR,
-        payload: {
-          heading: 'Uh, oh',
-          detail: 'Something went very wrong',
-          type: 'error',
-        },
+        payload: new AppAlert(err.message, 'error'),
       });
+      clearContextAlerts();
     }
   };
   return (
@@ -211,7 +248,7 @@ export const ResourceContextProvider = ({ children }) => {
         loadAllFaculties,
         loadAllCourses,
         loadAllProfessors,
-        loadLectureHallQRcodes,
+        loadLectureHall,
       }}
     >
       {children}

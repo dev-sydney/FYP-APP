@@ -5,7 +5,7 @@ const resourceReducer = (state, action) => {
     case Types.SET_RESOURCE_LOADING:
       return {
         ...state,
-        isResourceLoading: !state.isResourceLoading ? true : null,
+        isResourceLoading: true,
       };
     case Types.ADD_PROFESSOR_SUCCESS:
       return {

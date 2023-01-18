@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
+import { UilSpinnerAlt } from '@iconscout/react-unicons';
 
 import AlertComponent from '../components/AlertComponent';
 
@@ -36,6 +37,7 @@ const SignupPage = () => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
+    if (authContxt.isLoading) return;
     authContxt.signupUser(formData, navigateTo);
   };
   return (
@@ -170,12 +172,16 @@ const SignupPage = () => {
               }}
             />
 
-            <input
-              type={'button'}
-              value="Sign up"
-              className="signup-btn"
-              onClick={onSubmit}
-            />
+            <button className="signup-btn" onClick={onSubmit}>
+              {/* NOTE:'condtional rendering logic for displaying either the loading animation or 'done'  */}
+              {authContxt.isLoading ? (
+                <div className="spinner_icon">
+                  <UilSpinnerAlt color="#FFFFFF" size="22" />
+                </div>
+              ) : (
+                'done'
+              )}
+            </button>
           </span>
         ) : (
           <input

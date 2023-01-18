@@ -4,14 +4,32 @@
   padding: 0.5em 0.7em;
   margin: 0.5em 0;
 }
-.skeleton_item {
-  background: #fff;
-  border-radius: 5px;
-  //   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+.skeleton_details_container {
   display: flex;
-  padding: 0.5em 0;
-  height: fit-content;
+  justify-content: space-between;
+
+  .skeleton_ph_container {
+    text-align: left;
+    min-width: 50%;
+    max-width: 2em;
+    padding-left: 0.7em;
+    padding-right: 5px;
+    height: fit-content;
+    margin-top: 0.7em;
+    h2 {
+      width: 80%;
+      height: 1em;
+      margin-bottom: 0.5em;
+    }
+    p {
+      width: 50%;
+      height: 1em;
+    }
+  }
+}
+.skeleton {
   .skeleton_controls,
+  .skeleton_icon,
   .image,
   h2,
   p {
@@ -20,6 +38,21 @@
     background-size: 200% 100%;
     animation: 1.5s shine linear infinite;
   }
+  .skeleton_icon {
+    max-height: 5em;
+    min-height: 5em;
+    min-width: 5em;
+    max-width: 5em;
+    border-radius: 20px;
+  }
+}
+.skeleton_item {
+  background: #fff;
+  border-radius: 5px;
+  //   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  padding: 0.5em 0;
+  height: fit-content;
 
   .image {
     max-height: 4em;
@@ -56,10 +89,9 @@
     margin-top: 0.4em;
     width: 50%;
   }
-
-  @keyframes shine {
-    to {
-      background-position-x: -200%;
-    }
+}
+@keyframes shine {
+  to {
+    background-position-x: -200%;
   }
 }

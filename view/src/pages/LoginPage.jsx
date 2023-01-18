@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
+import { UilSpinnerAlt } from '@iconscout/react-unicons';
+
 import authContext from '../contexts/AuthContext';
 import AlertComponent from '../components/AlertComponent';
 
@@ -20,6 +22,7 @@ const LoginPage = () => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
+    if (authContxt.isLoading) return;
     loginUser(formData, navigateTo);
   };
 
@@ -55,7 +58,16 @@ const LoginPage = () => {
             onChange={onChange}
           />
         </div>
-        <input type="submit" value="Login" className="login-btn " />
+        <button className="login-btn " onClick={onSubmit}>
+          {/* NOTE:'condtional rendering logic for displaying either the loading animation or 'done'  */}
+          {authContxt.isLoading ? (
+            <div className="spinner_icon">
+              <UilSpinnerAlt color="#FFFFFF" size="22" />
+            </div>
+          ) : (
+            'done'
+          )}
+        </button>
       </form>
       <span className="signup__note">
         Don't have an account? <NavLink to="/signup">Sign up</NavLink>

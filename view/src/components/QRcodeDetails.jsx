@@ -1,7 +1,8 @@
 import React, { useEffect, useContext } from 'react';
-import { UilArrowRight, UilTimes } from '@iconscout/react-unicons';
+import { UilArrowRight, UilTimes, UilPadlock } from '@iconscout/react-unicons';
 import attendanceContext from '../contexts/AttendanceContext';
-// import qrCodeContext from './../contexts/QRCodeContext';
+
+import LoadingQRcodeDetails from './loadingComponents/LoadingQRcodeDetails';
 
 import './../styles/componentsStyles.scss';
 const QRcodeDetails = ({
@@ -27,50 +28,87 @@ const QRcodeDetails = ({
     <div
       className={`qrcode__details ${shouldQRcodeDetailPopup ? 'up' : 'down'}`}
     >
-      <img
-        style={{
-          maxHeight: '5em',
-          minHeight: '5em',
-          minWidth: '5em',
-          maxWidth: '5em',
-          borderRadius: '20px',
-        }}
-        src={`/img/users/${codeDetails ? codeDetails.photo : 'padlock.jpeg'}`}
-      />
-      {/* ------CONDITIONAL RENDERING FOR WHEN THERES A PROFESSOR USING THE CODE*/}
-      {codeDetails && (
-        <div className="unlocked__details">
-          <h2>{codeDetails.otherNames.concat(` ${codeDetails.surName}`)}</h2>
-          <p>{codeDetails.privilege}</p>
+      {/* NOTE: Conditional rendering for the details of the scanned QR code */}
+      {attendanceContxt.isLoading ? (
+        <LoadingQRcodeDetails />
+      ) : (
+        <div className="details_container">
+          {/* NOTE: Conditional rendering logic to show either the locked icon or the current lecturer taking attendance */}
+          {codeDetails ? (
+            <img
+              style={{
+                maxHeight: '5em',
+                minHeight: '5em',
+                minWidth: '5em',
+                maxWidth: '5em',
+                borderRadius: '20px',
+              }}
+              src={`/img/users/${codeDetails.photo}`}
+            />
+          ) : (
+            <div className="locked_icon">
+              <UilPadlock
+                size="50"
+                color="#000000"
+                style={{
+                  margin: '.7em 0',
+                }}
+              />
+            </div>
+          )}
+
+          {/* NOTE: Conditional rendering logic to show the details of the current professor taking attendance */}
+          {codeDetails && (
+            <div className="unlocked__details">
+              <h2>
+                {codeDetails.otherNames.concat(` ${codeDetails.surName}`)}
+              </h2>
+              <p>{codeDetails.privilege}</p>
+            </div>
+          )}
+
+          {/* NOTE: Conditional rendering logic to show the locked details if the QR code is locked */}
+          {attendanceContxt.QRcodeStatus && (
+            <div className="unlocked__details">
+              <h3>{attendanceContxt.QRcodeStatus}</h3>
+              <p>Locked</p>
+            </div>
+          )}
+
+          {/* NOTE: Conditional rendering logic to display the 'cancel buttton' which hides this entire component */}
+          {/* NOTE: Should only be rendered when if the QR code is locked */}
+          {attendanceContxt.QRcodeStatus && (
+            <button
+              className="proceed__btn"
+              onClick={() => {
+                //NOTE: THIS CLICK EVENT HANDLER HIDES THE QRcodeDetails Component
+                setShouldQRcodeDetailPopup(false);
+              }}
+            >
+              {
+                <UilTimes
+                  color="#F7F7F7"
+                  size="30"
+                  style={{ marginTop: '0.1em' }}
+                />
+              }
+            </button>
+          )}
+
+          {/* NOTE: Conditional rendering logic to display the 'proceed button' which will cause the AnswerSecurityQuestionForm to pop up */}
+          {/* NOTE: Only renders when the theres a professor using the QR code to take an ongoing attendance */}
+          {codeDetails && (
+            <button className="proceed__btn" onClick={onClick}>
+              {
+                <UilArrowRight
+                  color="#F7F7F7"
+                  size="30"
+                  style={{ marginTop: '0.1em' }}
+                />
+              }
+            </button>
+          )}
         </div>
-      )}
-
-      {/* NOTE: CONDITIONAL RENDERING FOR WHEN A CODE IS LOCKED*/}
-      {attendanceContxt.QRcodeStatus && (
-        <div className="unlocked__details">
-          <h3>{attendanceContxt.QRcodeStatus}</h3>
-          <p>Locked</p>
-        </div>
-      )}
-
-      {/* NOTE: CONDITIONAL RENDERING FOR THE CANCEL BUTTON */}
-      {attendanceContxt.QRcodeStatus && (
-        <button
-          className="proceed__btn"
-          onClick={() => {
-            //NOTE: THIS CLICK EVENT HANDLER HIDES THE QRcodeDetails Component
-            setShouldQRcodeDetailPopup(false);
-          }}
-        >
-          {<UilTimes color="#F7F7F7" size="30" />}
-        </button>
-      )}
-
-      {/* NOTE: CONDITIONAL RENDERING FOR THE PROCEED BUTTON */}
-      {codeDetails && (
-        <button className="proceed__btn" onClick={onClick}>
-          {<UilArrowRight color="#F7F7F7" size="30" />}
-        </button>
       )}
     </div>
   );

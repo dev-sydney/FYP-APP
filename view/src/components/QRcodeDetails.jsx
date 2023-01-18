@@ -79,7 +79,7 @@ const QRcodeDetails = ({
           {/* NOTE: Should only be rendered when if the QR code is locked */}
           {attendanceContxt.QRcodeStatus && (
             <button
-              className="proceed__btn"
+              className="action__btn"
               onClick={() => {
                 //NOTE: THIS CLICK EVENT HANDLER HIDES THE QRcodeDetails Component
                 setShouldQRcodeDetailPopup(false);
@@ -98,7 +98,7 @@ const QRcodeDetails = ({
           {/* NOTE: Conditional rendering logic to display the 'proceed button' which will cause the AnswerSecurityQuestionForm to pop up */}
           {/* NOTE: Only renders when the theres a professor using the QR code to take an ongoing attendance */}
           {codeDetails && (
-            <button className="proceed__btn" onClick={onClick}>
+            <button className="action__btn" onClick={onClick}>
               {
                 <UilArrowRight
                   color="#F7F7F7"

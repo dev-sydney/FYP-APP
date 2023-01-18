@@ -2,8 +2,7 @@
 
 .qrcode__details {
   outline: 1px solid black;
-  display: flex;
-  justify-content: space-between;
+  text-align: center;
   padding: 1em 1em;
   //NOTE: ON RESULT SCAN--> transform: translateY(-165%)
   z-index: 2;
@@ -16,13 +15,16 @@
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
-
-.proceed__btn {
-  border-radius: 100%;
-  height: 4em;
-  width: 4em;
-  margin-top: 1.2em;
-  margin-left: 5px;
+.details_container {
+  display: flex;
+  justify-content: space-between;
+}
+.action__btn {
+  border-radius: 18px;
+  height: 3.5em;
+  width: 3.5em;
+  margin-top: auto;
+  margin-bottom: 0.35em;
   border: none;
   color: white;
   background-color: black;
@@ -50,6 +52,14 @@
     font-size: 1.05em;
     color: gray;
   }
+}
+.locked_icon {
+  background: rgba(0, 0, 0, 0.046);
+  max-height: 5em;
+  min-height: 5em;
+  min-width: 5em;
+  max-width: 5em;
+  border-radius: 20px;
 }
 .up {
   transform: translateY(-100%);

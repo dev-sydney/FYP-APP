@@ -48,7 +48,9 @@
     background-color: rgba(255, 255, 255, 0.979);
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
-
+    box-shadow: 0px 8px 15px -4px rgba(0, 0, 0, 0.514);
+    -webkit-box-shadow: 0px 8px 15px -4px rgba(0, 0, 0, 0.514);
+    -moz-box-shadow: 0px 8px 15px -4px rgba(0, 0, 0, 0.514);
     .name__index {
       text-align: left;
       min-width: 50%;
@@ -119,19 +121,16 @@
   }
 }
 .signed__container {
-  overflow-y: auto;
-  background-color: #eeeeee90;
-  min-height: inherit;
+  outline: 1px solid gray;
+  border-radius: 20px;
+  padding: 0.5em 0.7em;
+  // margin: 0.5em 1em;
   .signed__card {
     background: white;
-    margin: 0.5em 0.7em;
-    border-radius: 20px;
     display: flex;
-    padding: 0.5em 0.7em;
+    padding: 0.5em 0;
     text-align: left;
     overflow: hidden;
-    margin: 0.5em;
-    outline: 0.7px solid gray;
     .name__index {
       //   outline: 1px solid black;
       max-width: 100%;

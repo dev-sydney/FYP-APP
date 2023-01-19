@@ -1,7 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { UilArrowRight, UilArrowLeft } from '@iconscout/react-unicons';
+import {
+  UilArrowRight,
+  UilArrowLeft,
+  UilSpinnerAlt,
+} from '@iconscout/react-unicons';
 
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -22,6 +26,7 @@ const SecurityQForm = () => {
   const authContxt = useContext(authContext);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [formData, setFormData] = useState({});
+  const [errorMsg, setErrorMsg] = useState(null);
   const navigateTo = useNavigate();
 
   useEffect(() => {
@@ -38,7 +43,7 @@ const SecurityQForm = () => {
 
     //EDGE-CASE: IF THERE IS AN EMPTY FIELD
     if (Object.values(formData).some((answer) => answer === '')) {
-      console.log('No Duplicate fields allowed');
+      setErrorMsg('Sorry buddy, gotta answer all the questions');
       return;
     }
     //EDGE-CASE: IF THERE ARE DUPLICATED FIELD VALUES
@@ -46,10 +51,11 @@ const SecurityQForm = () => {
       [...new Set(Object.values(formData))].length !==
       authContxt.securityQuestions.length
     ) {
-      console.log('No duplicate answers allowed');
+      setErrorMsg('Sorry buddy, duplicate answers not allowed');
       return;
     }
     //NOTE: ATP FORMDATA VALUES ARE VALID
+    if (errorMsg !== null) setErrorMsg(null);
     authContxt.answerSecurityQuestions(formData, navigateTo);
   };
   return (
@@ -83,7 +89,7 @@ const SecurityQForm = () => {
           </p>
         </div>
       </div>
-
+      <p className="error__msg">{errorMsg ? errorMsg : ''}</p>
       {/* TODO: THIS RIGHT HERE,BELOW WILL BE THE FORM */}
       <form className="qs_container">
         {/* TODO: INSIDE THE FORMS WILL BE THE DYNAMICALLY RENDERED FORM GROUPS */}
@@ -162,7 +168,17 @@ const SecurityQForm = () => {
         }`}
       >
         <button onClick={onSaveBtnClick} className={`submit__btn`}>
-          {authContxt?.isLoading ? 'sending...' : 'save'}
+          {authContxt?.isLoading ? (
+            <div className="spinner_icon">
+              <UilSpinnerAlt
+                color="#FFFFFF"
+                size="22"
+                style={{ marginTop: '.2em' }}
+              />
+            </div>
+          ) : (
+            'save'
+          )}
         </button>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { UilTimes } from '@iconscout/react-unicons';
+import { UilTimes, UilSpinnerAlt } from '@iconscout/react-unicons';
 
 import resourceContext from '../contexts/ResourceContext';
 
@@ -10,6 +10,7 @@ const AddLectureRoomForm = ({ isModalActive, setIsModalActive }) => {
     lectureRoom: '',
   });
   const [lectureRoomQRcode, setLectureRoomQRcode] = useState('');
+  const [isCodeLoading, setIsCodeLoading] = useState(false);
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,6 +18,9 @@ const AddLectureRoomForm = ({ isModalActive, setIsModalActive }) => {
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
+      if (isCodeLoading) return;
+      setIsCodeLoading(!isCodeLoading);
+
       const res = await fetch(`/api/v1/qrcodes`, {
         method: 'POST',
         headers: {
@@ -27,6 +31,7 @@ const AddLectureRoomForm = ({ isModalActive, setIsModalActive }) => {
       if (res.status === 201) {
         const result = await res.json();
         setLectureRoomQRcode(result.QRcodeUrl);
+        setIsCodeLoading(!isCodeLoading);
       }
     } catch (error) {
       //TODO: SEND AN ALERT WHEN THERES AN ISSUE CREATING THE QRCODE
@@ -87,12 +92,19 @@ const AddLectureRoomForm = ({ isModalActive, setIsModalActive }) => {
           mmin="4"
         />
       </div>
-      <input
-        type={'submit'}
-        value={'Add'}
-        onClick={onSubmit}
-        className="submit__btn hall__sub"
-      />
+      <button className="submit__btn hall__sub" onClick={onSubmit}>
+        {isCodeLoading ? (
+          <div className="spinner_icon">
+            <UilSpinnerAlt
+              color="#FFFFFF"
+              size="22"
+              style={{ marginTop: '.2em' }}
+            />
+          </div>
+        ) : (
+          'Add'
+        )}
+      </button>
     </form>
   );
 };

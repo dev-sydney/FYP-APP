@@ -18,6 +18,11 @@ const authReducer = (state, action) => {
         ...state,
         isLoading: true,
       };
+    case Types.SET_USER_SETTINGS_LOADING:
+      return {
+        ...state,
+        isUpdatesLoading: true,
+      };
     case Types.SIGN_UP:
       localStorage.removeItem('user');
       localStorage.setItem('user', JSON.stringify(action.payload));
@@ -84,13 +89,13 @@ const authReducer = (state, action) => {
       localStorage.setItem('user', JSON.stringify(action.payload));
       return {
         ...state,
-        isLoading: null,
+        isUpdatesLoading: null,
       };
     case Types.UPDATE_ACCOUNT_ERROR:
       return {
         ...state,
         authAlertMessage: action.payload,
-        isLoading: null,
+        isUpdatesLoading: null,
       };
 
     case Types.SIGN_OUT:

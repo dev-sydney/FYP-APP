@@ -13,6 +13,7 @@ export const AuthContextProvider = ({ children }) => {
     loggedInUser: null,
     securityQuestions: null,
     isLoading: null,
+    isUpdatesLoading: null,
   };
 
   const [state, dispatch] = useReducer(authReducer, intialState);
@@ -247,7 +248,7 @@ export const AuthContextProvider = ({ children }) => {
   const updateUserAccountInfo = async (formData) => {
     try {
       dispatch({
-        type: Types.IS_AUTH_LOADING,
+        type: Types.SET_USER_SETTINGS_LOADING,
       });
 
       const res = await fetch(`/api/v1/users/update-me`, {
@@ -313,6 +314,7 @@ export const AuthContextProvider = ({ children }) => {
         isLoggedIn: state.isLoggedIn,
         securityQuestions: state.securityQuestions,
         isLoading: state.isLoading,
+        isUpdatesLoading: state.isUpdatesLoading,
         loginUser,
         signupUser,
         loadSecurityQuestions,

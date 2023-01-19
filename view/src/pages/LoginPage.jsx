@@ -62,7 +62,11 @@ const LoginPage = () => {
           {/* NOTE:'condtional rendering logic for displaying either the loading animation or 'done'  */}
           {authContxt.isLoading ? (
             <div className="spinner_icon">
-              <UilSpinnerAlt color="#FFFFFF" size="22" />
+              <UilSpinnerAlt
+                color="#FFFFFF"
+                size="22"
+                style={{ marginTop: '.2em' }}
+              />
             </div>
           ) : (
             'done'

@@ -4,7 +4,7 @@ import './../../styles/skeletonStyle.scss';
  * This component is a skeleton loading component
  * @returns Skeleton Loading Component
  */
-const LoadingResourcesComponent = () => {
+const LoadingResourcesComponent = ({ showControls }) => {
   return (
     <div className="skeleton resource_loading skeleton__items professors__container">
       {[1, 2, 3, 4, 5].map((el, i) => (
@@ -16,7 +16,7 @@ const LoadingResourcesComponent = () => {
               <p> </p>
             </div>
           </div>
-          <div className="skeleton_controls"></div>
+          {showControls && <div className="skeleton_controls"></div>}
         </div>
       ))}
     </div>

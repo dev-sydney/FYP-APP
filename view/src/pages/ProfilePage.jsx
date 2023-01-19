@@ -1,6 +1,6 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UilUser } from '@iconscout/react-unicons';
+import { UilUser, UilSpinnerAlt } from '@iconscout/react-unicons';
 
 import authContext from '../contexts/AuthContext';
 import AlertComponent from '../components/AlertComponent';
@@ -50,12 +50,26 @@ const ProfilePage = () => {
     });
   };
 
+  /**
+   * The event handler function that takes of the submit action when the securitySettings form gets submitted
+   * @param {*} e
+   */
   const onPasswordFormSubmit = (e) => {
     e.preventDefault();
+    if (authContxt.isLoading) return;
+
     authContxt.updateUserPassword(securityFormData);
   };
+
+  /**
+   * The event handler function that takes of the submit action when the accountInfo form gets submitted
+   * @param {*} e
+   * @returns
+   */
   const onAccountInfoFormSubmit = (e) => {
     e.preventDefault();
+    if (authContxt.isUpdatesLoading) return;
+
     //EDGE-CASE: IF NO DATA WAS INPUTTED IN THE FORM
     if (
       userPhotoInput.current.files[0] === undefined &&
@@ -73,6 +87,7 @@ const ProfilePage = () => {
     }
     authContxt.updateUserAccountInfo(formData);
   };
+
   return (
     <div className="profile__container">
       <AlertComponent />
@@ -131,7 +146,20 @@ const ProfilePage = () => {
             />
           </div>
 
-          <input type={'submit'} value="save" className="save__btn" />
+          <button onClick={onAccountInfoFormSubmit} className="save__btn">
+            {/* NOTE: Condtional rendering logic for displaying either the loading animation or 'save */}
+            {authContxt.isUpdatesLoading ? (
+              <div className="spinner_icon">
+                <UilSpinnerAlt
+                  color="#FFFFFF"
+                  size="22"
+                  style={{ marginTop: '.2em' }}
+                />
+              </div>
+            ) : (
+              'save'
+            )}
+          </button>
         </form>
       </section>
       <hr />
@@ -178,11 +206,23 @@ const ProfilePage = () => {
               className="form__input"
             />
           </div>
-          <input
-            type="submit"
-            value="done"
+          <button
             className="save_password save__btn"
-          />
+            onClick={onPasswordFormSubmit}
+          >
+            {/* NOTE: Condtional rendering logic for displaying either the loading animation or 'done */}
+            {authContxt.isLoading ? (
+              <div className="spinner_icon">
+                <UilSpinnerAlt
+                  color="#FFFFFF"
+                  size="22"
+                  style={{ marginTop: '.2em' }}
+                />
+              </div>
+            ) : (
+              'done'
+            )}
+          </button>
         </form>
         <button
           onClick={() => {

@@ -19,6 +19,7 @@ export const AttendanceContextProvider = ({ children }) => {
     isLoading: null,
     attendanceScores: null,
     QRcodeStatus: null,
+    isStudentLoading: null,
   };
 
   const [state, dispatch] = useReducer(attendanceReducer, initialState);
@@ -269,10 +270,14 @@ export const AttendanceContextProvider = ({ children }) => {
   };
   const getSignedAttendances = async (ongoingAttendanceId) => {
     try {
+      dispatch({
+        type: Types.SET_ATTENDANCE_LOADING,
+      });
+
       const res = await fetch(
         `/api/v1/attendances/signed-attendances/${+ongoingAttendanceId}`
       );
-      if (res.ok) {
+      if (res.status === 200) {
         const results = await res.json();
         dispatch({
           type: Types.GET_SIGNED_ATTENDANCES,
@@ -287,7 +292,7 @@ export const AttendanceContextProvider = ({ children }) => {
     try {
       formData.indexNumber = +formData.indexNumber;
       dispatch({
-        type: Types.SET_ATTENDANCE_LOADING,
+        type: Types.SET_STUDENT_LOADING,
       });
       const res = await fetch(`/api/v1/users/`, {
         method: 'POST',
@@ -439,6 +444,7 @@ export const AttendanceContextProvider = ({ children }) => {
         isLoading: state.isLoading,
         attendanceScores: state.attendanceScores,
         QRcodeStatus: state.QRcodeStatus,
+        isStudentLoading: state.isStudentLoading,
         startOngoingAttendance,
         getQRcodeDetails,
         getRandomSecurityQuestion,

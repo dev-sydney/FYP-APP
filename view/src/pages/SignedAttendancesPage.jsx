@@ -6,11 +6,11 @@ import { UilPlus, UilSearch, UilUserPlus } from '@iconscout/react-unicons';
 import attendanceContext from '../contexts/AttendanceContext';
 import authContext from '../contexts/AuthContext';
 
-import SignedAttendances from '../components/SignedAttendances';
+import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
 
 import './../styles/componentsStyles.scss';
 import './../styles/signedAttendanceStyle.scss';
-
+const stat = 1;
 /**
  * This component renders all the signed attendances so far
  * as well as a separate little form for searching for other students
@@ -33,10 +33,11 @@ const SignedAttendancesPage = () => {
     )
       navigateTo('/');
 
+    attendanceContxt.getSignedAttendances(ongoingAttendanceId);
     return () => {
       attendanceContxt.clearSomeContextState('CLEAR_STUDENT');
     };
-  }, []);
+  }, [stat]);
   const [formData, setFormData] = useState({
     indexNumber: 0,
   });
@@ -116,7 +117,7 @@ const SignedAttendancesPage = () => {
         <p className="flex__3">Students present</p>
       </div>
 
-      {/* -----CONDITIONAL RENDERING FOR THE SEARCH RESULTS */}
+      {/*NOTE: Conditional rendering logic for displpaying the search results  */}
       {attendanceContxt.student && (
         <div className="search__results">
           <img
@@ -142,7 +143,45 @@ const SignedAttendancesPage = () => {
         </div>
       )}
 
-      <SignedAttendances ongoingAttendanceId={ongoingAttendanceId} />
+      <section className="lists__section" style={{ margin: '0.5em .3em' }}>
+        {/* NOTE: Conditional rendering logic for displaying either the LoadingComponent or the data of signed attendances  */}
+        {attendanceContxt.isLoading ? (
+          <LoadingResourcesComponent />
+        ) : (
+          <div className="signed__container">
+            {attendanceContxt.signedAttendances &&
+              (attendanceContxt.signedAttendances.length > 0
+                ? attendanceContxt.signedAttendances.map((signedAttendance) => (
+                    <div
+                      className="signed__card"
+                      key={signedAttendance.signedAttendanceId}
+                    >
+                      <img
+                        src={`/img/users/${signedAttendance.photo}`}
+                        style={{
+                          maxHeight: '5em',
+                          minHeight: '5em',
+                          minWidth: '5em',
+                          maxWidth: '5em',
+                          borderRadius: '20px',
+                          marginTop: '.1em',
+                        }}
+                      />
+                      <div className="name__index">
+                        <h2>
+                          {signedAttendance.surName &&
+                            signedAttendance.surName.concat(
+                              ` ${signedAttendance.otherNames}`
+                            )}
+                        </h2>
+                        <p>{signedAttendance.indexNumber}</p>
+                      </div>
+                    </div>
+                  ))
+                : 'No Signed Attendances Just yet, please come back later')}
+          </div>
+        )}
+      </section>
     </div>
   );
 };

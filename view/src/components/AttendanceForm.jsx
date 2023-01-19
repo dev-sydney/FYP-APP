@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 
 import attendanceContext from '../contexts/AttendanceContext';
 import resourceContext from '../contexts/ResourceContext';
-import { UilAngleDown } from '@iconscout/react-unicons';
+import { UilAngleDown, UilSpinnerAlt } from '@iconscout/react-unicons';
 
 import './../styles/attendanceStyle.scss';
 const stat = 1;
@@ -44,7 +44,10 @@ const AttendanceForm = ({ QRcodeData, setQRcodeData, setDidProfessorScan }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     // console.log(formData);
+    if (attendanceContxt.isLoading) return;
+
     attendanceContxt.startOngoingAttendance(formData, QRcodeData);
+
     setTimeout(() => {
       setDidProfessorScan(false);
     }, 200);
@@ -147,7 +150,17 @@ const AttendanceForm = ({ QRcodeData, setQRcodeData, setDidProfessorScan }) => {
           />
         </div>
         <button className="start__btn" onClick={onSubmit}>
-          start
+          {attendanceContxt.isLoading ? (
+            <div className="spinner_icon">
+              <UilSpinnerAlt
+                color="#FFFFFF"
+                size="23"
+                style={{ marginTop: '.2em' }}
+              />
+            </div>
+          ) : (
+            'start'
+          )}
         </button>
       </form>
     </div>

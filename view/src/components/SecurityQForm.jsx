@@ -89,7 +89,9 @@ const SecurityQForm = () => {
           </p>
         </div>
       </div>
+
       <p className="error__msg">{errorMsg ? errorMsg : ''}</p>
+
       {/* TODO: THIS RIGHT HERE,BELOW WILL BE THE FORM */}
       <form className="qs_container">
         {/* TODO: INSIDE THE FORMS WILL BE THE DYNAMICALLY RENDERED FORM GROUPS */}
@@ -128,9 +130,14 @@ const SecurityQForm = () => {
               setCurrentSlide(currentSlide - 1);
             }}
             className="navigation__btn"
+            style={{
+              backgroundColor: 'white',
+              color: '#8e18b9',
+              outline: '1px solid #8e18b9',
+            }}
           >
             <span style={{ display: 'flex' }}>
-              <UilArrowLeft size="30" color="#FFFFFF" />
+              <UilArrowLeft size="30" color="#8e18b9" />
               <span style={{ marginTop: '.4em' }}>back</span>
             </span>
           </button>
@@ -147,6 +154,7 @@ const SecurityQForm = () => {
                 setCurrentSlide(currentSlide + 1);
               }}
               className="navigation__btn"
+              style={{ backgroundColor: '#8e18b9' }}
             >
               <span style={{ display: 'flex' }}>
                 <span style={{ marginTop: '.4em' }}>next</span>

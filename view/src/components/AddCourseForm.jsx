@@ -25,6 +25,7 @@ const AddCourseForm = ({ isModalActive, setIsModalActive }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     resourceContxt.addCourse(formData);
+    setIsModalActive(!isModalActive);
     // console.log(formData);
   };
 

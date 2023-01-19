@@ -2,10 +2,15 @@ import * as Types from '../utils/types';
 
 const attendanceReducer = (state, action) => {
   switch (action.type) {
+    case Types.SET_STUDENT_LOADING:
+      return {
+        ...state,
+        isStudentLoading: true,
+      };
     case Types.SET_ATTENDANCE_LOADING:
       return {
         ...state,
-        isLoading: state.isLoading ? null : true,
+        isLoading: true,
       };
     case Types.SET_ATTENDNACE_ALERT:
       return {
@@ -79,18 +84,19 @@ const attendanceReducer = (state, action) => {
       return {
         ...state,
         signedAttendances: action.payload,
+        isLoading: null,
       };
     case Types.SET_STUDENT:
       return {
         ...state,
         student: action.payload,
-        isLoading: null,
+        isStudentLoading: null,
       };
     case Types.SET_STUDENT_ERROR:
       return {
         ...state,
         attendanceAlert: action.payload,
-        isLoading: null,
+        isStudentLoading: null,
       };
     case Types.ADD_STUDENT:
       return {

@@ -19,7 +19,10 @@ import './../styles/navStyle.scss';
 const NavBar = () => {
   const authContxt = useContext(authContext);
   return (
-    <div className={`nav__bar ${!authContxt.user && 'not-loggedIn'}`}>
+    <div
+      className={`nav__bar ${!authContxt.user && 'not-loggedIn'}`}
+      style={{ display: `${!authContxt.navBarVisibiltyStatus ? 'none' : ''}` }}
+    >
       <NavLink to="/">
         <UilEstate size="35" color="#1D2021" />
       </NavLink>

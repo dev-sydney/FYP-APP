@@ -64,10 +64,13 @@ export const AuthContextProvider = ({ children }) => {
           type: Types.SIGN_IN,
           payload: result.data.user,
         });
-
         //TODO: REDIRECT USER TO THE HOMEPAGE
         setTimeout(() => {
-          navigateTo('/');
+          if (result.data.user.hasSecurityQuestionsSet === 0) {
+            navigateTo('/user-securityQnAs');
+          } else {
+            navigateTo('/');
+          }
         }, 2000);
       }
     } catch (err) {

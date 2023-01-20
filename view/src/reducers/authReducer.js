@@ -2,6 +2,11 @@ import * as Types from '../utils/types';
 
 const authReducer = (state, action) => {
   switch (action.type) {
+    case Types.SET_NAVBAR_VISIBIITY:
+      return {
+        ...state,
+        navBarVisibiltyStatus: action.payload,
+      };
     case Types.SET_AUTH_ALERT:
       return {
         ...state,

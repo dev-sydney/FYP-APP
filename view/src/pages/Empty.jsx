@@ -1,10 +1,11 @@
 import React from 'react';
-import UilReact from '@iconscout/react-unicons/icons/uil-react';
+// import { UilImagePlus } from '@iconscout/react-unicons';
+import LoadingResources from '../components/loadingComponents/LoadingResourcesComponent';
+
 const Empty = () => {
   return (
     <div>
-      Empty
-      <UilReact size="50" color="#61DAFB" />
+      <LoadingResources />
     </div>
   );
 };

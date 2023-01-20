@@ -40,6 +40,7 @@ const HomePage = () => {
     ) {
       navigateTo('/user-securityQnAs');
     }
+    authContxt.setNavBarVisibilty(true);
   }, []);
 
   const onResult = (result, error) => {

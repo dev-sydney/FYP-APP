@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import authContext from '../contexts/AuthContext';
+
 import SecurityQForm from '../components/SecurityQForm';
 import AlertComponent from '../components/AlertComponent';
 import './../styles/CollectQnAStyle.scss';
 
+const stat = 1;
+
 const CollectUserSecurityQnAPage = () => {
   const [isInfoHidden, setIsInfoHidden] = useState(false);
   const [isInfoTransparent, setIsInfoTransparent] = useState(false);
-
+  const authContxt = useContext(authContext);
+  useEffect(() => {
+    authContxt.setNavBarVisibilty(false);
+  }, [stat]);
   const onBtnClick = () => {
     //TODO: MAKE THE OPACITY 0
     setIsInfoTransparent(!isInfoTransparent);

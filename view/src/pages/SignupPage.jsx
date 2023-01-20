@@ -16,6 +16,7 @@ const SignupPage = () => {
   const resourceContxt = useContext(resourceContext);
   useEffect(() => {
     resourceContxt.loadAllFaculties();
+    authContxt.setNavBarVisibilty(false);
   }, [stat]);
   const [formData, setFormData] = useState({
     surName: '',

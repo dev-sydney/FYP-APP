@@ -14,6 +14,7 @@ export const AuthContextProvider = ({ children }) => {
     securityQuestions: null,
     isLoading: null,
     isUpdatesLoading: null,
+    navBarVisibiltyStatus: true,
   };
 
   const [state, dispatch] = useReducer(authReducer, intialState);
@@ -26,6 +27,13 @@ export const AuthContextProvider = ({ children }) => {
         type: Types.CLEAR_AUTH_ALERT,
       });
     }, secs);
+  };
+
+  const setNavBarVisibilty = (NavBarHiddenValue) => {
+    dispatch({
+      type: Types.SET_NAVBAR_VISIBIITY,
+      payload: NavBarHiddenValue,
+    });
   };
 
   /**
@@ -309,6 +317,7 @@ export const AuthContextProvider = ({ children }) => {
       clearContextAlerts();
     }
   };
+
   return (
     <authContext.Provider
       value={{
@@ -318,6 +327,7 @@ export const AuthContextProvider = ({ children }) => {
         securityQuestions: state.securityQuestions,
         isLoading: state.isLoading,
         isUpdatesLoading: state.isUpdatesLoading,
+        navBarVisibiltyStatus: state.navBarVisibiltyStatus,
         loginUser,
         signupUser,
         loadSecurityQuestions,
@@ -325,6 +335,7 @@ export const AuthContextProvider = ({ children }) => {
         updateUserPassword,
         updateUserAccountInfo,
         signUserOut,
+        setNavBarVisibilty,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { UilSpinnerAlt } from '@iconscout/react-unicons';
 
@@ -6,13 +6,15 @@ import authContext from '../contexts/AuthContext';
 import AlertComponent from '../components/AlertComponent';
 
 import './../styles/formStyles.scss';
-
+const stat = 1;
 const LoginPage = () => {
   const navigateTo = useNavigate();
 
   const authContxt = useContext(authContext);
   const { loginUser } = authContxt;
-
+  useEffect(() => {
+    authContxt.setNavBarVisibilty(false);
+  }, [stat]);
   const [formData, setFormData] = useState({
     userPassword: '',
     emailAddress: '',

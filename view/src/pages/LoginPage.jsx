@@ -71,7 +71,7 @@ const LoginPage = () => {
               />
             </div>
           ) : (
-            'done'
+            'login'
           )}
         </button>
       </form>

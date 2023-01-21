@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { UilSpinnerAlt } from '@iconscout/react-unicons';
 
@@ -7,6 +7,7 @@ import AlertComponent from '../components/AlertComponent';
 import './../styles/formStyles.scss';
 import authContext from '../contexts/AuthContext';
 
+const stat = 1;
 const ResetPasswordPage = () => {
   const [formData, setFormData] = useState({
     password: '',
@@ -16,7 +17,9 @@ const ResetPasswordPage = () => {
   const navigateTo = useNavigate();
 
   const authContxt = useContext(authContext);
-
+  useEffect(() => {
+    authContxt.setNavBarVisibilty(false);
+  }, [stat]);
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { UilSpinnerAlt } from '@iconscout/react-unicons';
 
 import AlertComponent from '../components/AlertComponent';
@@ -6,9 +6,14 @@ import authContext from '../contexts/AuthContext';
 
 import './../styles/formStyles.scss';
 
+const stat = 1;
 const ForgetPasswordPage = () => {
   const [emailAddress, setEmailAddress] = useState('');
   const authContxt = useContext(authContext);
+
+  useEffect(() => {
+    authContxt.setNavBarVisibilty(false);
+  }, [stat]);
 
   const onChange = (e) => {
     setEmailAddress(e.target.value);

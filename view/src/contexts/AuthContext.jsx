@@ -74,7 +74,10 @@ export const AuthContextProvider = ({ children }) => {
         });
         //TODO: REDIRECT USER TO THE HOMEPAGE
         setTimeout(() => {
-          if (result.data.user.hasSecurityQuestionsSet === 0) {
+          if (
+            result.data.user.hasSecurityQuestionsSet === 0 &&
+            result.data.user.privilege === 'student'
+          ) {
             navigateTo('/user-securityQnAs');
           } else {
             navigateTo('/');
@@ -317,7 +320,80 @@ export const AuthContextProvider = ({ children }) => {
       clearContextAlerts();
     }
   };
+  /**
+   * This function is responsible for making a call to the API to forget the users password
+   * @param {String} formData The form Data which holds the users email address
+   */
+  const forgotUserPassword = async (emailAddress) => {
+    try {
+      dispatch({ type: Types.IS_AUTH_LOADING });
 
+      const res = await fetch('/api/v1/users/forgot-password', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({ emailAddress }),
+      });
+      const result = await res.json();
+
+      if (res.status >= 400) throw new Error(result.message);
+
+      if (res.status === 200) {
+        dispatch({
+          type: Types.FORGOT_PASSWORD,
+          payload: new AppAlert(result.message, 'success'),
+        });
+        clearContextAlerts(5000);
+      }
+    } catch (err) {
+      dispatch({
+        type: Types.FORGOT_PASSWORD_ERROR,
+        payload: new AppAlert(err.message, 'error'),
+      });
+      clearContextAlerts(3000);
+    }
+  };
+  /**
+   * This function is responsible for making a call to the API to reset the users password
+   * @param {Object} formData
+   * @param {String} token The password reset token
+   */
+  const resetUserPassword = async (formData, token, navigateTo) => {
+    try {
+      dispatch({
+        type: Types.IS_AUTH_LOADING,
+      });
+      const res = await fetch(`/api/v1/users/reset-password/${token}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const result = await res.json();
+
+      if (res.status >= 400) throw new Error(result.message);
+
+      if (res.status === 200) {
+        dispatch({
+          type: Types.RESET_PASSWORD,
+          payload: new AppAlert(result.message, 'success'),
+        });
+        clearContextAlerts(1500);
+
+        setTimeout(() => {
+          navigateTo('/login');
+        }, 2000);
+      }
+    } catch (err) {
+      dispatch({
+        types: Types.RESET_PASSWORD_ERROR,
+        payload: new AppAlert(err.message, 'error'),
+      });
+      clearContextAlerts();
+    }
+  };
   return (
     <authContext.Provider
       value={{
@@ -336,6 +412,8 @@ export const AuthContextProvider = ({ children }) => {
         updateUserAccountInfo,
         signUserOut,
         setNavBarVisibilty,
+        forgotUserPassword,
+        resetUserPassword,
       }}
     >
       {children}

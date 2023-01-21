@@ -385,7 +385,8 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    msg: 'Password reset successfully, you can now login with your new password.',
+    message:
+      'Password reset successfully, you can now login with your new password.',
   });
 });
 

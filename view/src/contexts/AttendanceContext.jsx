@@ -294,7 +294,7 @@ export const AttendanceContextProvider = ({ children }) => {
       dispatch({
         type: Types.SET_STUDENT_LOADING,
       });
-      const res = await fetch(`/api/v1/users/`, {
+      /* const res = await fetch(`/api/v1/users/`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
@@ -311,7 +311,7 @@ export const AttendanceContextProvider = ({ children }) => {
           type: Types.SET_STUDENT,
           payload: result.student,
         });
-      }
+      } */
     } catch (err) {
       dispatch({
         type: Types.SET_STUDENT_ERROR,

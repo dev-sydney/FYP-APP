@@ -1,7 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import CountUp from 'react-countup';
 import { useParams, useNavigate } from 'react-router-dom';
-import { UilPlus, UilSearch, UilUserPlus } from '@iconscout/react-unicons';
+import {
+  UilPlus,
+  UilSearch,
+  UilUserPlus,
+  UilSpinnerAlt,
+} from '@iconscout/react-unicons';
 
 import attendanceContext from '../contexts/AttendanceContext';
 import authContext from '../contexts/AuthContext';
@@ -118,30 +123,42 @@ const SignedAttendancesPage = () => {
       </div>
 
       {/*NOTE: Conditional rendering logic for displpaying the search results  */}
-      {attendanceContxt.student && (
-        <div className="search__results">
-          <img
-            src={`/img/users/${attendanceContxt.student.photo}`}
-            style={{
-              height: '5em',
-              borderRadius: '20px',
-              marginTop: '.1em',
-            }}
-          />
-          <div className="name__index">
-            <h3>
-              {attendanceContxt.student.surName.concat(
-                ` ${attendanceContxt.student.otherNames}`
-              )}
-            </h3>
-            <p>{attendanceContxt.student.indexNumber}</p>
+      <div className="search__results" style={{ textAlign: 'center' }}>
+        {attendanceContxt.isStudentLoading ? (
+          <div className="spinner_icon">
+            <UilSpinnerAlt
+              color="#FFFFFF"
+              size="22"
+              style={{ marginTop: '.2em' }}
+            />
           </div>
+        ) : (
+          attendanceContxt.student && (
+            <div className="search__details">
+              <img
+                src={`/img/users/${attendanceContxt.student.photo}`}
+                style={{
+                  height: '5em',
+                  borderRadius: '20px',
+                  marginTop: '.1em',
+                }}
+              />
+              <div className="name__index">
+                <h3>
+                  {attendanceContxt.student.surName.concat(
+                    ` ${attendanceContxt.student.otherNames}`
+                  )}
+                </h3>
+                <p>{attendanceContxt.student.indexNumber}</p>
+              </div>
 
-          <button onClick={onAddBtnClick} className={`add_student__btn`}>
-            <UilPlus color="#E8E8E8" size="30" />
-          </button>
-        </div>
-      )}
+              <button onClick={onAddBtnClick} className={`add_student__btn`}>
+                <UilPlus color="#E8E8E8" size="30" />
+              </button>
+            </div>
+          )
+        )}
+      </div>
 
       <section className="lists__section" style={{ margin: '0.5em .3em' }}>
         {/* NOTE: Conditional rendering logic for displaying either the LoadingComponent or the data of signed attendances  */}

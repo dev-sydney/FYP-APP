@@ -37,20 +37,22 @@
   }
   .search__container {
     position: relative;
+    overflow: hidden;
   }
   .search__results {
     position: absolute;
     z-index: 5;
     width: 100%;
-    display: flex;
-    justify-content: space-around;
-    padding: 1em 1em;
     background-color: rgba(255, 255, 255, 0.979);
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
     box-shadow: 0px 8px 15px -4px rgba(0, 0, 0, 0.514);
     -webkit-box-shadow: 0px 8px 15px -4px rgba(0, 0, 0, 0.514);
     -moz-box-shadow: 0px 8px 15px -4px rgba(0, 0, 0, 0.514);
+    .search__details {
+      display: flex;
+      justify-content: space-around;
+    }
     .name__index {
       text-align: left;
       min-width: 50%;

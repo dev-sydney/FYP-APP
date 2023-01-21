@@ -83,8 +83,8 @@ const attendanceReducer = (state, action) => {
     case Types.GET_SIGNED_ATTENDANCES:
       return {
         ...state,
-        signedAttendances: action.payload,
         isLoading: null,
+        signedAttendances: action.payload,
       };
     case Types.SET_STUDENT:
       return {

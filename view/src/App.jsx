@@ -20,6 +20,7 @@ import CoursesResourcePage from './pages/CoursesResourcePage';
 import FacultyResourcePage from './pages/FacultyResourcePage';
 import CollectUserSecurityQnAPage from './pages/CollectUserSecurityQnAPage';
 import ForgetPasswordPage from './pages/ForgetPasswordPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 import Empty from './pages/Empty';
 import NavBar from './components/NavBar';
@@ -75,6 +76,10 @@ function App() {
                   <Route
                     path="/forgot-password"
                     element={<ForgetPasswordPage />}
+                  />
+                  <Route
+                    path="/reset-password/:token"
+                    element={<ResetPasswordPage />}
                   />
                 </Routes>
                 <NavBar />

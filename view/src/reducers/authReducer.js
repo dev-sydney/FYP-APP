@@ -118,6 +118,30 @@ const authReducer = (state, action) => {
         ...state,
         authAlertMessage: action.payload,
       };
+    case Types.FORGOT_PASSWORD:
+      return {
+        ...state,
+        authAlertMessage: action.payload,
+        isLoading: null,
+      };
+    case Types.FORGOT_PASSWORD_ERROR:
+      return {
+        ...state,
+        authAlertMessage: action.payload,
+        isLoading: null,
+      };
+    case Types.RESET_PASSWORD:
+      return {
+        ...state,
+        authAlertMessage: action.payload,
+        isLoading: null,
+      };
+    case Types.RESET_PASSWORD_ERROR:
+      return {
+        ...state,
+        authAlertMessage: action.payload,
+        isLoading: null,
+      };
     default:
       return state;
   }

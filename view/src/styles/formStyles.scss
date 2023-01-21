@@ -83,7 +83,8 @@
   }
 }
 
-.login-container {
+.login-container,
+.forgotpassword-container {
   @include page-container;
   padding-top: 1.7em;
   row-gap: 3.5em;
@@ -134,11 +135,11 @@
     display: block;
     text-align: left;
   }
-  .login-btn {
-    @include btn;
-    display: flex;
-    justify-content: center;
-  }
+}
+.login-btn {
+  @include btn;
+  display: flex;
+  justify-content: center;
 }
 
 .form__input:focus {
@@ -152,9 +153,3 @@
 .form__input::-webkit-input-placeholder {
   color: #bbb;
 }
-/* .logo {
-  outline: 2px solid blue;
-}
-.signup__note {
-  outline: 2px solid orange;
-} */

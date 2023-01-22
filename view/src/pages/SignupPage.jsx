@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { UilSpinnerAlt } from '@iconscout/react-unicons';
 
 import AlertComponent from '../components/AlertComponent';
@@ -157,7 +157,7 @@ const SignupPage = () => {
         </div>
         {!showSecondStep && (
           <span className={`login__note`}>
-            Already have an account? <NavLink to={'/login'}>Log in</NavLink>
+            Already have an account? <Link to={'/login'}>Log in</Link>
           </span>
         )}
 

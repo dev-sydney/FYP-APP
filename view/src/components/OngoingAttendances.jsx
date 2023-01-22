@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import { UilTimesCircle } from '@iconscout/react-unicons';
 import { UilEllipsisH } from '@iconscout/react-unicons';
-import { Link, useNavigate, NavLink } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import attendanceContext from './../contexts/AttendanceContext';
 import './../styles/attendanceStyle.scss';
 const stat = 1;
@@ -83,7 +82,7 @@ const OngoingAttendances = () => {
           />
           <h2>No Attendances</h2>
           <p>Let's get started, shall we ?</p>
-          <NavLink to="/">Start Attendance</NavLink>
+          <Link to="/">Start Attendance</Link>
         </div>
       ) : (
         ''

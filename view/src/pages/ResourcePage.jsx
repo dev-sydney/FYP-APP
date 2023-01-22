@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {
   UilGraduationCap,
   UilPodium,
@@ -52,13 +52,13 @@ const ResourcePage = () => {
             <br /> Professors
           </h2>
 
-          <NavLink to="/resourceManager/professors">
+          <Link to="/resourceManager/professors">
             <UilArrowRight
               size="30"
               color="#FFFFFF"
               style={{ margin: '.4em' }}
             />
-          </NavLink>
+          </Link>
         </div>
 
         <div className="control">
@@ -70,13 +70,13 @@ const ResourcePage = () => {
             <br /> Halls
           </h2>
 
-          <NavLink to="/resourceManager/lecture-halls">
+          <Link to="/resourceManager/lecture-halls">
             <UilArrowRight
               size="30"
               color="#FFFFFF"
               style={{ margin: '.45em' }}
             />
-          </NavLink>
+          </Link>
         </div>
 
         <div className="control">
@@ -88,13 +88,13 @@ const ResourcePage = () => {
             <br /> Courses
           </h2>
 
-          <NavLink to="/resourceManager/courses">
+          <Link to="/resourceManager/courses">
             <UilArrowRight
               size="30"
               color="#FFFFFF"
               style={{ margin: '.4em' }}
             />
-          </NavLink>
+          </Link>
         </div>
 
         <div className="control">
@@ -110,13 +110,13 @@ const ResourcePage = () => {
             <br /> Faculties
           </h2>
 
-          <NavLink to="/resourceManager/faculties">
+          <Link to="/resourceManager/faculties">
             <UilArrowRight
               size="30"
               color="#FFFFFF"
               style={{ margin: '.4em' }}
             />
-          </NavLink>
+          </Link>
         </div>
       </div>
       <div style={{ minHeight: '5em' }}></div>

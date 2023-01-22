@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { UilSpinnerAlt } from '@iconscout/react-unicons';
 
 import authContext from '../contexts/AuthContext';
@@ -76,7 +76,7 @@ const LoginPage = () => {
         </button>
       </form>
       <span className="signup__note">
-        Don't have an account? <NavLink to="/signup">Sign up</NavLink>
+        Don't have an account? <Link to="/signup">Sign up</Link>
       </span>
     </div>
   );

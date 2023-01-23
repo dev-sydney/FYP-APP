@@ -114,6 +114,24 @@ const resourceReducer = (state, action) => {
           (el) => el.userId !== action.userId
         ),
       };
+    case Types.DELETE_PROFESSOR_ERROR:
+      return {
+        ...state,
+        resourceContextAlert: action.payload,
+      };
+    case Types.DELETE_LECTURE_HALL:
+      return {
+        ...state,
+        resourceContextAlert: action.payload,
+        LectureHallQRcodes: state.LectureHallQRcodes.filter(
+          (el) => el.QRcodeId !== action.QRcodeId
+        ),
+      };
+    case Types.DELETE_LECTURE_HALL_ERROR:
+      return {
+        ...state,
+        resourceContextAlert: action.payload,
+      };
     default:
       return state;
   }

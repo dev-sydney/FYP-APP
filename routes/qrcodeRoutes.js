@@ -11,4 +11,8 @@ router
   .post(QRcodeController.generateQRcode)
   .get(QRcodeController.getAllQRcodes);
 
+router
+  .route('/:QRcodeId')
+  .delete(authController.restrictTo('admin'), QRcodeController.deleteQRCode);
+
 module.exports = router;

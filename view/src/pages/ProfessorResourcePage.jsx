@@ -7,6 +7,8 @@ import AddProfessorForm from './../components/AddProfessorForm';
 import ModalBackground from '../components/ModalBackground';
 import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
 
+import AlertComponent from '../components/AlertComponent';
+
 import './../styles/resourceStyle.scss';
 
 const stat = 1;
@@ -20,8 +22,13 @@ const ProfessorResourcePage = () => {
     resourceContxt.loadAllProfessors();
   }, [stat]);
 
+  const onDeleteClick = (userId) => () => {
+    resourceContxt.deleteProfessor(userId);
+  };
+
   return (
     <div className="professors__container">
+      <AlertComponent />
       {isModalActive ? (
         <ModalBackground
           children={
@@ -98,7 +105,10 @@ const ProfessorResourcePage = () => {
                             }}
                           />
                         </div>
-                        <div className="icon">
+                        <div
+                          className="icon"
+                          onClick={onDeleteClick(prof.userId)}
+                        >
                           <UilTrashAlt
                             size="30"
                             color="#CA1414"

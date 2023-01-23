@@ -36,13 +36,20 @@ exports.getAllFaculties = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.deleteFaculty = catchAsyncErrors(async (req, res, next) => {
-  const { facultyId } = req.params;
-  const result = await pool.query(
-    'UPDATE Faculties SET facultyStatus = ? WHERE facultyId=?',
-    [0, +facultyId]
+  //EDGE-CASE: if no faculty was selected
+  if (!req.params.facultyId)
+    return next(new AppError('No course was selected', 404));
+
+  const results = await pool.query(
+    'UPDATE Faculties SET facultyStatus = 0 WHERE facultyId=?',
+    [+req.params.facultyId]
   );
-  console.log(result[0]);
-  res.status(204).json({
+  //EDGE-CASE: if no update happened (faculty doesn't exist)
+  if (results.affectedRows === 0)
+    return next(new AppError("faculty doesn't exist", 404));
+
+  res.status(200).json({
     status: 'success',
+    message: 'Deleted Successfully',
   });
 });

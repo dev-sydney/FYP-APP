@@ -169,7 +169,7 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
 
   //EDGE-CASE: if no update happened (user doesn't exist)
   if (results.affectedRows === 0)
-    return next(new AppError("User does't exist", 404));
+    return next(new AppError("User doesn't exist", 404));
 
   res.status(200).json({
     status: 'success',

@@ -5,6 +5,7 @@ import resourceContext from '../contexts/ResourceContext';
 import ModalBackground from '../components/ModalBackground';
 import AddFacultyForm from './../components/AddFacultyForm';
 import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
+import AlertComponent from '../components/AlertComponent';
 
 import './../styles/resourceStyle.scss';
 
@@ -17,8 +18,12 @@ const FacultyResourcePage = () => {
     resourceContxt.loadAllFaculties();
   }, [stat]);
 
+  const onDeleteClick = (facultyId) => () => {
+    resourceContxt.deleteFaculty(facultyId);
+  };
   return (
     <div className="faculty_resource__container">
+      <AlertComponent />
       {/* NOTE: CONDTIONAL RENDERING FOR THE MODAL BACKGROUND & FORM */}
       {isModalActive ? (
         <ModalBackground
@@ -63,7 +68,7 @@ const FacultyResourcePage = () => {
           <div className="list__items">
             {resourceContxt.faculties &&
               (resourceContxt.faculties.length > 0
-                ? resourceContxt.faculties.map((faculty, i) => (
+                ? resourceContxt.faculties.map((faculty) => (
                     <div className="faculty_item" key={faculty.facultyId}>
                       <div className="edit">
                         <UilPen
@@ -75,7 +80,11 @@ const FacultyResourcePage = () => {
                         />
                       </div>
                       <h2>{faculty.facultyName}</h2>
-                      <div className="icon" style={{ background: 'none' }}>
+                      <div
+                        className="icon"
+                        style={{ background: 'none' }}
+                        onClick={onDeleteClick(faculty.facultyId)}
+                      >
                         <UilTimes
                           size="30"
                           color="#CA1414"

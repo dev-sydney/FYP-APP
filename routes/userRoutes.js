@@ -51,4 +51,11 @@ router
     userController.addNewProfessor
   );
 
+router
+  .route('/professors/:userId')
+  .delete(
+    authController.restrictTo('head_of_department', 'admin'),
+    userController.deleteUser
+  );
+
 module.exports = router;

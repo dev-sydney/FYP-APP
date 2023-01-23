@@ -78,7 +78,7 @@ exports.getCourses = catchAsyncErrors(async (req, res, next) => {
 
   //EDGE-CASE: IF THE DATA IS BEING QUERIED BY facultyId
   if (req.query.facultyId) {
-    queryStr = `SELECT * FROM Courses WHERE facultyId = ${req.query.facultyId}`;
+    queryStr = `SELECT * FROM Courses WHERE facultyId = ${req.query.facultyId} AND courseStatus=1`;
   }
   const [courses] = await pool.query(queryStr);
   // console.log(results[0]);

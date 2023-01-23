@@ -13,11 +13,11 @@ router
   .route('/')
   .post(courseController.createCourse)
   .get(courseController.getCourses);
-//READ & UPDATE
+//READ & UPDATE & DELETE
 router
   .route('/:courseId')
   .get(courseController.getSendCourse)
-  .patch(courseController.updateCourse);
+  .patch(courseController.updateCourse)
+  .delete(authController.restrictTo('admin'), courseController.deleteCourse);
 
-//DELETE
 module.exports = router;

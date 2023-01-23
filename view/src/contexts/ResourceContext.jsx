@@ -232,6 +232,36 @@ export const ResourceContextProvider = ({ children }) => {
       clearContextAlerts();
     }
   };
+
+  const deleteProfessor = async (userId) => {
+    try {
+      const res = await fetch(`/api/v1/users/professors/${userId}`, {
+        method: 'DELETE',
+      });
+      const result = await res.json();
+      if (res.status >= 400)
+        throw new Error(
+          result.message
+            ? result.message
+            : 'something went very wrong,please try again!'
+        );
+
+      if (res.status === 200) {
+        dispatch({
+          type: Types.DELETE_PROFESSOR,
+          payload: new AppAlert(result.message, 'success'),
+          userId,
+        });
+        clearContextAlerts();
+      }
+    } catch (err) {
+      dispatch({
+        type: Types.DELETE_PROFESSOR_ERROR,
+        payload: new AppAlert(err.message, 'error'),
+      });
+      clearContextAlerts();
+    }
+  };
   return (
     <resourceContext.Provider
       value={{
@@ -249,6 +279,7 @@ export const ResourceContextProvider = ({ children }) => {
         loadAllCourses,
         loadAllProfessors,
         loadLectureHall,
+        deleteProfessor,
       }}
     >
       {children}

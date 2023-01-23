@@ -43,7 +43,7 @@ router.patch(
 router
   .route('/professors/')
   .get(
-    authController.restrictTo('head_of_department'),
+    authController.restrictTo('head_of_department', 'admin'),
     userController.getAllProfessors
   )
   .post(

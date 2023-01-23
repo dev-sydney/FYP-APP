@@ -87,3 +87,22 @@ exports.getCourses = catchAsyncErrors(async (req, res, next) => {
     courses,
   });
 });
+
+exports.deleteCourse = catchAsyncErrors(async (req, res, next) => {
+  if (!req.params.courseId)
+    return next(new AppError('No course was selected', 404));
+
+  const [results] = await pool.query(
+    `UPDATE Courses SET courseStatus=0 WHERE courseId=?`,
+    [+req.params.courseId]
+  );
+
+  //EDGE-CASE: if no update happened (course doesn't exist)
+  if (results.affectedRows === 0)
+    return next(new AppError("course doesn't exist", 404));
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Deleted successfully',
+  });
+});

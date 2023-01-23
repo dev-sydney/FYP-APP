@@ -5,6 +5,7 @@ import resourceContext from '../contexts/ResourceContext';
 import ModalBackground from '../components/ModalBackground';
 import AddCourseForm from './../components/AddCourseForm';
 import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
+import AlertComponent from '../components/AlertComponent';
 
 import './../styles/resourceStyle.scss';
 
@@ -19,6 +20,9 @@ const CoursesResourcePage = () => {
     resourceContxt.loadAllFaculties();
   }, [stat]);
 
+  const onDeleteClick = (courseId) => () => {
+    resourceContxt.deleteCourse(courseId);
+  };
   /**
    *The Faculties Select-Option Input:
    *This "onChange" event handler loads all the courses belonging to the selected faculty
@@ -31,6 +35,7 @@ const CoursesResourcePage = () => {
 
   return (
     <div className="course_resource__container">
+      <AlertComponent />
       {/* NOTE: CONDTIONAL RENDERING FOR THE MODAL BACKGROUND & FORM */}
       {isModalActive ? (
         <ModalBackground
@@ -117,7 +122,10 @@ const CoursesResourcePage = () => {
                             }}
                           />
                         </div>
-                        <div className="icon">
+                        <div
+                          className="icon"
+                          onClick={onDeleteClick(course.courseId)}
+                        >
                           <UilTrashAlt
                             size="30"
                             color="#CA1414"

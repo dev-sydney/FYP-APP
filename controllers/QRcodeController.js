@@ -57,3 +57,23 @@ exports.getAllQRcodes = catchAsyncErrors(async (req, res, next) => {
     lectureHallQRcodes,
   });
 });
+
+exports.deleteQRCode = catchAsyncErrors(async (req, res, next) => {
+  //EDGE-CASE: If no lecture hall QR code was selected
+  if (!req.params.QRcodeId)
+    return next(new AppError('No lecture hall QR code selected', 404));
+
+  const [results] = await pool.query(
+    `UPDATE QRcodes SET lectureHallStatus=0 WHERE QRcodeId=?`,
+    [+req.params.QRcodeId]
+  );
+
+  //EDGE-CASE: if no update happened (lecture hall doesn't exist)
+  if (results.affectedRows === 0)
+    return next(new AppError("Lecture hall does't exist", 404));
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Deleted successfully',
+  });
+});

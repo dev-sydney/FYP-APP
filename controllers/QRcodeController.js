@@ -51,7 +51,9 @@ exports.generateQRcode = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.getAllQRcodes = catchAsyncErrors(async (req, res, next) => {
-  const [lectureHallQRcodes] = await pool.query(`SELECT * FROM QRcodes`);
+  const [lectureHallQRcodes] = await pool.query(
+    `SELECT * FROM QRcodes WHERE lectureHallStatus=1`
+  );
   res.status(200).json({
     status: 'success',
     lectureHallQRcodes,
@@ -70,7 +72,7 @@ exports.deleteQRCode = catchAsyncErrors(async (req, res, next) => {
 
   //EDGE-CASE: if no update happened (lecture hall doesn't exist)
   if (results.affectedRows === 0)
-    return next(new AppError("Lecture hall does't exist", 404));
+    return next(new AppError("Lecture hall doesn't exist", 404));
 
   res.status(200).json({
     status: 'success',

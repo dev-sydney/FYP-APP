@@ -5,6 +5,7 @@ import resourceContext from '../contexts/ResourceContext';
 import AddLectureRoomForm from './../components/AddLectureRoomForm';
 import ModalBackground from '../components/ModalBackground';
 import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
+import AlertComponent from '../components/AlertComponent';
 
 import './../styles/resourceStyle.scss';
 const stat = 1;
@@ -16,8 +17,13 @@ const LectureHallResource = () => {
   useEffect(() => {
     resourceContxt.loadLectureHall();
   }, [stat]);
+
+  const onDeleteClick = (QRcodeId) => () => {
+    resourceContxt.deleteLectureHallQRCode(QRcodeId);
+  };
   return (
     <div className="lectureHalls__container">
+      <AlertComponent />
       {isModalActive ? (
         <ModalBackground
           children={
@@ -93,7 +99,10 @@ const LectureHallResource = () => {
                             }}
                           />
                         </div>
-                        <div className="icon">
+                        <div
+                          className="icon"
+                          onClick={onDeleteClick(lectureHall.QRcodeId)}
+                        >
                           <UilTrashAlt
                             size="30"
                             color="#CA1414"

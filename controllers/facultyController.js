@@ -27,7 +27,9 @@ exports.createFaculty = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.getAllFaculties = catchAsyncErrors(async (req, res, next) => {
-  const [rows] = await pool.query('SELECT * FROM Faculties');
+  const [rows] = await pool.query(
+    'SELECT * FROM Faculties WHERE facultyStatus=1'
+  );
 
   res.status(200).json({
     status: 'success',

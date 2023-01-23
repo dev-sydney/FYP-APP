@@ -2,6 +2,11 @@ import * as Types from '../utils/types';
 
 const resourceReducer = (state, action) => {
   switch (action.type) {
+    case Types.CLEAR_RESOURCE_ALERT:
+      return {
+        ...state,
+        resourceContextAlert: null,
+      };
     case Types.SET_RESOURCE_LOADING:
       return {
         ...state,
@@ -100,6 +105,14 @@ const resourceReducer = (state, action) => {
         LectureHallQRcodes: null,
         isResourceLoading: null,
         resourceContextAlert: action.payload,
+      };
+    case Types.DELETE_PROFESSOR:
+      return {
+        ...state,
+        resourceContextAlert: action.payload,
+        professors: state.professors.filter(
+          (el) => el.userId !== action.userId
+        ),
       };
     default:
       return state;

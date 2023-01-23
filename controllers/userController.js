@@ -150,7 +150,7 @@ exports.addNewProfessor = catchAsyncErrors(async (req, res, next) => {
 
 exports.getAllProfessors = catchAsyncErrors(async (req, res, next) => {
   const [professors] = await pool.query(
-    `SELECT userId,surName,otherNames,photo,privilege from Users WHERE privilege in ('professor','head_of_department')`
+    `SELECT userId,surName,otherNames,photo,privilege from Users WHERE privilege in ('professor','head_of_department') AND userStatus=1`
   );
   res.status(200).json({
     status: 'success',

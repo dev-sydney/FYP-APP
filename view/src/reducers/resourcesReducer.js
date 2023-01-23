@@ -132,6 +132,30 @@ const resourceReducer = (state, action) => {
         ...state,
         resourceContextAlert: action.payload,
       };
+    case Types.DELETE_FACULTY:
+      return {
+        ...state,
+        resourceContextAlert: action.payload,
+        faculties: state.faculties.filter(
+          (el) => el.facultyId !== action.facultyId
+        ),
+      };
+    case Types.DELETE_FACULTY_ERROR:
+      return {
+        ...state,
+        resourceContextAlert: action.payload,
+      };
+    case Types.DELETE_COURSE:
+      return {
+        ...state,
+        resourceContextAlert: action.payload,
+        courses: state.courses.filter((el) => el.courseId !== action.courseId),
+      };
+    case Types.DELETE_COURSE_ERROR:
+      return {
+        ...state,
+        resourceContextAlert: action.payload,
+      };
     default:
       return state;
   }

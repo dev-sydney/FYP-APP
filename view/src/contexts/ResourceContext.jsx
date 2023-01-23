@@ -292,6 +292,66 @@ export const ResourceContextProvider = ({ children }) => {
       clearContextAlerts();
     }
   };
+  const deleteFaculty = async (facultyId) => {
+    try {
+      const res = await fetch(`/api/v1/faculties/${facultyId}`, {
+        method: 'DELETE',
+      });
+      const result = await res.json();
+
+      if (res.status >= 400)
+        throw new Error(
+          result.message
+            ? result.message
+            : 'something went very wrong, please try again!'
+        );
+
+      if (res.status === 200) {
+        dispatch({
+          type: Types.DELETE_FACULTY,
+          payload: new AppAlert(result.message, 'success'),
+          facultyId,
+        });
+        clearContextAlerts();
+      }
+    } catch (err) {
+      dispatch({
+        type: Types.DELETE_FACULTY_ERROR,
+        payload: new AppAlert(err.message, 'error'),
+      });
+      clearContextAlerts();
+    }
+  };
+  const deleteCourse = async (courseId) => {
+    try {
+      const res = await fetch(`/api/v1/courses/${courseId}`, {
+        method: 'DELETE',
+      });
+      const result = await res.json();
+
+      if (res.status >= 400)
+        throw new Error(
+          result.message
+            ? result.message
+            : 'something went very wrong, please try again!'
+        );
+
+      if (res.status === 200) {
+        dispatch({
+          type: Types.DELETE_COURSE,
+          payload: new AppAlert(result.message, 'success'),
+          courseId,
+        });
+        clearContextAlerts();
+      }
+    } catch (err) {
+      dispatch({
+        type: Types.DELETE_COURSE_ERROR,
+        payload: new AppAlert(err.message, 'error'),
+      });
+      clearContextAlerts();
+    }
+  };
   return (
     <resourceContext.Provider
       value={{
@@ -311,6 +371,8 @@ export const ResourceContextProvider = ({ children }) => {
         loadLectureHall,
         deleteProfessor,
         deleteLectureHallQRCode,
+        deleteFaculty,
+        deleteCourse,
       }}
     >
       {children}

@@ -37,7 +37,7 @@ const AddProfessorForm = ({ isModalActive, setIsModalActive }) => {
         <UilTimes color="#5F5E5E" size="30" />
       </div>
       <div className="illustration__container">
-        <img src={`/img/businessman-explaining-the-strategy.png`} />
+        <img src="/img/add-user.png" />
         <h1>Let's Get Started.</h1>
         <p>Fill out the details of the professor with this form below</p>
       </div>

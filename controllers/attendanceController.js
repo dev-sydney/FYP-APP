@@ -199,10 +199,10 @@ exports.getSemesterAttendanceScores = catchAsyncErrors(
     // console.log({ courseId });
 
     const [results] = await pool.query(
-      `SELECT  0.5 / COUNT(s_attendances.signedAttendanceId )  AS Total, students.indexNumber,students.surName,students.otherNames,students.photo
+      `SELECT  0.5 * COUNT(s_attendances.signedAttendanceId )  AS Total, students.indexNumber,students.surName,students.otherNames,students.photo
       FROM SignedAttendances AS s_attendances INNER JOIN Users AS students
       ON s_attendances.userId = students.userId
-      WHERE courseId = ? AND s_attendances.createdAt >= ? 
+      WHERE s_attendances.courseId = ? AND s_attendances.createdAt >= ? 
       AND s_attendances.createdAt <= ?
       GROUP BY students.indexNumber`,
       [+courseId, startDate, endDate]

@@ -328,3 +328,18 @@ exports.getLecturesAttendedInformation = catchAsyncErrors(async (req, res) => {
     results,
   });
 });
+
+exports.getLecturesAttendedForACourse = catchAsyncErrors(async (req, res) => {
+  if (!req.params.courseId)
+    return next(new AppError('No course was selected', 400));
+
+  const [results] = await pool.query(
+    `SELECT signedAttendanceId,createdAt FROM
+  SignedAttendances WHERE userId=? AND courseId=?`,
+    [req.user.userId, +req.params.courseId]
+  );
+  res.status(200).json({
+    status: 'success',
+    results,
+  });
+});

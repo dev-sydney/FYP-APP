@@ -150,7 +150,8 @@ exports.addNewProfessor = catchAsyncErrors(async (req, res, next) => {
 
 exports.getAllProfessors = catchAsyncErrors(async (req, res, next) => {
   const [professors] = await pool.query(
-    `SELECT userId,surName,otherNames,photo,privilege from Users WHERE privilege in ('professor','head_of_department') AND userStatus=1`
+    `SELECT userId,surName,otherNames,photo,privilege from Users WHERE privilege in ('professor','head_of_department') AND userStatus=1 AND departmentId=?`,
+    [req.user.departmentId]
   );
   res.status(200).json({
     status: 'success',
@@ -174,5 +175,28 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     message: 'Deleted successfully',
+  });
+});
+
+exports.assignCourseToProfessor = catchAsyncErrors(async (req, res, next) => {
+  if (!req.body.courseId || req.body.courseId === '')
+    return next(new AppError('No course was selected'), 400);
+
+  if (!req.query.userIds || req.query.userIds === '')
+    return next(new AppError('No professor was selected', 400));
+
+  const [result] = await pool.query(
+    `UPDATE Users SET courseId=? WHERE userId IN (${req.query.userIds})`,
+    [+req.body.courseId]
+  );
+
+  //EDGE-CASE: at this point, there was a course & lecturers selected to be updated,
+  //But nothing chnaged after the update
+  if (result.changedRows === 0)
+    return next(new AppError('Courses Already Assigned!', 400));
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Courses Assigned successfully!',
   });
 });

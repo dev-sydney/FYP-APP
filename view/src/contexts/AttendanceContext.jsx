@@ -40,47 +40,23 @@ export const AttendanceContextProvider = ({ children }) => {
   };
 
   /**
-   * Creates a timestamp string in the format (YYYY-MM-DD hh:mm:ss)
-   * @param {Object} DateObject A Date Object
-   * @returns {String} TIMESTAMP string
-   */
-  const getDateTimeString = (DateObject) => {
-    return DateObject.toISOString().split('T').join(' ').replace('Z', '');
-  };
-
-  /**
    * This function is responsible for making requests to the API route that will start
    * the ongoing attendance
-   * @param {Object} formData
+   * @param {Number} duration
    * @param {String} QRcodeData
    */
-  const startOngoingAttendance = async (formData, QRcodeData) => {
+  const startOngoingAttendance = async (duration, QRcodeData) => {
     try {
       dispatch({ type: Types.SET_ATTENDANCE_LOADING });
-      //TODO: Create the start and end time AND adding it to the form data
-      let currentTime = new Date(
-        Date.now() + (+formData.duration + 1) * 60 * 1000
-      ); //Add an extra min cos it might take a while
-
-      formData.createdAt = getDateTimeString(new Date(Date.now()));
-      formData.endsAt = getDateTimeString(currentTime);
-
-      let queryStrings = QRcodeData.split(' '); //get the query strings for the URL
-
-      //TODO: MODIFY THE FORM DATA TO BE SENT TO THE API
-      delete formData['duration']; //deleting the unwanted fields
-      delete formData['facultyId'];
-      formData.courseId = +formData.courseId; //make the neccesary fields have numeric values
-
-      // //TODO:
+      let QRcodeIdLectureRoom = QRcodeData.split(' '); //--> ['QRcodeId=?','lectureRoom=?']
       const res = await fetch(
-        `/api/v1/attendances/ongoing/?${queryStrings[0]}&${queryStrings[1]}`,
+        `/api/v1/attendances/ongoing/?${QRcodeIdLectureRoom[0]}&${QRcodeIdLectureRoom[1]}`,
         {
           method: 'POST',
           headers: {
             'Content-type': 'application/json',
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({ duration }),
         }
       );
       const results = await res.json();

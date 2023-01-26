@@ -311,3 +311,20 @@ exports.createSignedAttendanceManually = catchAsyncErrors(
     });
   }
 );
+
+exports.getLecturesAttendedInformation = catchAsyncErrors(async (req, res) => {
+  const { startDate, endDate } = req.body;
+  // console.log(req);
+  const [results] = await pool.query(
+    `SELECT 0.5 *COUNT(SignedAttendances.signedAttendanceId) AS Total, COUNT(SignedAttendances.signedAttendanceId)AS TimesAttended,SignedAttendances.courseId AS courseId,Courses.courseName
+  FROM SignedAttendances INNER JOIN Courses ON SignedAttendances.courseId = Courses.courseId WHERE SignedAttendances.createdAt>= ?
+  AND SignedAttendances.userId=? AND SignedAttendances.createdAt  <= ?
+  GROUP BY SignedAttendances.courseId`,
+    [startDate, req.user.userId, endDate]
+  );
+  // console.log(results);
+  res.status(200).json({
+    status: 'success',
+    results,
+  });
+});

@@ -58,7 +58,7 @@ router
 
 //NOTE: THIS ROUTE GETS THE SCORES OF STUDENTS IN A SEMESTER
 router
-  .route('/semester-attendance-scores/:courseId')
+  .route('/semester-attendance-scores/')
   .post(
     authController.restrictTo('head_of_department', 'professor'),
     attendanceController.getSemesterAttendanceScores

@@ -219,7 +219,6 @@ exports.getSignedAttendances = catchAsyncErrors(async (req, res, next) => {
 
 exports.getSemesterAttendanceScores = catchAsyncErrors(
   async (req, res, next) => {
-    const { courseId } = req.params;
     const { startDate, endDate } = req.body;
     // console.log({ courseId });
 
@@ -230,7 +229,7 @@ exports.getSemesterAttendanceScores = catchAsyncErrors(
       WHERE s_attendances.courseId = ? AND s_attendances.createdAt >= ? 
       AND s_attendances.createdAt <= ?
       GROUP BY students.indexNumber`,
-      [+courseId, startDate, endDate]
+      [+req.user.courseId, startDate, endDate]
     );
 
     res.status(200).json({

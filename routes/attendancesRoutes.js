@@ -11,7 +11,7 @@ router.use(authController.authenticateUser);
 router
   .route('/ongoing/')
   .post(
-    authController.restrictTo('professor'),
+    authController.restrictTo('professor', 'head_of_department'),
     attendanceController.createOngoingAttendance
   )
   .get(

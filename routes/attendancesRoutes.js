@@ -56,12 +56,20 @@ router
   .route('/signed-attendances/:ongoingAttendanceId')
   .get(attendanceController.getSignedAttendances);
 
-//NOTE: THIS ROUTE GETS THE SCORES OF STUDENTS IN A SEMESTER
+//NOTE: THIS ROUTE GETS THE SCORES OF ALL STUDENTS IN A SEMESTER
 router
   .route('/semester-attendance-scores/')
   .post(
     authController.restrictTo('head_of_department', 'professor'),
     attendanceController.getSemesterAttendanceScores
+  );
+
+//NOTE: This route gets a summary of all the attendances signed by a student in a semester
+router
+  .route('/lecturesAttended')
+  .post(
+    authController.restrictTo('student'),
+    attendanceController.getLecturesAttendedInformation
   );
 
 router

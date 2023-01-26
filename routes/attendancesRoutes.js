@@ -26,31 +26,6 @@ router
     attendanceController.endOngoingAttendance
   );
 
-//NOTE: THIS ROUTE IS TO CHECK THE PROFESSOR USING A PARTICULAR QRCODE BEFORE GETTING THEIR RANDOM SECURITY QUESTION
-router
-  .route('/getCurrentProfessor/:QRcodeId')
-  .get(
-    authController.restrictTo('student'),
-    attendanceController.getCurrentProfessor
-  );
-
-//TODO: IMPLEMENT RATE-LIMITING ON THIS ROUTE
-//NOTE: ROUTE FOR VALIDATING SOON TO BE SIGNED ATTENDANCE BY SENDING A SECURITY QUESTION
-router
-  .route('/validate-attendance/:QRcodeId')
-  .get(
-    authController.restrictTo('student'),
-    attendanceController.checkSignedAttendanceValidility
-  );
-
-//NOTE:ROUTE FOR CREATING A SIGNED ATTENDANCE AFTER VALIDATION
-router
-  .route('/sign-attendance/:ongoingAttendanceId/:courseId/:randomIndex')
-  .post(
-    authController.restrictTo('student'),
-    attendanceController.createSignedAttendance
-  );
-
 //NOTE: THIS IS THE ROUTE FOR GETTING ALL THE SIGNED ATTENDANCES FOR A SESSION
 router
   .route('/signed-attendances/:ongoingAttendanceId')
@@ -64,18 +39,39 @@ router
     attendanceController.getSemesterAttendanceScores
   );
 
-//NOTE: This route gets a summary of all the attendances signed by a student in a semester
-router
-  .route('/lecturesAttended')
-  .post(
-    authController.restrictTo('student'),
-    attendanceController.getLecturesAttendedInformation
-  );
-
 router
   .route('/manual-attendance-sign/:userId/:courseId/:ongoingAttendanceId')
   .post(
-    authController.restrictTo('professor'),
+    authController.restrictTo('professor', 'heaad_of_department'),
     attendanceController.createSignedAttendanceManually
   );
+
+//NOTE: THE FOLLOWING ROUTES ARE FOR USERS WITH THE PRIVILEGE 'student'
+router.use(authController.restrictTo('student'));
+
+//NOTE: THIS ROUTE IS TO CHECK THE PROFESSOR USING A PARTICULAR QRCODE BEFORE GETTING THEIR RANDOM SECURITY QUESTION
+router
+  .route('/getCurrentProfessor/:QRcodeId')
+  .get(attendanceController.getCurrentProfessor);
+
+//TODO: IMPLEMENT RATE-LIMITING ON THIS ROUTE
+//NOTE: ROUTE FOR VALIDATING SOON TO BE SIGNED ATTENDANCE BY SENDING A SECURITY QUESTION
+router
+  .route('/validate-attendance/:QRcodeId')
+  .get(attendanceController.checkSignedAttendanceValidility);
+
+//NOTE: This route gets a summary of all the attendances signed by a student in a semester
+router
+  .route('/lecturesAttended')
+  .post(attendanceController.getLecturesAttendedInformation);
+
+router
+  .route('/lecturesAttended/:courseId')
+  .get(attendanceController.getLecturesAttendedForACourse);
+
+//NOTE:ROUTE FOR CREATING A SIGNED ATTENDANCE AFTER VALIDATION
+router
+  .route('/sign-attendance/:ongoingAttendanceId/:courseId/:randomIndex')
+  .post(attendanceController.createSignedAttendance);
+
 module.exports = router;

@@ -58,10 +58,10 @@ const AttendanceForm = ({ QRcodeData, setQRcodeData, setDidProfessorScan }) => {
               }}
               className="control__icon"
             >
-              <UilMinus size="30" color="#000000" />
+              <UilMinus size="30" color="#9e9e9e" />
             </div>
 
-            <div style={{ margin: '0 0.4em' }}>
+            <div style={{ margin: '0 0.7em' }}>
               <b className="duration__value">{duration}</b>
               <p>minutes</p>
             </div>
@@ -72,7 +72,7 @@ const AttendanceForm = ({ QRcodeData, setQRcodeData, setDidProfessorScan }) => {
                 setDuration(duration >= 20 ? duration : duration + 5);
               }}
             >
-              <UilPlus size="30" color="#000000" />
+              <UilPlus size="30" color="#9e9e9e" />
             </div>
           </div>
         </div>

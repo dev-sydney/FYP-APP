@@ -105,7 +105,21 @@
   padding-bottom: 2em;
   .attendance__form {
     // outline: 2px solid lightgreen;
-    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+    .duration__controls {
+      // outline: 1px solid red;
+      display: flex;
+      .control__icon {
+        padding: 0.7em;
+        border-radius: 15px;
+        background-color: #b3b3b32a;
+      }
+      .duration__value {
+        font-size: 2em;
+      }
+    }
     .form__input {
       padding: 1rem 1.7rem;
       text-align: left;

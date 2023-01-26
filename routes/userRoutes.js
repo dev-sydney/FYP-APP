@@ -49,6 +49,10 @@ router
   .post(
     authController.restrictTo('admin', 'head_of_department'),
     userController.addNewProfessor
+  )
+  .patch(
+    authController.restrictTo('head_of_department'),
+    userController.assignCourseToProfessor
   );
 
 router

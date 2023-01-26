@@ -5,13 +5,39 @@ const pool = require('./../Model/database');
 const AppError = require('../utils/AppError');
 
 exports.createOngoingAttendance = catchAsyncErrors(async (req, res, next) => {
-  const { QRcodeId, lectureRoom } = req.query;
-  const cloneObject = { ...req.body };
+  if (!req.query.courseId || req.query.courseId === '')
+    return next(new AppError('No course was selected', 400));
+  if (!req.query.QRcodeId || req.query.QRcodeId === '')
+    return next(new AppError('No QR code was scanned', 400));
+  if (!req.query.lectureRoom || req.query.lectureRoom === '')
+    return next(new AppError('No lecture hall', 400));
 
-  //Make the professorId from the req.user
+  //NOTE: The only thing that should be in the body is the duration & maybe the lecture hall
+  const { QRcodeId } = req.query;
+
+  let { duration } = req.body;
+  duration = +duration;
+
+  const cloneObject = { ...req.body };
+  //TODO: Create the ongoing attendance start & ends Times
+  cloneObject.createdAt = new Date()
+    .toISOString()
+    .split('T')
+    .join(' ')
+    .replace('Z', '');
+
+  cloneObject.endsAt = new Date(Date.now() + duration * 60 * 1000)
+    .toISOString()
+    .split('T')
+    .join(' ')
+    .replace('Z', '');
+  delete cloneObject['duration'];
+
+  //Make the userId from the req.user
   cloneObject.userId = req.user.userId;
-  cloneObject.QRcodeId = +QRcodeId;
-  cloneObject.lectureRoom = lectureRoom;
+  cloneObject.QRcodeId = +req.query.QRcodeId;
+  cloneObject.lectureRoom = req.query.lectureRoom;
+  cloneObject.courseId = +req.query.courseId;
   // console.log(cloneObject);
 
   let columns = Object.keys(cloneObject).join(',');
@@ -20,9 +46,8 @@ exports.createOngoingAttendance = catchAsyncErrors(async (req, res, next) => {
     .map((val) => '?')
     .join(',');
 
-  // //TODO:
+  //TODO:
   //1. Create an ongoing attendance
-
   const [result] = await pool.query(
     `INSERT INTO OngoingAttendances (${columns}) VALUES (${questionMarkPlaceholders})`,
     [...Object.values(cloneObject)]

@@ -5,8 +5,6 @@ const pool = require('./../Model/database');
 const AppError = require('../utils/AppError');
 
 exports.createOngoingAttendance = catchAsyncErrors(async (req, res, next) => {
-  if (!req.query.courseId || req.query.courseId === '')
-    return next(new AppError('No course was selected', 400));
   if (!req.query.QRcodeId || req.query.QRcodeId === '')
     return next(new AppError('No QR code was scanned', 400));
   if (!req.query.lectureRoom || req.query.lectureRoom === '')
@@ -37,7 +35,7 @@ exports.createOngoingAttendance = catchAsyncErrors(async (req, res, next) => {
   cloneObject.userId = req.user.userId;
   cloneObject.QRcodeId = +req.query.QRcodeId;
   cloneObject.lectureRoom = req.query.lectureRoom;
-  cloneObject.courseId = +req.query.courseId;
+  cloneObject.courseId = +req.user.courseId;
   // console.log(cloneObject);
 
   let columns = Object.keys(cloneObject).join(',');

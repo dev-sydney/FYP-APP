@@ -13,9 +13,11 @@ const getCourse = async (entityId, tableName, keyName, next) => {
 
   return rows[0];
 };
+
 exports.createCourse = catchAsyncErrors(async (req, res, next) => {
   let columns;
   let cloneObject = { ...req.body };
+  cloneObject.departmentId = req.user.departmentId;
 
   columns = Object.keys(cloneObject).join(',');
 
@@ -77,9 +79,8 @@ exports.getCourses = catchAsyncErrors(async (req, res, next) => {
   let queryStr = `SELECT * FROM Courses`;
 
   //EDGE-CASE: IF THE DATA IS BEING QUERIED BY facultyId
-  if (req.query.facultyId) {
-    queryStr = `SELECT * FROM Courses WHERE facultyId = ${req.query.facultyId} AND courseStatus=1`;
-  }
+  queryStr = `SELECT * FROM Courses WHERE departmentId = ${req.user.departmentId} AND courseStatus=1`;
+
   const [courses] = await pool.query(queryStr);
   // console.log(results[0]);
   res.status(200).json({

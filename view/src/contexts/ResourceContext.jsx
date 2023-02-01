@@ -72,7 +72,6 @@ export const ResourceContextProvider = ({ children }) => {
     try {
       dispatch({ type: Types.SET_RESOURCE_LOADING });
 
-      formData.facultyId = +formData.facultyId;
       const res = await fetch(`/api/v1/courses/`, {
         method: 'POST',
         headers: {
@@ -157,13 +156,13 @@ export const ResourceContextProvider = ({ children }) => {
     }
   };
 
-  const loadAllCourses = async (facultyId) => {
+  const loadAllCourses = async () => {
     try {
       dispatch({
         type: Types.SET_RESOURCE_LOADING,
       });
 
-      const res = await fetch(`/api/v1/courses?facultyId=${facultyId}`);
+      const res = await fetch(`/api/v1/courses/`);
       if (res.status === 200) {
         const results = await res.json();
         dispatch({

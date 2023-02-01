@@ -372,12 +372,12 @@ export const AttendanceContextProvider = ({ children }) => {
     }
   };
 
-  const loadAttendanceScores = async (formData, courseId) => {
+  const loadAttendanceScores = async (formData) => {
     try {
       formData.startDate = formData.startDate.replace('T', ' ');
       formData.endDate = formData.endDate.replace('T', ' ');
       const res = await fetch(
-        `/api/v1/attendances/semester-attendance-scores/${courseId}`,
+        `/api/v1/attendances/semester-attendance-scores/`,
         {
           method: 'POST',
           headers: {

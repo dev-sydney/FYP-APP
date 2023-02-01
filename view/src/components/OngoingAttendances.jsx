@@ -41,7 +41,7 @@ const OngoingAttendances = () => {
                 </span>
               </div>
 
-              <p className="flex__2">
+              <p className="flex__2" style={{ color: '#76189f' }}>
                 {new Date(attendance.createdAt).toDateString()}
               </p>
 

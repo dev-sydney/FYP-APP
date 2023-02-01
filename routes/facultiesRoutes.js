@@ -10,7 +10,7 @@ router
   .route('/')
   .post(authController.restrictTo('admin'), facultyController.createFaculty)
   .get(facultyController.getAllFaculties);
-
+router.route('/departments').get(facultyController.getDepartments);
 //READ
 
 //UPDATE

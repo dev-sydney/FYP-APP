@@ -104,7 +104,7 @@ export const AuthContextProvider = ({ children }) => {
       });
       //TODO: Convert the fields that are supossed to be numeric to numbers
       formData.indexNumber = +formData.indexNumber;
-      formData.facultyId = +formData.facultyId;
+      formData.departmentId = +formData.departmentId;
 
       const res = await fetch('/api/v1/users/signup', {
         method: 'POST',

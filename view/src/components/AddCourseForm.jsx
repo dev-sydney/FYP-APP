@@ -5,17 +5,12 @@ import resourceContext from '../contexts/ResourceContext';
 
 import './../styles/resourceFormStyle.scss';
 
-const stat = 1;
 const AddCourseForm = ({ isModalActive, setIsModalActive }) => {
   const resourceContxt = useContext(resourceContext);
 
-  useEffect(() => {
-    resourceContxt.loadAllFaculties();
-  }, [stat]);
   const [formData, setFormData] = useState({
     courseName: '',
     courseCode: '',
-    facultyId: 0,
   });
 
   const onChange = (e) => {
@@ -57,23 +52,6 @@ const AddCourseForm = ({ isModalActive, setIsModalActive }) => {
           value={formData.courseName}
           onChange={onChange}
         />
-      </div>
-
-      <div className="form__group">
-        <label className="form__label">Faculty: </label>
-        <select name={'facultyId'} onChange={onChange} className="form__input">
-          <option>Pick a faculty</option>
-          {/*EDGE-CASE: IF THERES NO FACULTIES LOADED YET RENDER "LOADING..."  */}
-          {!resourceContxt.faculties ? (
-            <option> loading... </option>
-          ) : (
-            resourceContxt.faculties.map((faculty) => (
-              <option value={faculty.facultyId} key={faculty.facultyId}>
-                {faculty.facultyName}
-              </option>
-            ))
-          )}
-        </select>
       </div>
 
       <div className="form__group">

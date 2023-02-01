@@ -156,6 +156,11 @@ const resourceReducer = (state, action) => {
         ...state,
         resourceContextAlert: action.payload,
       };
+    case Types.LOAD_DEPARTMENTS:
+      return {
+        ...state,
+        departments: action.payload,
+      };
     default:
       return state;
   }

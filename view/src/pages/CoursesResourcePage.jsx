@@ -17,20 +17,11 @@ const CoursesResourcePage = () => {
   const [isModalActive, setIsModalActive] = useState(false);
 
   useEffect(() => {
-    resourceContxt.loadAllFaculties();
+    resourceContxt.loadAllCourses();
   }, [stat]);
 
   const onDeleteClick = (courseId) => () => {
     resourceContxt.deleteCourse(courseId);
-  };
-  /**
-   *The Faculties Select-Option Input:
-   *This "onChange" event handler loads all the courses belonging to the selected faculty
-   * @param {Object} e The event Object
-   */
-  const onFacultySelectChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    resourceContxt.loadAllCourses(e.target.value);
   };
 
   return (
@@ -70,27 +61,6 @@ const CoursesResourcePage = () => {
           <br />
           Courses
         </h1>
-        <form className="courses_control__form">
-          <select
-            id="faculty"
-            name="facultyId"
-            required
-            onChange={onFacultySelectChange}
-            className={`form__input`}
-          >
-            <option>Faculty</option>
-            {/*EDGE-CASE: IF THERES NO FACULTIES LOADED YET RENDER "LOADING..."  */}
-            {!resourceContxt.faculties ? (
-              <option> loading... </option>
-            ) : (
-              resourceContxt.faculties.map((faculty) => (
-                <option value={faculty.facultyId} key={faculty.facultyId}>
-                  {faculty.facultyName}
-                </option>
-              ))
-            )}
-          </select>
-        </form>
       </section>
 
       <section className="lists__section">

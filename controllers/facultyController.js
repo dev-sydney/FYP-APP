@@ -55,3 +55,12 @@ exports.deleteFaculty = catchAsyncErrors(async (req, res, next) => {
     message: 'Deleted Successfully',
   });
 });
+
+exports.getDepartments = catchAsyncErrors(async (req, res, next) => {
+  const [departments] = await pool.query(
+    `SELECT departmentId, departmentName FROM Departments WHERE departmentStatus=1`
+  );
+  res.status(200).json({
+    departments,
+  });
+});

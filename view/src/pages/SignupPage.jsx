@@ -15,7 +15,7 @@ const SignupPage = () => {
   const authContxt = useContext(authContext);
   const resourceContxt = useContext(resourceContext);
   useEffect(() => {
-    resourceContxt.loadAllFaculties();
+    resourceContxt.loadDepartments();
     authContxt.setNavBarVisibilty(false);
   }, [stat]);
   const [formData, setFormData] = useState({
@@ -24,7 +24,7 @@ const SignupPage = () => {
     userPassword: '',
     passwordConfirm: '',
     emailAddress: '',
-    facultyId: 0,
+    departmentId: 0,
     indexNumber: 0,
   });
   const [allFieldsComplete, setAllFieldsComplete] = useState(false);
@@ -48,19 +48,22 @@ const SignupPage = () => {
       <h1 className="logo">LOGO</h1>
 
       <form className="signup__form">
-        {/* -------FACULTY SELECT ------- */}
+        {/* -------DEPARTMENTS SELECT ------- */}
         <div
           className={`form__group--signup ${!showSecondStep ? 'hide' : 'show'}`}
         >
           <select name="facultyId" onChange={onChange} required>
-            <option>Faculty </option>
+            <option>Department</option>
             {/*EDGE-CASE: IF THERES NO FACULTIES LOADED YET RENDER "LOADING..."  */}
-            {!resourceContxt.faculties ? (
+            {!resourceContxt.departments ? (
               <option> loading... </option>
             ) : (
-              resourceContxt.faculties.map((faculty) => (
-                <option value={faculty.facultyId} key={faculty.facultyId}>
-                  {faculty.facultyName}
+              resourceContxt.departments.map((department) => (
+                <option
+                  value={department.departmentId}
+                  key={department.departmentId}
+                >
+                  {department.departmentName}
                 </option>
               ))
             )}

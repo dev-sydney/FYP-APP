@@ -22,7 +22,6 @@ const stat = 1;
  * @returns
  */
 const AttendanceScoresPage = () => {
-  const resourceContxt = useContext(resourceContext);
   const attendanceContxt = useContext(attendanceContext);
   const authContxt = useContext(authContext);
 
@@ -39,7 +38,6 @@ const AttendanceScoresPage = () => {
       !['professor', 'head_of_department'].includes(authContxt.user.privilege)
     )
       navigateTo('/');
-    resourceContxt.loadAllFaculties(navigateTo);
   }, [stat]);
 
   /* -------THE SELECT OPTIONS ONCHANGE EVENT HANDLERS------- */
@@ -62,38 +60,43 @@ const AttendanceScoresPage = () => {
       ) : (
         ''
       )}
-      <div
-        className="form__icon"
-        style={{ textAlign: 'right', paddingRight: '.4em' }}
-      >
-        <span
-          onClick={() => {
-            setIsModalActive(true);
-          }}
-        >
-          <UilFileInfoAlt color="#1479D2" size="30" />
-        </span>
-      </div>
-      <h1
-        style={{ textAlign: 'left', padding: '0 .4em', marginBottom: '.5em' }}
-      >
-        Get Attendance Scores, <br /> For The Semester
-      </h1>
 
-      {attendanceContxt.attendanceScores &&
-        (attendanceContxt.attendanceScores.length > 0 ? (
-          <div className="save__container">
-            <button
-              className="save__btn"
-              onClick={onDownloadBtnClick}
-              style={{ background: '#14D24C' }}
-            >
-              <UilImport color="#FFFFFF" size="25" />
-            </button>
-          </div>
-        ) : (
-          ''
-        ))}
+      <section className="heading_btn__section">
+        <div className="form__icon">
+          <UilFileInfoAlt
+            color="#8E18B9"
+            size="45"
+            style={{
+              padding: '.5em',
+              borderRadius: '50%',
+              background: '#8e18b930',
+            }}
+            onClick={() => {
+              setIsModalActive(true);
+            }}
+          />
+        </div>
+
+        <h1
+          style={{ textAlign: 'left', padding: '0 .4em', marginBottom: '.5em' }}
+        >
+          Get Attendance Scores, <br /> For The Semester
+        </h1>
+        {attendanceContxt.attendanceScores &&
+          (attendanceContxt.attendanceScores.length > 0 ? (
+            <div className="save__container">
+              <button
+                className="save__btn"
+                onClick={onDownloadBtnClick}
+                style={{ background: '#14D24C' }}
+              >
+                <UilImport color="#FFFFFF" size="25" />
+              </button>
+            </div>
+          ) : (
+            ''
+          ))}
+      </section>
       {/* ---- CONDITIONAL RENDERING FOR THE ATTENDACNCE SCORES TABLE ---- */}
       {attendanceContxt.attendanceScores &&
         (attendanceContxt.attendanceScores.length === 0 ? (
@@ -103,8 +106,8 @@ const AttendanceScoresPage = () => {
             <thead>
               <tr>
                 <th>#</th>
-                <th>STUDENT</th>
-                <th>INDEX</th>
+                <th style={{ textAlign: 'left' }}>STUDENT</th>
+                <th>ID</th>
                 <th>SCORE</th>
               </tr>
             </thead>

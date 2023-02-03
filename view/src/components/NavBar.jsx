@@ -26,6 +26,17 @@ const NavBar = () => {
       <NavLink to="/">
         <UilEstate size="35" color="#1D2021" />
       </NavLink>
+
+      {/* NOTE: CONDTIONAL RENDERING FOR THE STUDENTS ATTENDED LECTURES */}
+      {authContxt.user &&
+        (['student'].includes(authContxt.user.privilege) ? (
+          <NavLink to="/attendedLectures">
+            <UilHistoryAlt size="35" color="#1D2021" />
+          </NavLink>
+        ) : (
+          ''
+        ))}
+
       {/* NOTE: CONDTIONAL RENDERING FOT THE ONGOING ATTENDANCES LINK */}
       {authContxt.user &&
         (['professor', 'head_of_department'].includes(

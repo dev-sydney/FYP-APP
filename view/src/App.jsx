@@ -5,6 +5,7 @@ import { AuthContextProvider } from './contexts/AuthContext';
 import { AttendanceContextProvider } from './contexts/AttendanceContext';
 import { QrCodeContextProvider } from './contexts/QRCodeContext';
 import { ResourceContextProvider } from './contexts/ResourceContext';
+
 /* ---------------PAGES------------------- */
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
@@ -21,6 +22,7 @@ import FacultyResourcePage from './pages/FacultyResourcePage';
 import CollectUserSecurityQnAPage from './pages/CollectUserSecurityQnAPage';
 import ForgetPasswordPage from './pages/ForgetPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import AttendedLecturesPage from './pages/AttendedLecturesPage';
 
 import Empty from './pages/Empty';
 import NavBar from './components/NavBar';
@@ -80,6 +82,10 @@ function App() {
                   <Route
                     path="/reset-password/:token"
                     element={<ResetPasswordPage />}
+                  />
+                  <Route
+                    path="/attendedLectures"
+                    element={<AttendedLecturesPage />}
                   />
                 </Routes>
                 <NavBar />

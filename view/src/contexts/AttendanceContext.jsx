@@ -20,6 +20,7 @@ export const AttendanceContextProvider = ({ children }) => {
     attendanceScores: null,
     QRcodeStatus: null,
     isStudentLoading: null,
+    attendedLectures: null,
   };
 
   const [state, dispatch] = useReducer(attendanceReducer, initialState);
@@ -404,6 +405,39 @@ export const AttendanceContextProvider = ({ children }) => {
       clearContextAlerts();
     }
   };
+
+  const loadAttendedLectures = async (formData) => {
+    try {
+      dispatch({
+        type: Types.SET_ATTENDANCE_LOADING,
+      });
+
+      const res = await fetch(`/api/v1/attendances/lecturesAttended`, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const result = await res.json();
+
+      if (res.status >= 400) throw new Error(result.message);
+
+      if (res.status === 200) {
+        dispatch({
+          type: Types.LOAD_ATTENDED_LECTURES,
+          payload: result.attendedLectures,
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: Types.LOAD_ATTENDED_LECTURES_ERROR,
+        payload: new AppAlert(err.message, 'error'),
+      });
+      clearContextAlerts();
+    }
+  };
+
   const clearRandomSecurityQuestion = () => {
     dispatch({ type: Types.CLEAR_RANDOM_SECURITY_QUESTION });
   };
@@ -421,6 +455,7 @@ export const AttendanceContextProvider = ({ children }) => {
         attendanceScores: state.attendanceScores,
         QRcodeStatus: state.QRcodeStatus,
         isStudentLoading: state.isStudentLoading,
+        attendedLectures: state.attendedLectures,
         startOngoingAttendance,
         getQRcodeDetails,
         getRandomSecurityQuestion,
@@ -433,6 +468,7 @@ export const AttendanceContextProvider = ({ children }) => {
         eraseOngoingAttendance,
         loadAttendanceScores,
         clearRandomSecurityQuestion,
+        loadAttendedLectures,
       }}
     >
       {children}

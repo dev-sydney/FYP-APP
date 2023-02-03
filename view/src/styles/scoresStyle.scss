@@ -1,12 +1,12 @@
 @import 'main';
 .attendance_scores__container {
   @include page-container;
-  background-color: #eeeeee90;
+  // background-color: #eeeeee90;
   min-height: inherit;
   .save__container {
     // outline: 1px solid blue;
     text-align: right;
-    padding: 0 0.5em;
+    // padding: 0 0.5em;
     margin: 0.9em 0;
     .save__btn {
       width: fit-content;
@@ -20,20 +20,15 @@
   }
   .form__icon {
     // outline: 1px solid gray;
-    height: fit-content;
-    // background-color: rgba(128, 128, 128, 0.174);
-    background-color: #1479d22f;
-    width: fit-content;
-    height: fit-content;
-    border-radius: 50%;
-    padding: 9px 10px;
-    margin-left: auto;
-
-    // span {
-    //   // height: 3em;
-    //   // width: 3em;
-    //   border-radius: 50%;
-    // }
+    // height: fit-content;
+    // // background-color: rgba(128, 128, 128, 0.174);
+    // background-color: #1479d22f;
+    // width: fit-content;
+    // height: fit-content;
+    // border-radius: 50%;
+    // padding: 9px 10px;
+    // margin-left: auto;
+    text-align: right;
   }
   .control__form {
     // outline: 2px solid orange;

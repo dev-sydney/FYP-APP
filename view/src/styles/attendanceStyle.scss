@@ -144,3 +144,96 @@
     }
   }
 }
+.attendedLectures__container {
+  @include page-container;
+  min-height: inherit;
+  // background-color: antiquewhite;
+  section {
+    padding: 0.4em 1em;
+  }
+  .heading_section {
+    h1 {
+      text-align: left;
+      font-size: 1.5em;
+    }
+  }
+  .lists_section {
+    // .lists__items {
+    //   padding: 0.5em 0.7em;
+    //   margin: 0.5em 0;
+    // }
+    .attended_course {
+      // outline: 1px solid blue;
+      outline: 1px solid gray;
+      border-radius: 20px;
+      padding: 0.4em 0.7em;
+      margin: 0.5em 0;
+      .course_title {
+        text-align: left;
+        display: flex;
+        margin-top: 0.4em;
+        h3 {
+          // margin-top: 0.4em;
+          margin-top: 1.7%;
+          margin-left: 0.4em;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+      .lectures_scores {
+        display: flex;
+        // outline: 2px solid purple;
+        margin-top: 1em;
+        margin-bottom: 1.2em;
+        .lecture_num,
+        .score_num {
+          // outline: 2px solid green;
+          text-align: left;
+          p {
+            margin: 0;
+          }
+        }
+        .score_num {
+          margin-left: 1em;
+        }
+        b {
+          font-size: 2em;
+        }
+        .course_code {
+          height: fit-content;
+          width: fit-content;
+          padding: 0.4em 0.5em;
+          background-color: #b9181818;
+          color: #b91818;
+          border-radius: 5px;
+          margin-left: auto;
+          margin-top: 0.5em;
+        }
+      }
+    }
+  }
+  .form__group {
+    display: flex;
+    //   outline: 1px solid gray;
+    margin-bottom: 1em;
+    margin-top: 0.4em;
+    padding: 0 0.3em;
+    .dash {
+      margin: 0.7em 0.2em;
+      font-weight: 900;
+    }
+    .form__input {
+      @include form-input;
+      // outline: 1px solid blue;
+      text-align: left;
+      padding: 0.7rem 1rem;
+      border-radius: 5px;
+      font-size: 1.2em;
+    }
+  }
+  .sub__btn {
+    @include btn;
+    width: 97%;
+  }
+}

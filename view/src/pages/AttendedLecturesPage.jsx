@@ -73,41 +73,46 @@ const AttendedLecturesPage = () => {
           {attendanceContxt.attendedLectures &&
             (attendanceContxt.attendedLectures.length > 0
               ? attendanceContxt.attendedLectures.map((el) => (
-                  <div className="attended_course" key={el.courseId}>
-                    <div className="course_title">
-                      <div className="icon">
-                        <UilBooks
-                          size="40"
-                          color="#676666"
-                          style={{
-                            padding: '.5em',
-                            borderRadius: '10px',
-                            background: '#8e18b930',
-                          }}
-                        />
+                  <div className="attended_course">
+                    <Link
+                      key={el.courseId}
+                      to={`/attendedLectures/${el.courseId}`}
+                    >
+                      <div className="course_title">
+                        <div className="icon">
+                          <UilBooks
+                            size="40"
+                            color="#676666"
+                            style={{
+                              padding: '.5em',
+                              borderRadius: '10px',
+                              background: '#8e18b930',
+                            }}
+                          />
+                        </div>
+                        <h3>{el.courseName}</h3>
+                        <div className="icon" style={{ marginLeft: 'auto' }}>
+                          <UilAngleRight size="30" color="#676666" />
+                        </div>
                       </div>
-                      <h3>{el.courseName}</h3>
-                      <div className="icon" style={{ marginLeft: 'auto' }}>
-                        <UilAngleRight size="30" color="#676666" />
-                      </div>
-                    </div>
 
-                    <div className="lectures_scores">
-                      <div className="lecture_num">
-                        <p>
-                          <b>{el.TimesAttended}</b> lecture
-                          {el.TimesAttended > 1 && 's'}
-                        </p>
-                        <p style={{ color: 'gray' }}>Attended</p>
+                      <div className="lectures_scores">
+                        <div className="lecture_num">
+                          <p>
+                            <b>{el.TimesAttended}</b> lecture
+                            {el.TimesAttended > 1 && 's'}
+                          </p>
+                          <p style={{ color: 'gray' }}>Attended</p>
+                        </div>
+                        <div className="score_num">
+                          <p>
+                            <b>{el.Total}</b> points
+                          </p>
+                          <p style={{ color: 'gray' }}>Gathered</p>
+                        </div>
+                        <div className="course_code">{el.courseCode}</div>
                       </div>
-                      <div className="score_num">
-                        <p>
-                          <b>{el.Total}</b> points
-                        </p>
-                        <p style={{ color: 'gray' }}>Gathered</p>
-                      </div>
-                      <div className="course_code">{el.courseCode}</div>
-                    </div>
+                    </Link>
                   </div>
                 ))
               : 'No Results Found')}

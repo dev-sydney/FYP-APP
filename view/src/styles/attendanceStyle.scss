@@ -1,6 +1,15 @@
 @import 'main';
-.ongoing__page {
+.ongoing__page,
+.courselectures__container {
   min-height: inherit;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+a:visited {
+  text-decoration: none;
+  color: black;
 }
 .ongoing__container {
   min-height: inherit;
@@ -16,9 +25,7 @@
     display: flex;
     flex-direction: column;
     padding: 0.5em 0.7em;
-    a {
-      text-decoration: none;
-    }
+
     .flex__1,
     .flex__2,
     .flex__3 {
@@ -165,9 +172,11 @@
     .attended_course {
       // outline: 1px solid blue;
       outline: 1px solid gray;
+      margin: 0.5em 0;
       border-radius: 20px;
       padding: 0.4em 0.7em;
-      margin: 0.5em 0;
+      // a {
+      // }
       .course_title {
         text-align: left;
         display: flex;
@@ -235,5 +244,30 @@
   .sub__btn {
     @include btn;
     width: 97%;
+  }
+}
+.courselectures__container {
+  .lecture__item {
+    display: flex;
+    // outline: 1px solid forestgreen;
+    padding: 0.4em 0;
+    margin: 0.5em 0;
+    // .icon {
+    //   // outline: 2px solid red;
+    // }
+    .title_time {
+      // outline: 2px solid blue;
+      text-align: left;
+      margin-left: 0.5em;
+    }
+    .time_passed {
+      margin-left: auto;
+      height: fit-content;
+      padding: 0.5em;
+      border-radius: 10px;
+      color: #ff9a00;
+      background-color: #ff99001c;
+      font-weight: 900;
+    }
   }
 }

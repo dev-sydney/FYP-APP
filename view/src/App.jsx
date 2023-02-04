@@ -23,6 +23,7 @@ import CollectUserSecurityQnAPage from './pages/CollectUserSecurityQnAPage';
 import ForgetPasswordPage from './pages/ForgetPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import AttendedLecturesPage from './pages/AttendedLecturesPage';
+import CourseLectures from './pages/CourseLectures';
 
 import Empty from './pages/Empty';
 import NavBar from './components/NavBar';
@@ -86,6 +87,10 @@ function App() {
                   <Route
                     path="/attendedLectures"
                     element={<AttendedLecturesPage />}
+                  />
+                  <Route
+                    path="/attendedLectures/:courseId"
+                    element={<CourseLectures />}
                   />
                 </Routes>
                 <NavBar />

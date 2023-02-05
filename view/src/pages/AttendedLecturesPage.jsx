@@ -30,7 +30,7 @@ const AttendedLecturesPage = () => {
     console.log(formData);
     if (formData.startDate === '' || formData.endDate === '') return;
 
-    attendanceContxt.loadAttendedLectures(formData);
+    attendanceContxt.getAttendedLecturesSummaries(formData);
   };
   return (
     <div className="attendedLectures__container">
@@ -70,10 +70,15 @@ const AttendedLecturesPage = () => {
 
       <section className="lists_section">
         <div className="lists__items">
-          {attendanceContxt.attendedLectures &&
-            (attendanceContxt.attendedLectures.length > 0
-              ? attendanceContxt.attendedLectures.map((el) => (
-                  <div className="attended_course">
+          {attendanceContxt.attendedLecturesSummaries &&
+            (attendanceContxt.attendedLecturesSummaries.length > 0
+              ? attendanceContxt.attendedLecturesSummaries.map((el) => (
+                  <div
+                    className="attended_course"
+                    onClick={() => {
+                      attendanceContxt.setCurrentCourseName(el.courseName);
+                    }}
+                  >
                     <Link
                       key={el.courseId}
                       to={`/attendedLectures/${el.courseId}`}

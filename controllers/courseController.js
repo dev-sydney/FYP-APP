@@ -107,3 +107,21 @@ exports.deleteCourse = catchAsyncErrors(async (req, res, next) => {
     message: 'Deleted successfully',
   });
 });
+
+exports.getCoursesAndAssignedLecturers = catchAsyncErrors(
+  async (req, res, next) => {
+    console.log('here here');
+    const [coursesAndAssignedLectures] = await pool.query(
+      `SELECT Courses.courseName,COUNT(AssignedCoursesAndLecturers.userId) AS AssignedLecturers
+    FROM Courses LEFT JOIN  AssignedCoursesAndLecturers ON Courses.courseId = AssignedCoursesAndLecturers.courseId
+    WHERE Courses.departmentId=?
+    GROUP BY AssignedCoursesAndLecturers.courseId`,
+      [+req.user.departmentId]
+    );
+
+    res.status(200).json({
+      status: 'success',
+      coursesAndAssignedLectures,
+    });
+  }
+);

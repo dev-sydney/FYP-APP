@@ -13,6 +13,10 @@ router
   .route('/')
   .post(courseController.createCourse)
   .get(courseController.getCourses);
+
+router
+  .route('/assignedCourses')
+  .get(courseController.getCoursesAndAssignedLecturers);
 //READ & UPDATE & DELETE
 router
   .route('/:courseId')

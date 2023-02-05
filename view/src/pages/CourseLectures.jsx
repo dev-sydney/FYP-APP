@@ -35,6 +35,9 @@ const CourseLectures = () => {
 
   return (
     <div className="courselectures__container">
+      <section>
+        <h1 style={{ textAlign: 'left', margin: '1em 0' }}>Records</h1>
+      </section>
       <section className="lists_section">
         <div
           className="lists__items"

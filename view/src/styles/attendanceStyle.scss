@@ -243,7 +243,9 @@ a:visited {
   }
   .sub__btn {
     @include btn;
-    width: 97%;
+    // width: 97%;
+    display: flex;
+    justify-content: center;
   }
 }
 .courselectures__container {

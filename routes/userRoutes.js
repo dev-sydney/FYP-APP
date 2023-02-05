@@ -41,6 +41,13 @@ router.patch(
 );
 
 router
+  .route('/assignedProfessors/:courseId')
+  .get(
+    authController.restrictTo('head_of_department', 'admin'),
+    userController.getProfessorsAssignedToCourse
+  );
+
+router
   .route('/professors/')
   .get(
     authController.restrictTo('head_of_department', 'admin'),

@@ -209,3 +209,22 @@ exports.assignCourseToProfessor = catchAsyncErrors(async (req, res, next) => {
     message: 'Courses Assigned successfully!',
   });
 });
+
+exports.getProfessorsAssignedToCourse = catchAsyncErrors(
+  async (req, res, next) => {
+    if (!req.params.courseId || req.params.courseId === '')
+      return next(new AppError('No course was selected', 400));
+
+    const [assignedProfessors] = await pool.query(
+      `SELECT surName,otherNames,Users.photo,AssignedCoursesAndLecturers.assignmentId
+  FROM Users INNER JOIN AssignedCoursesAndLecturers ON Users.userId = AssignedCoursesAndLecturers.userId
+  WHERE AssignedCoursesAndLecturers.courseId = ?`,
+      [req.params.courseId]
+    );
+
+    res.status(200).json({
+      status: 'success',
+      assignedProfessors,
+    });
+  }
+);

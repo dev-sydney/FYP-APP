@@ -110,9 +110,8 @@ exports.deleteCourse = catchAsyncErrors(async (req, res, next) => {
 
 exports.getCoursesAndAssignedLecturers = catchAsyncErrors(
   async (req, res, next) => {
-    console.log('here here');
     const [coursesAndAssignedLectures] = await pool.query(
-      `SELECT Courses.courseName,COUNT(AssignedCoursesAndLecturers.userId) AS AssignedLecturers
+      `SELECT Courses.courseId,Courses.courseName,COUNT(AssignedCoursesAndLecturers.userId) AS AssignedLecturers
     FROM Courses LEFT JOIN  AssignedCoursesAndLecturers ON Courses.courseId = AssignedCoursesAndLecturers.courseId
     WHERE Courses.departmentId=?
     GROUP BY AssignedCoursesAndLecturers.courseId`,

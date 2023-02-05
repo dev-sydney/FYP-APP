@@ -228,3 +228,18 @@ exports.getProfessorsAssignedToCourse = catchAsyncErrors(
     });
   }
 );
+
+exports.deAllocateAssignedCourse = catchAsyncErrors(async (req, res, next) => {
+  if (!req.query.assignmentId || req.query.assignmentId === '')
+    return next(new AppError('No assigned lecturer was selected'));
+
+  const [result] = await pool.query(
+    `DELETE FROM AssignedCoursesAndLecturers WHERE assignmentId=?`,
+    [+req.query.assignmentId]
+  );
+  if (result.affectedRows < 1)
+    return next(new AppError('Nothing Happened, please try again', 400));
+  // console.log(result);
+
+  res.status(204).json({});
+});

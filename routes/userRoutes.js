@@ -60,6 +60,10 @@ router
   .patch(
     authController.restrictTo('head_of_department'),
     userController.assignCourseToProfessor
+  )
+  .delete(
+    authController.restrictTo('head_of_department'),
+    userController.deAllocateAssignedCourse
   );
 
 router

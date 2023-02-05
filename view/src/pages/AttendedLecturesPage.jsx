@@ -1,6 +1,10 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { UilBooks, UilAngleRight } from '@iconscout/react-unicons';
+import {
+  UilBooks,
+  UilAngleRight,
+  UilSpinnerAlt,
+} from '@iconscout/react-unicons';
 
 import attendanceContext from '../contexts/AttendanceContext';
 import './../styles/attendanceStyle.scss';
@@ -65,7 +69,19 @@ const AttendedLecturesPage = () => {
             className={`form__input end__date`}
           />
         </div>
-        <input type={'submit'} className="sub__btn" onClick={onSubmit} />
+        <button className="sub__btn" onClick={onSubmit}>
+          {attendanceContxt.isLoading ? (
+            <div className="spinner_icon">
+              <UilSpinnerAlt
+                color="#FFFFFF"
+                size="22"
+                style={{ marginTop: '.2em' }}
+              />
+            </div>
+          ) : (
+            'submit'
+          )}
+        </button>
       </form>
 
       <section className="lists_section">

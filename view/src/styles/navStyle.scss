@@ -16,14 +16,19 @@
   justify-content: space-around;
   a {
     margin-top: 2em auto;
-    color: #1d2021;
+    // color: #1d2021;
     display: flex;
     align-items: flex-start;
   }
-}
-.current {
-  color: red;
-  svg {
-    color: red;
+  .navlink {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    p {
+      text-align: center;
+      width: 100%;
+    }
   }
 }

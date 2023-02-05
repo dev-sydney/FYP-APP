@@ -20,7 +20,9 @@ export const AttendanceContextProvider = ({ children }) => {
     attendanceScores: null,
     QRcodeStatus: null,
     isStudentLoading: null,
+    attendedLecturesSummaries: null,
     attendedLectures: null,
+    currentCourseName: null,
   };
 
   const [state, dispatch] = useReducer(attendanceReducer, initialState);
@@ -406,7 +408,7 @@ export const AttendanceContextProvider = ({ children }) => {
     }
   };
 
-  const loadAttendedLectures = async (formData) => {
+  const getAttendedLecturesSummaries = async (formData) => {
     try {
       dispatch({
         type: Types.SET_ATTENDANCE_LOADING,
@@ -438,8 +440,39 @@ export const AttendanceContextProvider = ({ children }) => {
     }
   };
 
+  const getCoursesSignedAttendances = async (courseId) => {
+    try {
+      dispatch({
+        type: Types.SET_ATTENDANCE_LOADING,
+      });
+
+      const res = await fetch(
+        `/api/v1/attendances/lecturesAttended/${courseId}`
+      );
+      const results = await res.json();
+
+      if (res.status >= 400) throw new Error(results.message);
+
+      if (res.status === 200) {
+        dispatch({
+          type: Types.LOAD_COURSE_SIGNED_ATENDANCES,
+          payload: results.attendedLectures,
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: Types.LOAD_COURSE_SIGNED_ATENDANCES_ERROR,
+        payload: new AppAlert(err.message, 'error'),
+      });
+      clearContextAlerts;
+    }
+  };
+
   const clearRandomSecurityQuestion = () => {
     dispatch({ type: Types.CLEAR_RANDOM_SECURITY_QUESTION });
+  };
+  const setCurrentCourseName = (courseName) => {
+    dispatch({ type: Types.SET_CURRRENT_COURSENAME, payload: courseName });
   };
   return (
     <attendanceContext.Provider
@@ -456,6 +489,8 @@ export const AttendanceContextProvider = ({ children }) => {
         QRcodeStatus: state.QRcodeStatus,
         isStudentLoading: state.isStudentLoading,
         attendedLectures: state.attendedLectures,
+        attendedLecturesSummaries: state.attendedLecturesSummaries,
+        currentCourseName: state.currentCourseName,
         startOngoingAttendance,
         getQRcodeDetails,
         getRandomSecurityQuestion,
@@ -468,7 +503,9 @@ export const AttendanceContextProvider = ({ children }) => {
         eraseOngoingAttendance,
         loadAttendanceScores,
         clearRandomSecurityQuestion,
-        loadAttendedLectures,
+        getAttendedLecturesSummaries,
+        getCoursesSignedAttendances,
+        setCurrentCourseName,
       }}
     >
       {children}

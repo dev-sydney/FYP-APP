@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { UilCalender } from '@iconscout/react-unicons';
 
 import attendanceContext from '../contexts/AttendanceContext';
+import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
 
 import './../styles/attendanceStyle.scss';
 const stat = 1;
@@ -39,38 +40,44 @@ const CourseLectures = () => {
         <h1 style={{ textAlign: 'left', margin: '1em 0' }}>Records</h1>
       </section>
       <section className="lists_section">
-        <div
-          className="lists__items"
-          style={{
-            outline: '1px solid gray',
-            padding: '.3em .5em',
-            borderRadius: '20px',
-          }}
-        >
-          {attendanceContxt.attendedLectures &&
-            (attendanceContxt.attendedLectures.length > 0
-              ? attendanceContxt.attendedLectures.map((el) => (
-                  <div className="lecture__item">
-                    <div className="icon" key={el.signedAttendanceId}>
-                      <UilCalender
-                        size="45"
-                        color="#1D6D1D"
-                        style={{
-                          padding: '.5em',
-                          borderRadius: '50%',
-                          background: '#1d6d1d1f',
-                        }}
-                      />
+        {attendanceContxt.isLoading ? (
+          <LoadingResourcesComponent showControls={true} />
+        ) : (
+          <div
+            className="lists__items"
+            style={{
+              outline: '1px solid gray',
+              padding: '.3em .5em',
+              borderRadius: '20px',
+            }}
+          >
+            {attendanceContxt.attendedLectures &&
+              (attendanceContxt.attendedLectures.length > 0
+                ? attendanceContxt.attendedLectures.map((el) => (
+                    <div className="lecture__item">
+                      <div className="icon" key={el.signedAttendanceId}>
+                        <UilCalender
+                          size="45"
+                          color="#1D6D1D"
+                          style={{
+                            padding: '.5em',
+                            borderRadius: '50%',
+                            background: '#1d6d1d1f',
+                          }}
+                        />
+                      </div>
+                      <div className="title_time">
+                        <h3>{attendanceContxt.currentCourseName}</h3>
+                        <p>{new Date(el.createdAt).toDateString()}</p>
+                      </div>
+                      <p className="time_passed">
+                        {getWeeksDiff(el.createdAt)}
+                      </p>
                     </div>
-                    <div className="title_time">
-                      <h3>{attendanceContxt.currentCourseName}</h3>
-                      <p>{new Date(el.createdAt).toDateString()}</p>
-                    </div>
-                    <p className="time_passed">{getWeeksDiff(el.createdAt)}</p>
-                  </div>
-                ))
-              : 'No Results Found')}
-        </div>
+                  ))
+                : 'No Results Found')}
+          </div>
+        )}
       </section>
     </div>
   );

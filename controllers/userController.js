@@ -179,21 +179,30 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.assignCourseToProfessor = catchAsyncErrors(async (req, res, next) => {
-  if (!req.body.courseId || req.body.courseId === '')
+  if (!req.query.courseId || req.query.courseId === '')
     return next(new AppError('No course was selected'), 400);
 
   if (!req.query.userIds || req.query.userIds === '')
     return next(new AppError('No professor was selected', 400));
 
-  const [result] = await pool.query(
-    `UPDATE Users SET courseId=? WHERE userId IN (${req.query.userIds})`,
-    [+req.body.courseId]
+  const userIds = req.query.userIds.split(','); //-->[1,2,3]
+
+  let valuesStr = userIds
+    .map((el) => `(${+req.query.courseId},${el})`)
+    .join(','); //--> (courseId,userId),(courseId,userId),(courseId,userId)
+
+  let [results] = await pool.query(
+    `INSERT INTO AssignedCoursesAndLecturers (courseId,userId) VALUES ${valuesStr}`
   );
+
+  // console.log(results);
 
   //EDGE-CASE: at this point, there was a course & lecturers selected to be updated,
   //But nothing chnaged after the update
-  if (result.changedRows === 0)
-    return next(new AppError('Courses Already Assigned!', 400));
+  if (results.changedRows === 0)
+    return next(
+      new AppError('Trouble assigning course, please try again.', 400)
+    );
 
   res.status(200).json({
     status: 'success',

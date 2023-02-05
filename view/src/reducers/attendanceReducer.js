@@ -150,8 +150,26 @@ const attendanceReducer = (state, action) => {
     case Types.LOAD_ATTENDED_LECTURES:
       return {
         ...state,
+        attendedLecturesSummaries: action.payload,
+        isLoading: null,
+      };
+    case Types.LOAD_COURSE_SIGNED_ATENDANCES:
+      return {
+        ...state,
         attendedLectures: action.payload,
         isLoading: null,
+      };
+    case Types.LOAD_COURSE_SIGNED_ATENDANCES_ERROR:
+      return {
+        ...state,
+        attendedLectures: null,
+        isLoading: null,
+        attendanceAlert: action.payload,
+      };
+    case Types.SET_CURRRENT_COURSENAME:
+      return {
+        ...state,
+        currentCourseName: action.payload,
       };
     default:
       return state;

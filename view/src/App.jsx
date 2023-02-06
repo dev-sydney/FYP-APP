@@ -24,8 +24,9 @@ import ForgetPasswordPage from './pages/ForgetPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import AttendedLecturesPage from './pages/AttendedLecturesPage';
 import CourseLectures from './pages/CourseLectures';
-
+import DepartmentCoursesPage from './pages/DepartmentCoursesPage';
 import Empty from './pages/Empty';
+
 import NavBar from './components/NavBar';
 import './App.css';
 
@@ -91,6 +92,10 @@ function App() {
                   <Route
                     path="/attendedLectures/:courseId"
                     element={<CourseLectures />}
+                  />
+                  <Route
+                    path="/departmentCourses/"
+                    element={<DepartmentCoursesPage />}
                   />
                 </Routes>
                 <NavBar />

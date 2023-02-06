@@ -24,6 +24,8 @@
       //   flex-direction: column;
       padding: 0.5em;
       border-radius: 20px;
+      min-height: 10em;
+      max-height: 10em;
       .course_title {
         // min-height: 7em;
         // max-height: 7em;
@@ -31,11 +33,10 @@
         text-overflow: ellipsis;
         overflow: hidden;
         width: min-content;
-        aspect-ratio: 1.1/1;
       }
       h2 {
         text-align: left;
-        // font-size: clamp(1rem, 10cqi, 1rem);
+        // font-size: 1em;
       }
       .lecturer_num__photo {
         margin-left: auto;
@@ -45,8 +46,15 @@
           background-color: rgba(0, 0, 0, 0.82);
           color: white;
           height: fit-content;
+          //   min-width: 1em;
+          //   max-width: 1em;
+          text-align: center;
           border-radius: 50%;
           padding: 0.5em;
+          display: flex;
+          justify-content: center;
+          align-content: center;
+          //   aspect-ratio: 2/1;
         }
       }
       a {

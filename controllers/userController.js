@@ -243,3 +243,19 @@ exports.deAllocateAssignedCourse = catchAsyncErrors(async (req, res, next) => {
 
   res.status(204).json({});
 });
+
+exports.getUnassignedProfessors = catchAsyncErrors(async (req, res, next) => {
+  if (!req.params.courseId || req.params.courseId === '')
+    return next(new AppError('No course was selected!', 400));
+
+  const [unassignedProfessors] = await pool.query(
+    `SELECT userId,surName,otherNames,photo FROM Users WHERE userId NOT IN
+  (SELECT userId FROM AssignedCoursesAndLecturers WHERE courseId=?) AND departmentId=? AND privilege IN('head_of_department','professor')`,
+    [+req.params.courseId, +req.user.departmentId]
+  );
+
+  res.status(200).json({
+    status: 'success',
+    unassignedProfessors,
+  });
+});

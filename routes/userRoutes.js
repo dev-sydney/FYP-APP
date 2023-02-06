@@ -67,6 +67,13 @@ router
   );
 
 router
+  .route('/unassignedProfessors/:courseId')
+  .get(
+    authController.restrictTo('head_of_department'),
+    userController.getUnassignedProfessors
+  );
+
+router
   .route('/professors/:userId')
   .delete(
     authController.restrictTo('head_of_department', 'admin'),

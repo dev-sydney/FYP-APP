@@ -161,6 +161,19 @@ const resourceReducer = (state, action) => {
         ...state,
         departments: action.payload,
       };
+    case Types.LOAD_DEPARTMENT_COURSES:
+      return {
+        ...state,
+        departmentCourses: action.payload,
+        isResourceLoading: null,
+      };
+    case Types.LOAD_DEPARTMENT_COURSES_ERROR:
+      return {
+        ...state,
+        departmentCourses: null,
+        isResourceLoading: null,
+        resourceContextAlert: action.payload,
+      };
     default:
       return state;
   }

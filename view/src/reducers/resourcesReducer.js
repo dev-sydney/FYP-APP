@@ -187,6 +187,19 @@ const resourceReducer = (state, action) => {
         isResourceLoading: null,
         resourceContextAlert: action.payload,
       };
+    case Types.DEALLOCATE_PROFESSOR:
+      return {
+        ...state,
+        assignedProfessors: state.assignedProfessors.filter(
+          (el) => el.assignmentId !== action.assignmentId
+        ),
+        resourceContextAlert: action.payload,
+      };
+    case Types.DEALLOCATE_PROFESSOR_ERROR:
+      return {
+        ...state,
+        resourceContextAlert: action.payload,
+      };
     default:
       return state;
   }

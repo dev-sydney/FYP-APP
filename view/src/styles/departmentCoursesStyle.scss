@@ -71,13 +71,13 @@
 .assigned__container {
   min-height: inherit;
   .profItem {
-    outline: 1px solid #ca14141f;
+    // outline: 1px solid #ca14141f;
     padding: 0.5em 0;
 
     .prof__info {
       display: flex;
       .name__privilege {
-        outline: 1px solid red;
+        // outline: 1px solid red;
         text-align: left;
         padding-left: 0.4em;
         width: 70%;
@@ -103,7 +103,7 @@
         margin-left: 0.4em;
       }
       .list_controls {
-        outline: 1px solid yellowgreen;
+        // outline: 1px solid yellowgreen;
         margin-top: 1em;
       }
     }

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { UilUserPlus, UilTimes } from '@iconscout/react-unicons';
 
 import resourceContext from '../contexts/ResourceContext';
-
+import AlertComponent from '../components/AlertComponent';
 import './../styles/departmentCoursesStyle.scss';
 
 const stat = 1;
@@ -22,6 +22,7 @@ const AssignedLecturersPage = () => {
 
   return (
     <div className="assigned__container">
+      <AlertComponent />
       <section className="headings__section">
         <div className="icon">
           <UilUserPlus
@@ -82,6 +83,11 @@ const AssignedLecturersPage = () => {
                               padding: '.5em',
                               borderRadius: '50%',
                               backgroundColor: '#ca14141a',
+                            }}
+                            onClick={() => {
+                              resourceContxt.deAllocateAssignedCourse(
+                                assignedProf.assignmentId
+                              );
                             }}
                           />
                         </div>

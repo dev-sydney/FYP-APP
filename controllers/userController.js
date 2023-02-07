@@ -216,7 +216,7 @@ exports.getProfessorsAssignedToCourse = catchAsyncErrors(
       return next(new AppError('No course was selected', 400));
 
     const [assignedProfessors] = await pool.query(
-      `SELECT surName,otherNames,Users.photo,AssignedCoursesAndLecturers.assignmentId
+      `SELECT surName,otherNames,Users.photo,Users.privilege,AssignedCoursesAndLecturers.assignmentId
   FROM Users INNER JOIN AssignedCoursesAndLecturers ON Users.userId = AssignedCoursesAndLecturers.userId
   WHERE AssignedCoursesAndLecturers.courseId = ?`,
       [req.params.courseId]

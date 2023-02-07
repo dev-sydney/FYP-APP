@@ -434,6 +434,38 @@ export const ResourceContextProvider = ({ children }) => {
       clearContextAlerts();
     }
   };
+  const deAllocateAssignedCourse = async (assignmentId) => {
+    try {
+      const res = await fetch(
+        `/api/v1/users/assignedProfessors/${assignmentId}`,
+        { method: 'DELETE' }
+      );
+      const result = await res.json();
+      console.log({ result, res });
+      if (res.status >= 400)
+        throw new Error(
+          result.message
+            ? result.message
+            : 'something went very wrong, please try again!'
+        );
+
+      if (res.status === 200) {
+        dispatch({
+          type: Types.DEALLOCATE_PROFESSOR,
+          payload: new AppAlert(result.message, 'success'),
+          assignmentId,
+        });
+        clearContextAlerts();
+      }
+    } catch (err) {
+      dispatch({
+        type: Types.DEALLOCATE_PROFESSOR_ERROR,
+        payload: new AppAlert(err.message, 'error'),
+      });
+      clearContextAlerts();
+    }
+  };
+
   return (
     <resourceContext.Provider
       value={{
@@ -461,6 +493,7 @@ export const ResourceContextProvider = ({ children }) => {
         loadDepartments,
         loadDepartmentCourses,
         loadAssignedProfessors,
+        deAllocateAssignedCourse,
       }}
     >
       {children}

@@ -44,7 +44,7 @@ const DepartmentCoursesPage = () => {
             (resourceContxt.departmentCourses.length > 0
               ? resourceContxt.departmentCourses.map((deptCourse) => (
                   <div className="course_item" key={deptCourse.courseId}>
-                    <Link>
+                    <Link to={`/departmentCourses/${deptCourse.courseId}`}>
                       <div className="course_title">
                         <h2>{deptCourse.courseName}</h2>
                       </div>

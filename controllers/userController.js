@@ -230,18 +230,20 @@ exports.getProfessorsAssignedToCourse = catchAsyncErrors(
 );
 
 exports.deAllocateAssignedCourse = catchAsyncErrors(async (req, res, next) => {
-  if (!req.query.assignmentId || req.query.assignmentId === '')
+  if (!req.params.assignmentId || req.params.assignmentId === '')
     return next(new AppError('No assigned lecturer was selected'));
 
   const [result] = await pool.query(
     `DELETE FROM AssignedCoursesAndLecturers WHERE assignmentId=?`,
-    [+req.query.assignmentId]
+    [+req.params.assignmentId]
   );
-  if (result.affectedRows < 1)
-    return next(new AppError('Nothing Happened, please try again', 400));
+  // if (result.affectedRows < 1)
+  //   return next(new AppError('Nothing Happened, please try again', 400));
   // console.log(result);
 
-  res.status(204).json({});
+  res.status(200).json({
+    message: 'Course unassigned successfully',
+  });
 });
 
 exports.getUnassignedProfessors = catchAsyncErrors(async (req, res, next) => {

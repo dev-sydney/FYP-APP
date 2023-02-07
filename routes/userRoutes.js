@@ -60,11 +60,11 @@ router
   .patch(
     authController.restrictTo('head_of_department'),
     userController.assignCourseToProfessor
-  )
-  .delete(
-    authController.restrictTo('head_of_department'),
-    userController.deAllocateAssignedCourse
   );
+// .delete(
+//   authController.restrictTo('head_of_department'),
+//   userController.deAllocateAssignedCourse
+// );
 
 router
   .route('/unassignedProfessors/:courseId')
@@ -79,5 +79,10 @@ router
     authController.restrictTo('head_of_department', 'admin'),
     userController.deleteUser
   );
-
+router
+  .route('/assignedProfessors/:assignmentId')
+  .delete(
+    authController.restrictTo('head_of_department'),
+    userController.deAllocateAssignedCourse
+  );
 module.exports = router;

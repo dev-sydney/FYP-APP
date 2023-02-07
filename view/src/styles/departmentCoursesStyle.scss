@@ -1,16 +1,18 @@
 @import 'main';
+
+.headings__section {
+  // outline: 1px solid black;
+  margin-bottom: 0.5em;
+  h1 {
+    text-align: left;
+    font-weight: 900;
+    //   font-size: 1.5em;
+  }
+}
 .deptCourses__container {
   min-height: inherit;
   //   background-color: blanchedalmond;
-  .headings__section {
-    // outline: 1px solid black;
-    margin-bottom: 0.5em;
-    h1 {
-      text-align: left;
-      font-weight: 900;
-      //   font-size: 1.5em;
-    }
-  }
+
   .dept_courses {
     // outline: 2px solid red;
     display: grid;
@@ -62,6 +64,47 @@
         flex-direction: column;
         text-decoration: none;
         min-height: 100%;
+      }
+    }
+  }
+}
+.assigned__container {
+  min-height: inherit;
+  .profItem {
+    outline: 1px solid #ca14141f;
+    padding: 0.5em 0;
+
+    .prof__info {
+      display: flex;
+      .name__privilege {
+        outline: 1px solid red;
+        text-align: left;
+        padding-left: 0.4em;
+        width: 70%;
+
+        h2 {
+          margin: 0;
+          margin-top: 0.4em;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: 1em;
+        }
+        p {
+          color: gray;
+          font-weight: 900;
+          font-size: 1.1em;
+          margin: 0;
+          margin-top: 0.2em;
+        }
+      }
+      h2 {
+        text-align: left;
+        margin-left: 0.4em;
+      }
+      .list_controls {
+        outline: 1px solid yellowgreen;
+        margin-top: 1em;
       }
     }
   }

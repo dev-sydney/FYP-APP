@@ -16,6 +16,7 @@ export const ResourceContextProvider = ({ children }) => {
     LectureHallQRcodes: null,
     departments: null,
     departmentCourses: null,
+    assignedProfessors: null,
   };
   const [state, dispatch] = useReducer(resourceReducer, initialState);
 
@@ -405,6 +406,34 @@ export const ResourceContextProvider = ({ children }) => {
     }
   };
 
+  const loadAssignedProfessors = async (courseId) => {
+    try {
+      dispatch({ type: Types.SET_RESOURCE_LOADING });
+
+      const res = await fetch(`/api/v1/users/assignedProfessors/${courseId}`);
+      const result = await res.json();
+
+      if (res.status >= 400)
+        throw new Error(
+          result.message
+            ? result.message
+            : 'something went very wrong, please try again!'
+        );
+
+      if (res.status === 200) {
+        dispatch({
+          type: Types.LOAD_ASSIGNED_PROFESSORS,
+          payload: result.assignedProfessors,
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: Types.LOAD_ASSIGNED_PROFESSORS_ERROR,
+        payload: new AppAlert(err.message, 'error'),
+      });
+      clearContextAlerts();
+    }
+  };
   return (
     <resourceContext.Provider
       value={{
@@ -417,6 +446,7 @@ export const ResourceContextProvider = ({ children }) => {
         LectureHallQRcodes: state.LectureHallQRcodes,
         departments: state.departments,
         departmentCourses: state.departmentCourses,
+        assignedProfessors: state.assignedProfessors,
         addProfessor,
         addCourse,
         addFaculty,
@@ -430,6 +460,7 @@ export const ResourceContextProvider = ({ children }) => {
         deleteCourse,
         loadDepartments,
         loadDepartmentCourses,
+        loadAssignedProfessors,
       }}
     >
       {children}

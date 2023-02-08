@@ -200,6 +200,29 @@ const resourceReducer = (state, action) => {
         ...state,
         resourceContextAlert: action.payload,
       };
+    case Types.LOAD_UNASSIGNED_PROFESSORS:
+      return {
+        ...state,
+        unAssignedProfessors: action.payload,
+        isResourceLoading: null,
+      };
+    case Types.LOAD_UNASSIGNED_PROFESSORS_ERROR:
+      return {
+        ...state,
+        unAssignedProfessors: null,
+        isResourceLoading: null,
+        resourceContextAlert: action.payload,
+      };
+    case Types.ASSIGN_PROFESSOR:
+      return {
+        ...state,
+        resourceContextAlert: action.payload,
+      };
+    case Types.ASSIGN_PROFESSOR_ERROR:
+      return {
+        ...state,
+        resourceContextAlert: action.payload,
+      };
     default:
       return state;
   }

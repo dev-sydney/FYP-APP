@@ -206,7 +206,7 @@ exports.assignCourseToProfessor = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    message: 'Courses Assigned successfully!',
+    message: 'Course Assigned successfully!',
   });
 });
 
@@ -216,7 +216,7 @@ exports.getProfessorsAssignedToCourse = catchAsyncErrors(
       return next(new AppError('No course was selected', 400));
 
     const [assignedProfessors] = await pool.query(
-      `SELECT surName,otherNames,Users.photo,Users.privilege,AssignedCoursesAndLecturers.assignmentId
+      `SELECT Users.userId,surName,otherNames,Users.photo,Users.privilege,AssignedCoursesAndLecturers.assignmentId
   FROM Users INNER JOIN AssignedCoursesAndLecturers ON Users.userId = AssignedCoursesAndLecturers.userId
   WHERE AssignedCoursesAndLecturers.courseId = ?`,
       [req.params.courseId]
@@ -251,7 +251,7 @@ exports.getUnassignedProfessors = catchAsyncErrors(async (req, res, next) => {
     return next(new AppError('No course was selected!', 400));
 
   const [unassignedProfessors] = await pool.query(
-    `SELECT userId,surName,otherNames,photo FROM Users WHERE userId NOT IN
+    `SELECT userId,surName,otherNames,photo,privilege FROM Users WHERE userId NOT IN
   (SELECT userId FROM AssignedCoursesAndLecturers WHERE courseId=?) AND departmentId=? AND privilege IN('head_of_department','professor')`,
     [+req.params.courseId, +req.user.departmentId]
   );

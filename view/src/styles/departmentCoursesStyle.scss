@@ -8,6 +8,18 @@
     font-weight: 900;
     //   font-size: 1.5em;
   }
+  .assign_cancel {
+    display: flex;
+    margin-left: auto;
+  }
+  .assign_btn {
+    // outline: none;
+    margin-right: 0.4em;
+  }
+  .cancel_btn,
+  .assign_btn {
+    min-height: 100%;
+  }
 }
 .deptCourses__container {
   min-height: inherit;
@@ -107,5 +119,8 @@
         margin-top: 1em;
       }
     }
+  }
+  .checkbx {
+    accent-color: #76189f;
   }
 }

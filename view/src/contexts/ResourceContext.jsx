@@ -17,6 +17,7 @@ export const ResourceContextProvider = ({ children }) => {
     departments: null,
     departmentCourses: null,
     assignedProfessors: null,
+    unAssignedProfessors: null,
   };
   const [state, dispatch] = useReducer(resourceReducer, initialState);
 
@@ -441,7 +442,7 @@ export const ResourceContextProvider = ({ children }) => {
         { method: 'DELETE' }
       );
       const result = await res.json();
-      console.log({ result, res });
+      // console.log({ result, res });
       if (res.status >= 400)
         throw new Error(
           result.message
@@ -466,6 +467,67 @@ export const ResourceContextProvider = ({ children }) => {
     }
   };
 
+  const loadUnAssignedProfessors = async (courseId) => {
+    try {
+      dispatch({ type: Types.SET_RESOURCE_LOADING });
+
+      const res = await fetch(`/api/v1/users/unassignedProfessors/${courseId}`);
+      const result = await res.json();
+
+      if (res.status >= 400)
+        throw new Error(
+          result.message
+            ? result.message
+            : 'something went very wrong, please try again!'
+        );
+
+      if (res.status === 200) {
+        dispatch({
+          type: Types.LOAD_UNASSIGNED_PROFESSORS,
+          payload: result.unassignedProfessors,
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: Types.LOAD_UNASSIGNED_PROFESSORS_ERROR,
+        payload: new AppAlert(err.message, 'error'),
+      });
+      clearContextAlerts();
+    }
+  };
+
+  const assignCourseToProfessor = async (
+    init = { courseId: '', userIds: '' }
+  ) => {
+    try {
+      const res = await fetch(
+        `/api/v1/users/professors/?userIds=${init.userIds}&courseId=${init.courseId}`,
+        { method: 'PATCH' }
+      );
+      const result = await res.json();
+      if (res.status >= 400)
+        throw new Error(
+          result.message
+            ? result.message
+            : 'something went very wrong, please try again!'
+        );
+      if (res.status === 200) {
+        dispatch({
+          type: Types.ASSIGN_PROFESSOR,
+          payload: new AppAlert(result.message, 'success'),
+        });
+        clearContextAlerts();
+        await loadAssignedProfessors(init.courseId);
+      }
+    } catch (err) {
+      dispatch({
+        type: Types.ASSIGN_PROFESSOR_ERROR,
+        payload: new AppAlert(err.message, 'error'),
+      });
+      clearContextAlerts();
+    }
+  };
+
   return (
     <resourceContext.Provider
       value={{
@@ -479,6 +541,7 @@ export const ResourceContextProvider = ({ children }) => {
         departments: state.departments,
         departmentCourses: state.departmentCourses,
         assignedProfessors: state.assignedProfessors,
+        unAssignedProfessors: state.unAssignedProfessors,
         addProfessor,
         addCourse,
         addFaculty,
@@ -494,6 +557,8 @@ export const ResourceContextProvider = ({ children }) => {
         loadDepartmentCourses,
         loadAssignedProfessors,
         deAllocateAssignedCourse,
+        loadUnAssignedProfessors,
+        assignCourseToProfessor,
       }}
     >
       {children}

@@ -7,14 +7,17 @@ const AppError = require('../utils/AppError');
 exports.createOngoingAttendance = catchAsyncErrors(async (req, res, next) => {
   if (!req.query.QRcodeId || req.query.QRcodeId === '')
     return next(new AppError('No QR code was scanned', 400));
+
   if (!req.query.lectureRoom || req.query.lectureRoom === '')
     return next(new AppError('No lecture hall', 400));
 
+  if (!req.body.courseId || req.body.courseId === '')
+    return next(new AppError('No assigned course was selected', 400));
   //NOTE: The only thing that should be in the body is the duration & maybe the lecture hall
   const { QRcodeId } = req.query;
 
-  let { duration } = req.body;
-  duration = +duration;
+  req.body.courseId = +req.body.courseId;
+  req.body.duration = +req.body.duration;
 
   const cloneObject = { ...req.body };
   //TODO: Create the ongoing attendance start & ends Times

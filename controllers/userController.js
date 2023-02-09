@@ -110,9 +110,12 @@ exports.getUser = catchAsyncErrors(async (req, res, next) => {
 
 exports.addNewProfessor = catchAsyncErrors(async (req, res, next) => {
   //TODO: GET THE FacultyId,surName,emailAddress & otherNames FROM THE REQUEST BODY
-  const { facultyId, surName, emailAddress, otherNames } = req.body;
-  let obj = { facultyId, surName, emailAddress, otherNames };
+  // const { surName, emailAddress, otherNames } = req.body;
 
+  let obj = {
+    ...req.body,
+    departmentId: req.user.departmentId,
+  };
   //TODO: CREATE THE DEFAULT PASSWORD AND HASH IT
   obj.userPassword = await bcrypt.hash(
     process.env.PROFESSOR_DEFAULT_PASSWORD,

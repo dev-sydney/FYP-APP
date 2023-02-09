@@ -33,14 +33,42 @@ export const ResourceContextProvider = ({ children }) => {
   };
 
   /**
+   * This function fetches all the users that are professors (those with privilge = professor or head_of_department)
+   * and sets the results gotten as the professors in the context
+   */
+  const loadAllProfessors = async () => {
+    try {
+      dispatch({
+        type: Types.SET_RESOURCE_LOADING,
+      });
+      const res = await fetch(`/api/v1/users/professors`);
+      const results = await res.json();
+
+      if (res.status >= 400) throw new Error(results.message);
+      if (res.status === 200) {
+        dispatch({
+          type: Types.LOAD_PROFESSORS,
+          payload: results.professors,
+        });
+      }
+    } catch (err) {
+      // console.log(err);
+      dispatch({
+        type: Types.LOAD_PROFESSORS_ERROR,
+        payload: new AppAlert(err.message, 'error'),
+      });
+      clearContextAlerts();
+    }
+  };
+
+  /**
    * This function makes a POST request to the API and sends a form data about the newly added professor
    * to be added to the system
    * @param {*} formData
    */
-  const addProfessor = async (formData) => {
+  const addProfessor = async (formData, loadProfessors = null) => {
     try {
       dispatch({ type: Types.SET_RESOURCE_LOADING });
-      formData.facultyId = +formData.facultyId;
 
       const res = await fetch(`/api/v1/users/professors/`, {
         method: 'POST',
@@ -58,6 +86,9 @@ export const ResourceContextProvider = ({ children }) => {
           type: Types.ADD_PROFESSOR_SUCCESS,
           payload: new AppAlert(result.message, 'success'),
         });
+        if (loadProfessors) {
+          await loadAllProfessors();
+        }
         clearContextAlerts(2000);
       }
     } catch (err) {
@@ -181,34 +212,7 @@ export const ResourceContextProvider = ({ children }) => {
       });
     }
   };
-  /**
-   * This function fetches all the users that are professors (those with privilge = professor or head_of_department)
-   * and sets the results gotten as the professors in the context
-   */
-  const loadAllProfessors = async () => {
-    try {
-      dispatch({
-        type: Types.SET_RESOURCE_LOADING,
-      });
-      const res = await fetch(`/api/v1/users/professors`);
-      const results = await res.json();
 
-      if (res.status >= 400) throw new Error(results.message);
-      if (res.status === 200) {
-        dispatch({
-          type: Types.LOAD_PROFESSORS,
-          payload: results.professors,
-        });
-      }
-    } catch (err) {
-      // console.log(err);
-      dispatch({
-        type: Types.LOAD_PROFESSORS_ERROR,
-        payload: new AppAlert(err.message, 'error'),
-      });
-      clearContextAlerts();
-    }
-  };
   /**
    * This function fetchs and sets the lecture hall's QRcodes in the state
    */

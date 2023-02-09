@@ -52,7 +52,7 @@ const ResourcePage = () => {
             <br /> Professors
           </h2>
 
-          <Link to="/resourceManager/professors">
+          <Link to="/departmentCourses">
             <UilArrowRight
               size="30"
               color="#FFFFFF"

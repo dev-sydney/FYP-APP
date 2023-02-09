@@ -19,6 +19,9 @@ router
   .get(courseController.getCoursesAndAssignedLecturers);
 //READ & UPDATE & DELETE
 router
+  .route('/professorsAssignedCourses')
+  .get(courseController.getUsersAssignedCourses);
+router
   .route('/:courseId')
   .get(courseController.getSendCourse)
   .patch(courseController.updateCourse)

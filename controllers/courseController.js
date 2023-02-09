@@ -124,3 +124,25 @@ exports.getCoursesAndAssignedLecturers = catchAsyncErrors(
     });
   }
 );
+
+exports.getUsersAssignedCourses = catchAsyncErrors(async (req, res, next) => {
+  const [userAssignedCourses] = await pool.query(
+    `SELECT Courses.courseId,Courses.courseName
+  FROM AssignedCoursesAndLecturers INNER JOIN Courses ON AssignedCoursesAndLecturers.courseId = Courses.courseId
+  WHERE AssignedCoursesAndLecturers.userId = ?`,
+    [req.user.userId]
+  );
+  //EDGE-CASE: If the user has not been assigned to any course yet
+  if (userAssignedCourses.length <= 0)
+    return next(
+      new AppError(
+        "You haven't been assigned any courses yet, please inform your department head",
+        404
+      )
+    );
+
+  res.status(200).json({
+    status: 'success',
+    userAssignedCourses,
+  });
+});

@@ -223,6 +223,19 @@ const resourceReducer = (state, action) => {
         ...state,
         resourceContextAlert: action.payload,
       };
+    case Types.LOAD_USER_ASSIGNED_COURSES:
+      return {
+        ...state,
+        userAssignedCourses: action.payload,
+        isResourceLoading: null,
+      };
+    case Types.LOAD_USER_ASSIGNED_COURSES_ERROR:
+      return {
+        ...state,
+        isResourceLoading: null,
+        userAssignedCourses: null,
+        resourceContextAlert: action.payload,
+      };
     default:
       return state;
   }

@@ -35,6 +35,7 @@ const ProfessorResourcePage = () => {
             <AddProfessorForm
               setIsModalActive={setIsModalActive}
               isModalActive={isModalActive}
+              loadProfessors={true}
             />
           }
         />

@@ -1,8 +1,15 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { UilUserPlus } from '@iconscout/react-unicons';
+import {
+  UilUserPlus,
+  UilEllipsisV,
+  UilUsersAlt,
+} from '@iconscout/react-unicons';
 
 import resourceContext from '../contexts/ResourceContext';
+import ModalBackground from '../components/ModalBackground';
+import AddProfessorForm from '../components/AddProfessorForm';
+import AlertComponent from '../components/AlertComponent';
 
 import './../styles/departmentCoursesStyle.scss';
 
@@ -15,24 +22,89 @@ const stat = 1;
 const DepartmentCoursesPage = () => {
   const resourceContxt = useContext(resourceContext);
 
+  const [isModalActive, setIsModalActive] = useState(false);
+  const [isMoreOptionsOpen, setIsMoreOptionsOpen] = useState(false);
+
   useEffect(() => {
     resourceContxt.loadDepartmentCourses();
   }, [stat]);
 
   return (
     <div className="deptCourses__container">
+      <AlertComponent />
+      {isModalActive ? (
+        <ModalBackground
+          children={
+            <AddProfessorForm
+              setIsModalActive={setIsModalActive}
+              isModalActive={isModalActive}
+            />
+          }
+        />
+      ) : (
+        ''
+      )}
+      <div
+        className="icon"
+        style={{
+          position: 'relative',
+          display: 'flex',
+          justifyContent: 'flex-end',
+          padding: '0 .5em',
+        }}
+      >
+        <UilEllipsisV
+          size="40"
+          color="#787676"
+          style={{
+            padding: '.5em',
+            borderRadius: '50%',
+            background: '#afafaf1a',
+          }}
+          onClick={() => {
+            setIsMoreOptionsOpen(!isMoreOptionsOpen);
+          }}
+        />
+        {isMoreOptionsOpen && (
+          <div className="more_options">
+            <div
+              className="dropdown-content"
+              onClick={() => {
+                setIsModalActive(!isModalActive);
+                setIsMoreOptionsOpen(!isMoreOptionsOpen);
+              }}
+            >
+              <p>Add Professor </p>
+              <UilUserPlus
+                size="35"
+                color="#0c4717"
+                style={{
+                  padding: '.5em',
+                  borderRadius: '50%',
+                  background: '#239f1845',
+                  marginLeft: 'auto',
+                }}
+              />
+            </div>
+            <div className="dropdown-content">
+              <Link to="/resourceManager/professors">
+                <p>View Professors</p>
+              </Link>
+              <UilUsersAlt
+                size="35"
+                color="#efa92f"
+                style={{
+                  padding: '.5em',
+                  borderRadius: '50%',
+                  background: '#f9b94a3c',
+                  marginLeft: 'auto',
+                }}
+              />
+            </div>
+          </div>
+        )}
+      </div>
       <section className="headings__section">
-        <div className="icon">
-          <UilUserPlus
-            size="45"
-            color="#8E18B9"
-            style={{
-              padding: '.5em',
-              borderRadius: '50%',
-              background: '#8e18b930',
-            }}
-          />
-        </div>
         <h1>
           Courses In Your
           <br /> Department

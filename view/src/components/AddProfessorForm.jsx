@@ -6,7 +6,11 @@ import resourceContext from '../contexts/ResourceContext';
 import './../styles/resourceFormStyle.scss';
 
 const stat = 1;
-const AddProfessorForm = ({ isModalActive, setIsModalActive }) => {
+const AddProfessorForm = ({
+  isModalActive,
+  setIsModalActive,
+  loadProfessors,
+}) => {
   const resourceContxt = useContext(resourceContext);
   useEffect(() => {
     resourceContxt.loadAllFaculties();
@@ -15,7 +19,6 @@ const AddProfessorForm = ({ isModalActive, setIsModalActive }) => {
     surName: '',
     otherNames: '',
     emailAddress: '',
-    facultyId: 0,
     privilege: '',
   });
   const onChange = (e) => {
@@ -24,7 +27,8 @@ const AddProfessorForm = ({ isModalActive, setIsModalActive }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     // console.log(formData);
-    resourceContxt.addProfessor(formData);
+    resourceContxt.addProfessor(formData, loadProfessors);
+    setIsModalActive(false);
   };
   return (
     <form onSubmit={onSubmit} className="add_prof__form resource__form">
@@ -78,7 +82,7 @@ const AddProfessorForm = ({ isModalActive, setIsModalActive }) => {
           onChange={onChange}
         />
       </div>
-      <label className="form__label">Role & Faculty:</label>
+      <label className="form__label">Role:</label>
       <div className="form__group double_field">
         <select
           name="privilege"
@@ -89,25 +93,6 @@ const AddProfessorForm = ({ isModalActive, setIsModalActive }) => {
           <option> Role </option>
           <option value={'professor'}>Professor</option>
           <option value={'head_of_department'}>Head of department</option>
-        </select>
-
-        <select
-          name="facultyId"
-          onChange={onChange}
-          required
-          className="form__input faculty__input"
-        >
-          <option>Faculty</option>
-          {/*EDGE-CASE: IF THERES NO FACULTIES LOADED YET RENDER "LOADING..."  */}
-          {!resourceContxt.faculties ? (
-            <option> loading... </option>
-          ) : (
-            resourceContxt.faculties.map((faculty) => (
-              <option value={faculty.facultyId} key={faculty.facultyId}>
-                {faculty.facultyName}
-              </option>
-            ))
-          )}
         </select>
       </div>
 

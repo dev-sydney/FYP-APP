@@ -220,9 +220,7 @@ exports.getSignedAttendances = catchAsyncErrors(async (req, res, next) => {
 
 exports.getSemesterAttendanceScores = catchAsyncErrors(
   async (req, res, next) => {
-    const { startDate, endDate } = req.body;
     // console.log({ courseId });
-
     const [results] = await pool.query(
       `SELECT  0.5 * COUNT(s_attendances.signedAttendanceId )  AS Total, students.indexNumber,students.surName,students.otherNames,students.photo
       FROM SignedAttendances AS s_attendances INNER JOIN Users AS students
@@ -230,7 +228,7 @@ exports.getSemesterAttendanceScores = catchAsyncErrors(
       WHERE s_attendances.courseId = ? AND s_attendances.createdAt >= ? 
       AND s_attendances.createdAt <= ?
       GROUP BY students.indexNumber`,
-      [+req.user.courseId, startDate, endDate]
+      [+req.body.courseId, req.body.startDate, req.body.endDate]
     );
 
     res.status(200).json({

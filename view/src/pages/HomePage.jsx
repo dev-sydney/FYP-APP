@@ -44,7 +44,7 @@ const HomePage = () => {
     }
     //EDGE-CASE: If the user is a lecturer then get their assigned courses
     if (
-      ['head_of_department', 'professor'].includes(authContxt?.user?.privilege)
+      ['head_of_department', 'professor'].includes(authContxt.user.privilege)
     ) {
       resourceContxt.loadUsersAssignedCourses();
     }

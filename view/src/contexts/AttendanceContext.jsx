@@ -48,7 +48,10 @@ export const AttendanceContextProvider = ({ children }) => {
    * @param {Number} duration
    * @param {String} QRcodeData
    */
-  const startOngoingAttendance = async (duration, QRcodeData) => {
+  const startOngoingAttendance = async (
+    durationCourse = { duration: 0, courseId: 0 },
+    QRcodeData
+  ) => {
     try {
       dispatch({ type: Types.SET_ATTENDANCE_LOADING });
       let QRcodeIdLectureRoom = QRcodeData.split(' '); //--> ['QRcodeId=?','lectureRoom=?']
@@ -59,7 +62,7 @@ export const AttendanceContextProvider = ({ children }) => {
           headers: {
             'Content-type': 'application/json',
           },
-          body: JSON.stringify({ duration }),
+          body: JSON.stringify(durationCourse),
         }
       );
       const results = await res.json();

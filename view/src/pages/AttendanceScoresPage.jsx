@@ -23,6 +23,8 @@ const stat = 1;
  */
 const AttendanceScoresPage = () => {
   const attendanceContxt = useContext(attendanceContext);
+  const resourceContxt = useContext(resourceContext);
+
   const authContxt = useContext(authContext);
 
   const navigateTo = useNavigate();
@@ -38,6 +40,8 @@ const AttendanceScoresPage = () => {
       !['professor', 'head_of_department'].includes(authContxt.user.privilege)
     )
       navigateTo('/');
+
+    resourceContxt.loadUsersAssignedCourses();
   }, [stat]);
 
   /* -------THE SELECT OPTIONS ONCHANGE EVENT HANDLERS------- */

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 
 import attendanceContext from '../contexts/AttendanceContext';
+import resourceContext from '../contexts/ResourceContext';
 
 import {
   UilAngleDown,
@@ -17,15 +18,25 @@ import './../styles/attendanceStyle.scss';
  */
 const AttendanceForm = ({ QRcodeData, setQRcodeData, setDidProfessorScan }) => {
   const attendanceContxt = useContext(attendanceContext);
+  const resourceContxt = useContext(resourceContext);
 
   const [duration, setDuration] = useState(5);
+  const [courseId, setCourseId] = useState(
+    resourceContxt?.userAssignedCourses.length === 1
+      ? resourceContxt?.userAssignedCourses[0].courseId
+      : 0
+  );
 
+  const onCourseSelectChange = (e) => {
+    setCourseId(+e.target.value);
+  };
   const onSubmit = (e) => {
     e.preventDefault();
     // console.log(formData);
     if (attendanceContxt.isLoading) return;
-
-    attendanceContxt.startOngoingAttendance(duration, QRcodeData);
+    if (courseId === 0) return;
+    // console.log({ duration, courseId });
+    attendanceContxt.startOngoingAttendance({ duration, courseId }, QRcodeData);
 
     setTimeout(() => {
       setDidProfessorScan(false);
@@ -43,10 +54,24 @@ const AttendanceForm = ({ QRcodeData, setQRcodeData, setDidProfessorScan }) => {
         <UilAngleDown color="#ADADAD" size="40" />
       </span>
       <form onSubmit={onSubmit} className={'attendance__form'}>
+        {resourceContxt.userAssignedCourses &&
+          (resourceContxt.userAssignedCourses.length > 1 ? (
+            <select className="form__input" onChange={onCourseSelectChange}>
+              <option value="">Course</option>
+              {resourceContxt.userAssignedCourses.map((el) => (
+                <option value={el.courseId} key={el.courseId}>
+                  {el.courseName}
+                </option>
+              ))}
+            </select>
+          ) : (
+            ''
+          ))}
         <div
           style={{
             width: '100%',
             justifyContent: 'center',
+            outline: '2px solid blue',
             display: 'flex',
             margin: '1em 0',
           }}

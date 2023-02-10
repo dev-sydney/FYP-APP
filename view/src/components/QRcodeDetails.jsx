@@ -63,7 +63,7 @@ const QRcodeDetails = ({
               <h2>
                 {codeDetails.otherNames.concat(` ${codeDetails.surName}`)}
               </h2>
-              <p>{codeDetails.privilege}</p>
+              <p>{codeDetails.currentCourseName}</p>
             </div>
           )}
 

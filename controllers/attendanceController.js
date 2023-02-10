@@ -32,7 +32,10 @@ exports.createOngoingAttendance = catchAsyncErrors(async (req, res, next) => {
     .split('T')
     .join(' ')
     .replace('Z', '');
+
+  //Removing the unncessary fields
   delete cloneObject['duration'];
+  delete cloneObject['courseName'];
 
   //Make the userId from the req.user
   cloneObject.userId = req.user.userId;
@@ -54,11 +57,14 @@ exports.createOngoingAttendance = catchAsyncErrors(async (req, res, next) => {
     [...Object.values(cloneObject)]
   );
   //EDGE-CASE: if the onging attendance entity was not created
-
+  if (result.affectedRows < 1)
+    return next(
+      new AppError('Unable to start ongoing attendance,please try again', 400)
+    );
   //2. update the QRcodes ongingattendance
   await pool.query(
-    `UPDATE QRcodes SET isLocked = ?, ongoingAttendanceId = ?, professorId = ? WHERE QRcodeId = ?`,
-    [0, result.insertId, req.user.userId, +QRcodeId]
+    `UPDATE QRcodes SET isLocked = ?, ongoingAttendanceId = ?, professorId = ?, currentCourseName = ? WHERE QRcodeId = ?`,
+    [0, result.insertId, req.user.userId, req.body.courseName, +QRcodeId]
   );
 
   //3. send a success message
@@ -250,7 +256,7 @@ exports.getCurrentProfessor = catchAsyncErrors(async (req, res, next) => {
 
   //TODO: QUERY THE QRCODE DETAILS BASED OF THE REQ.PARAMS (QRcodeId)
   const [qrCodeInfo] = await pool.query(
-    `SELECT surName,otherNames,photo,privilege,QRcodes.isLocked
+    `SELECT surName,otherNames,photo,QRcodes.isLocked
   FROM Users
   INNER JOIN QRcodes
   ON Users.userId = QRcodes.professorId WHERE QRcodes.QRcodeId = ?`,
@@ -270,7 +276,10 @@ exports.getCurrentProfessor = catchAsyncErrors(async (req, res, next) => {
   } */
   res.status(200).json({
     status: 'success',
-    qrCodeDetails: qrCodeInfo[0],
+    qrCodeDetails: {
+      ...qrCodeInfo[0],
+      currentCourseName: QRcodeEntities[0].currentCourseName,
+    },
   });
 });
 

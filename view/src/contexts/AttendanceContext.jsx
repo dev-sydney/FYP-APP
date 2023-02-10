@@ -45,11 +45,11 @@ export const AttendanceContextProvider = ({ children }) => {
   /**
    * This function is responsible for making requests to the API route that will start
    * the ongoing attendance
-   * @param {Number} duration
+   * @param {Object} durationCourse
    * @param {String} QRcodeData
    */
   const startOngoingAttendance = async (
-    durationCourse = { duration: 0, courseId: 0 },
+    durationCourse = { duration: 0, courseId: 0, courseName: '' },
     QRcodeData
   ) => {
     try {

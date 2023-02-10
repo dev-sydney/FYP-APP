@@ -27,7 +27,7 @@ exports.createOngoingAttendance = catchAsyncErrors(async (req, res, next) => {
     .join(' ')
     .replace('Z', '');
 
-  cloneObject.endsAt = new Date(Date.now() + duration * 60 * 1000)
+  cloneObject.endsAt = new Date(Date.now() + req.body.duration * 60 * 1000)
     .toISOString()
     .split('T')
     .join(' ')
@@ -38,7 +38,7 @@ exports.createOngoingAttendance = catchAsyncErrors(async (req, res, next) => {
   cloneObject.userId = req.user.userId;
   cloneObject.QRcodeId = +req.query.QRcodeId;
   cloneObject.lectureRoom = req.query.lectureRoom;
-  cloneObject.courseId = +req.user.courseId;
+  cloneObject.courseId = +req.body.courseId;
   // console.log(cloneObject);
 
   let columns = Object.keys(cloneObject).join(',');

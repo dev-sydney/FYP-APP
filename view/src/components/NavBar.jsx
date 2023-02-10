@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
-  UilEstate,
+  UilQrcodeScan,
   UilAnalytics,
   UilUserCircle,
   UilCreateDashboard,
@@ -28,11 +28,11 @@ const NavBar = () => {
         className="navlink"
         to="/"
         style={({ isActive }) => ({
-          color: isActive ? 'black' : 'gray',
+          color: isActive ? '#76189f' : '#C5C5C5',
         })}
       >
-        <UilEstate size="35" style={{ width: '100%' }} />
-        <p>Home</p>
+        <UilQrcodeScan size="35" style={{ width: '100%' }} />
+        <p>Scan</p>
       </NavLink>
 
       {/* NOTE: CONDTIONAL RENDERING FOR THE STUDENTS ATTENDED LECTURES */}
@@ -42,7 +42,7 @@ const NavBar = () => {
             className="navlink"
             to="/attendedLectures"
             style={({ isActive }) => ({
-              color: isActive ? 'black' : 'gray',
+              color: isActive ? '#76189f' : '#C5C5C5',
             })}
           >
             <UilHistoryAlt size="35" style={{ width: '100%' }} />
@@ -61,7 +61,7 @@ const NavBar = () => {
             className="navlink"
             to="/attendances/ongoingAttendances"
             style={({ isActive }) => ({
-              color: isActive ? 'black' : 'gray',
+              color: isActive ? '#76189f' : '#C5C5C5',
             })}
           >
             <UilHistoryAlt size="35" style={{ width: '100%' }} />
@@ -80,7 +80,7 @@ const NavBar = () => {
             className="navlink"
             to="/attendance-scores"
             style={({ isActive }) => ({
-              color: isActive ? 'black' : 'gray',
+              color: isActive ? '#76189f' : '#C5C5C5',
             })}
           >
             <UilAnalytics size="35" style={{ width: '100%' }} />
@@ -97,7 +97,7 @@ const NavBar = () => {
             className="navlink"
             to="/resourceManager"
             style={({ isActive }) => ({
-              color: isActive ? 'black' : 'gray',
+              color: isActive ? '#76189f' : '#C5C5C5',
             })}
           >
             <UilCreateDashboard size="35" style={{ width: '100%' }} />
@@ -110,7 +110,7 @@ const NavBar = () => {
         className={'navlink'}
         to="/me"
         style={({ isActive }) => ({
-          color: isActive ? 'black' : 'gray',
+          color: isActive ? '#76189f' : '#C5C5C5',
         })}
       >
         <UilUserCircle size="35" style={{ width: '100%' }} />

@@ -26,17 +26,29 @@ const AttendanceForm = ({ QRcodeData, setQRcodeData, setDidProfessorScan }) => {
       ? resourceContxt?.userAssignedCourses[0].courseId
       : 0
   );
+  const [courseName, setCourseName] = useState(
+    resourceContxt?.userAssignedCourses.length === 1
+      ? resourceContxt?.userAssignedCourses[0].courseName
+      : ''
+  );
 
   const onCourseSelectChange = (e) => {
     setCourseId(+e.target.value);
+
+    setCourseName(
+      e.target.options[e.target.selectedIndex].getAttribute('data-course-name')
+    );
   };
   const onSubmit = (e) => {
     e.preventDefault();
     // console.log(formData);
     if (attendanceContxt.isLoading) return;
-    if (courseId === 0) return;
+    if (courseId === 0 || courseId === null) return;
     // console.log({ duration, courseId });
-    attendanceContxt.startOngoingAttendance({ duration, courseId }, QRcodeData);
+    attendanceContxt.startOngoingAttendance(
+      { duration, courseId, courseName },
+      QRcodeData
+    );
 
     setTimeout(() => {
       setDidProfessorScan(false);
@@ -59,7 +71,11 @@ const AttendanceForm = ({ QRcodeData, setQRcodeData, setDidProfessorScan }) => {
             <select className="form__input" onChange={onCourseSelectChange}>
               <option value="">Course</option>
               {resourceContxt.userAssignedCourses.map((el) => (
-                <option value={el.courseId} key={el.courseId}>
+                <option
+                  value={el.courseId}
+                  key={el.courseId}
+                  data-course-name={el.courseName}
+                >
                   {el.courseName}
                 </option>
               ))}

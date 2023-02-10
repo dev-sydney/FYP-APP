@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 /* ---------------CONTEXTS---------------- */
 import authContext from '../contexts/AuthContext';
 import attendanceContext from '../contexts/AttendanceContext';
+import resourceContext from '../contexts/ResourceContext';
 
 /* ---------------COMPONENTS---------------- */
 import AttendanceForm from '../components/AttendanceForm';
@@ -16,6 +17,7 @@ import './../styles/homeStyle.scss';
 const HomePage = () => {
   const authContxt = useContext(authContext);
   const attendanceContxt = useContext(attendanceContext);
+  const resourceContxt = useContext(resourceContext);
 
   const [QRcodeData, setQRcodeData] = useState('');
 
@@ -39,6 +41,12 @@ const HomePage = () => {
       authContxt?.user?.hasSecurityQuestionsSet === 0
     ) {
       navigateTo('/user-securityQnAs');
+    }
+    //EDGE-CASE: If the user is a lecturer then get their assigned courses
+    if (
+      ['head_of_department', 'professor'].includes(authContxt?.user?.privilege)
+    ) {
+      resourceContxt.loadUsersAssignedCourses();
     }
     authContxt.setNavBarVisibilty(true);
   }, []);

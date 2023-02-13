@@ -27,25 +27,25 @@ const AlertComponent = () => {
       {/* NOTE: CONDITIONAL RENDERING FOR THE ALERT ICON OF THE COMPONENT (attendanceContext) */}
       {attendanceContxt.attendanceAlert &&
         (attendanceContxt.attendanceAlert.type === 'success' ? (
-          <UilCheckCircle size="50" color="#12A2F3" />
+          <UilCheckCircle size="50" color="#000000" />
         ) : (
-          <UilExclamationCircle size="50" color="#F31212" />
+          <UilExclamationCircle size="50" color="#000000" />
         ))}
 
       {/* NOTE: CONDITIONAL RENDERING FOR THE ALERT ICON OF THE COMPONENT (resourceContext) */}
       {resourceContxt.resourceContextAlert &&
         (resourceContxt.resourceContextAlert.type === 'success' ? (
-          <UilCheckCircle size="50" color="#12A2F3" />
+          <UilCheckCircle size="50" color="#000000" />
         ) : (
-          <UilExclamationCircle size="50" color="#F31212" />
+          <UilExclamationCircle size="50" color="#000000" />
         ))}
 
       {/* NOTE: CONDITIONAL RENDERING FOR THE ALERT ICON OF THE COMPONENT (authContext) */}
       {authContxt.authAlertMessage &&
         (authContxt.authAlertMessage.type === 'success' ? (
-          <UilCheckCircle size="50" color="#12A2F3" />
+          <UilCheckCircle size="50" color="#000000" />
         ) : (
-          <UilExclamationCircle size="50" color="#F31212" />
+          <UilExclamationCircle size="50" color="#000000" />
         ))}
 
       {/* NOTE: CONDITIONAL RENDERING FOR THE ALERT DETAILS (attendanceContext)*/}
@@ -55,8 +55,8 @@ const AlertComponent = () => {
             style={{
               color: `${
                 attendanceContxt.attendanceAlert.type === 'success'
-                  ? '#12A2F3'
-                  : '#F31212'
+                  ? 'black'
+                  : 'black'
               }`,
             }}
           >
@@ -73,8 +73,8 @@ const AlertComponent = () => {
             style={{
               color: `${
                 resourceContxt.resourceContextAlert.type === 'success'
-                  ? '#12A2F3'
-                  : '#F31212'
+                  ? 'black'
+                  : 'black'
               }`,
             }}
           >
@@ -91,8 +91,8 @@ const AlertComponent = () => {
             style={{
               color: `${
                 authContxt.authAlertMessage.type === 'success'
-                  ? '#12A2F3'
-                  : '#F31212'
+                  ? 'black'
+                  : 'black'
               }`,
             }}
           >
@@ -104,5 +104,5 @@ const AlertComponent = () => {
     </div>
   );
 };
-/* #12A2F3-> SUCCESS COLOR */
+/* #000000-> SUCCESS COLOR */
 export default AlertComponent;

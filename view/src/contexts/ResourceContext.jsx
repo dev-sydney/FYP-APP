@@ -2,6 +2,7 @@ import { createContext, useReducer } from 'react';
 import * as Types from '../utils/types';
 import { AppAlert } from '../utils/config';
 import resourceReducer from '../reducers/resourcesReducer';
+import randomColor from 'randomcolor';
 
 const resourceContext = createContext();
 
@@ -19,6 +20,7 @@ export const ResourceContextProvider = ({ children }) => {
     assignedProfessors: null,
     unAssignedProfessors: null,
     userAssignedCourses: null,
+    deptCoursesColors: null,
   };
   const [state, dispatch] = useReducer(resourceReducer, initialState);
 
@@ -401,6 +403,11 @@ export const ResourceContextProvider = ({ children }) => {
         dispatch({
           type: Types.LOAD_DEPARTMENT_COURSES,
           payload: result.coursesAndAssignedLectures,
+          colors: randomColor({
+            count: result.coursesAndAssignedLectures.length,
+            format: 'rgba',
+            alpha: 0.7,
+          }),
         });
       }
     } catch (err) {
@@ -576,6 +583,7 @@ export const ResourceContextProvider = ({ children }) => {
         assignedProfessors: state.assignedProfessors,
         unAssignedProfessors: state.unAssignedProfessors,
         userAssignedCourses: state.userAssignedCourses,
+        deptCoursesColors: state.deptCoursesColors,
         addProfessor,
         addCourse,
         addFaculty,

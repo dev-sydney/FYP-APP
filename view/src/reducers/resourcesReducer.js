@@ -165,6 +165,7 @@ const resourceReducer = (state, action) => {
       return {
         ...state,
         departmentCourses: action.payload,
+        deptCoursesColors: action.colors,
         isResourceLoading: null,
       };
     case Types.LOAD_DEPARTMENT_COURSES_ERROR:

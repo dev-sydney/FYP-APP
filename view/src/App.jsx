@@ -26,6 +26,8 @@ import AttendedLecturesPage from './pages/AttendedLecturesPage';
 import CourseLectures from './pages/CourseLectures';
 import DepartmentCoursesPage from './pages/DepartmentCoursesPage';
 import AssignedLecturersPage from './pages/AssignedLecturersPage';
+import AccountOverviewPage from './pages/AccountOverviewPage';
+import ChangePasswordPage from './pages/ChangePasswordPage';
 import Empty from './pages/Empty';
 
 import NavBar from './components/NavBar';
@@ -40,6 +42,14 @@ function App() {
             <ResourceContextProvider>
               <BrowserRouter>
                 <Routes>
+                  <Route
+                    path="/account/overview"
+                    element={<AccountOverviewPage />}
+                  />
+                  <Route
+                    path="/account/change-password"
+                    element={<ChangePasswordPage />}
+                  />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/signup" element={<SignupPage />} />
                   <Route path="/" element={<HomePage />} />
@@ -51,7 +61,7 @@ function App() {
                     path="/attendances/ongoingAttendances/:ongoingAttendanceId/:courseId"
                     element={<SignedAttendancesPage />}
                   />
-                  <Route path="/me" element={<ProfilePage />} />
+                  <Route path="/account/profile" element={<ProfilePage />} />
                   <Route path="/resourceManager" element={<ResourcePage />} />
                   <Route
                     path="/resourceManager/professors"

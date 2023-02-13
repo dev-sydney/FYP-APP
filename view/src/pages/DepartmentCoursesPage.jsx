@@ -114,8 +114,14 @@ const DepartmentCoursesPage = () => {
         <div className="dept_courses">
           {resourceContxt.departmentCourses &&
             (resourceContxt.departmentCourses.length > 0
-              ? resourceContxt.departmentCourses.map((deptCourse) => (
-                  <div className="course_item" key={deptCourse.courseId}>
+              ? resourceContxt.departmentCourses.map((deptCourse, i) => (
+                  <div
+                    className="course_item"
+                    key={deptCourse.courseId}
+                    style={{
+                      backgroundColor: resourceContxt.deptCoursesColors[i],
+                    }}
+                  >
                     <Link to={`/departmentCourses/${deptCourse.courseId}`}>
                       <div className="course_title">
                         <h2>{deptCourse.courseName}</h2>

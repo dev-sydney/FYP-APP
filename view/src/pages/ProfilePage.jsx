@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { UilUser, UilSpinnerAlt } from '@iconscout/react-unicons';
 
 import authContext from '../contexts/AuthContext';
@@ -23,12 +23,6 @@ const ProfilePage = () => {
     }
   }, []);
 
-  const [securityFormData, setSecurityFormData] = useState({
-    currentPassword: '',
-    newPassword: '',
-    newPasswordConfirm: '',
-  });
-
   const [accountInfoFormData, setAccountInfoFormData] = useState({
     surName: '',
     otherNames: '',
@@ -36,29 +30,11 @@ const ProfilePage = () => {
   });
   let userPhotoInput = useRef();
 
-  const onPasswordFieldsChange = (e) => {
-    setSecurityFormData({
-      ...securityFormData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   const onAccountInfoChange = (e) => {
     setAccountInfoFormData({
       ...accountInfoFormData,
       [e.target.name]: e.target.value,
     });
-  };
-
-  /**
-   * The event handler function that takes of the submit action when the securitySettings form gets submitted
-   * @param {*} e
-   */
-  const onPasswordFormSubmit = (e) => {
-    e.preventDefault();
-    if (authContxt.isLoading) return;
-
-    authContxt.updateUserPassword(securityFormData);
   };
 
   /**
@@ -91,148 +67,97 @@ const ProfilePage = () => {
   return (
     <div className="profile__container">
       <AlertComponent />
-      <section className="acc_setting__section">
-        {/*------ACCOUNT INFORMATION SETTINGS------ */}
+      {/*------ACCOUNT INFORMATION SETTINGS------ */}
 
-        <h1>ACCOUNT SETTINGS</h1>
-        <form
-          encType="multipart/form-data"
-          onSubmit={onAccountInfoFormSubmit}
-          className="acc_setting__form"
+      <h1 style={{ textAlign: 'left', margin: '1em 0' }}>Edit Profile</h1>
+      <form
+        encType="multipart/form-data"
+        onSubmit={onAccountInfoFormSubmit}
+        // className="acc_setting__form"
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignContent: 'center',
+            justifyContent: 'center',
+            minHeight: 'fit-content',
+            maxHeight: 'fit-content',
+            minWidth: 'fit-content',
+            maxWidth: 'fit-content',
+            borderRadius: '50%',
+          }}
         >
-          <div className="photo__surname">
-            <label htmlFor="photo" className="file__upload">
-              <UilUser color="#828282" size="40" style={{ margin: '1.5em' }} />
-              <input
-                type="file"
-                name="photo"
-                accept="image/*"
-                id="photo"
-                className="form__upload"
-                ref={userPhotoInput}
-                onChange={onAccountInfoChange}
-                style={{ display: 'none' }}
-              />
-            </label>
+          <label htmlFor="photo" className="file__upload">
+            <UilUser color="#828282" size="60" />
+            <input
+              type="file"
+              name="photo"
+              accept="image/*"
+              id="photo"
+              className="form__upload"
+              ref={userPhotoInput}
+              onChange={onAccountInfoChange}
+              style={{ display: 'none' }}
+            />
+          </label>
+        </div>
+        <div className="photo__surname">
+          <div className="input-block">
             <input
               type="text"
-              className="form__input surname__input"
-              placeholder="Surname"
+              className="surname__input"
               name="surName"
               value={accountInfoFormData.surName}
               onChange={onAccountInfoChange}
             />
+            <span className="placeholder">Surname</span>
           </div>
+        </div>
 
-          <div className="form-group">
-            <input
-              type="text"
-              className="form__input"
-              placeholder="Other names"
-              name="otherNames"
-              value={accountInfoFormData.otherNames}
-              onChange={onAccountInfoChange}
-            />
-          </div>
+        <div className="input-block">
+          <input
+            type="text"
+            name="otherNames"
+            value={accountInfoFormData.otherNames}
+            onChange={onAccountInfoChange}
+            minLength={0}
+          />
+          <span className="placeholder">Other names</span>
+        </div>
 
-          <div className="form-group">
-            <input
-              type={'email'}
-              className="form__input"
-              name="emailAddress"
-              value={accountInfoFormData.emailAddress}
-              placeholder="Email"
-              onChange={onAccountInfoChange}
-            />
-          </div>
+        <div className="input-block">
+          <input
+            type={'email'}
+            name="emailAddress"
+            value={accountInfoFormData.emailAddress}
+            onChange={onAccountInfoChange}
+            id="input-text"
+            // required
+          />
+          <span className="placeholder">Email</span>
+        </div>
 
-          <button onClick={onAccountInfoFormSubmit} className="save__btn">
-            {/* NOTE: Condtional rendering logic for displaying either the loading animation or 'save */}
-            {authContxt.isUpdatesLoading ? (
-              <div className="spinner_icon">
-                <UilSpinnerAlt
-                  color="#FFFFFF"
-                  size="22"
-                  style={{ marginTop: '.2em' }}
-                />
-              </div>
-            ) : (
-              'save'
-            )}
-          </button>
-        </form>
-      </section>
-      <hr />
-
-      {/* ------PASSWORD & SECURITY-RELATED SETTINGS------ */}
-      <section className="security_setting__section">
-        <h1>SECURITY SETTINGS</h1>
-        <form
-          onSubmit={onPasswordFormSubmit}
-          className="security_setting__form"
-        >
-          <div className="form__group">
-            <input
-              type="password"
-              name="currentPassword"
-              value={securityFormData.currentPassword}
-              id="current"
-              onChange={onPasswordFieldsChange}
-              placeholder="Current Password"
-              className="form__input"
-            />
-          </div>
-
-          <div className="form__group">
-            <input
-              type="password"
-              name="newPassword"
-              value={securityFormData.newPassword}
-              id="newpassword"
-              onChange={onPasswordFieldsChange}
-              placeholder="New Password"
-              className="form__input"
-            />
-          </div>
-
-          <div className="form__group">
-            <input
-              type="password"
-              name="newPasswordConfirm"
-              vaue={securityFormData.newPasswordConfirm}
-              id="passwordconfirm"
-              onChange={onPasswordFieldsChange}
-              placeholder="Confirm Password"
-              className="form__input"
-            />
-          </div>
-          <button
-            className="save_password save__btn"
-            onClick={onPasswordFormSubmit}
-          >
-            {/* NOTE: Condtional rendering logic for displaying either the loading animation or 'done */}
-            {authContxt.isLoading ? (
-              <div className="spinner_icon">
-                <UilSpinnerAlt
-                  color="#FFFFFF"
-                  size="22"
-                  style={{ marginTop: '.2em' }}
-                />
-              </div>
-            ) : (
-              'done'
-            )}
-          </button>
-        </form>
-        <button
-          onClick={() => {
-            authContxt.signUserOut(navigateTo);
-          }}
-          className="logout__btn save__btn"
-        >
-          LOG OUT
+        <button onClick={onAccountInfoFormSubmit} className="save__btn">
+          {/* NOTE: Condtional rendering logic for displaying either the loading animation or 'save */}
+          {authContxt.isLoading ? (
+            <div className="spinner_icon">
+              <UilSpinnerAlt
+                color="#FFFFFF"
+                size="22"
+                style={{ marginTop: '.2em' }}
+              />
+            </div>
+          ) : (
+            'save changes'
+          )}
         </button>
-      </section>
+      </form>
+
+      <div style={{ textAlign: 'center', marginTop: '.5em' }}>
+        <Link to="/account/overview" style={{ color: 'gray' }}>
+          <p>Cancel</p>
+        </Link>
+      </div>
     </div>
   );
 };

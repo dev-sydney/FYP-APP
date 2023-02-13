@@ -23,6 +23,7 @@
 }
 .deptCourses__container {
   min-height: inherit;
+  overflow-y: auto;
   //   background-color: blanchedalmond;
 
   .dept_courses {
@@ -33,7 +34,7 @@
     row-gap: 0.4em;
 
     .course_item {
-      outline: 1px solid gray;
+      // outline: 1px solid gray;
       //   display: flex;
       //   flex-direction: column;
       padding: 0.5em;
@@ -148,6 +149,6 @@
     }
   }
   .checkbx {
-    accent-color: #76189f;
+    accent-color: #284b63;
   }
 }

@@ -262,7 +262,7 @@ export const AuthContextProvider = ({ children }) => {
   const updateUserAccountInfo = async (formData) => {
     try {
       dispatch({
-        type: Types.SET_USER_SETTINGS_LOADING,
+        type: Types.IS_AUTH_LOADING,
       });
 
       const res = await fetch(`/api/v1/users/update-me`, {

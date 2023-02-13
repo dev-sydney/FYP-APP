@@ -70,7 +70,7 @@ const LoginPage = () => {
           <span className="placeholder">Password: </span>
         </div>
         <button
-          className=" password_btn"
+          className="password_btn"
           style={{ width: '100%', marginTop: '1em' }}
           onClick={onSubmit}
         >

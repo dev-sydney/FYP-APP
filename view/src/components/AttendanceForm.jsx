@@ -87,7 +87,7 @@ const AttendanceForm = ({ QRcodeData, setQRcodeData, setDidProfessorScan }) => {
           style={{
             width: '100%',
             justifyContent: 'center',
-            outline: '2px solid blue',
+            // outline: '2px solid blue',
             display: 'flex',
             margin: '1em 0',
           }}

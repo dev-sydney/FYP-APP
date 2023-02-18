@@ -1,0 +1,82 @@
+[
+  {
+    "surName": "Morrison",
+    "otherNames": "Kate",
+    "emailAddress": "Kate@example.com",
+    "privilege": "student",
+    "departmentId": 2,
+    "photo": "user-7.jpg",
+    "userPassword": "test1234",
+    "indexNumber": 10111321
+  },
+  {
+    "surName": "Stout",
+    "otherNames": "Elliana",
+    "emailAddress": "elliana@example.com",
+    "privilege": "student",
+    "departmentId": 2,
+    "photo": "user-8.jpg",
+    "userPassword": "test1234",
+    "indexNumber": 10111322
+  },
+  {
+    "surName": "Vega",
+    "otherNames": "Christian",
+    "emailAddress": "christian@example.com",
+    "privilege": "student",
+    "departmentId": 3,
+    "photo": "user-9.jpg",
+    "userPassword": "test1234",
+    "indexNumber": 10111323
+  },
+  {
+    "surName": "Scaife",
+    "otherNames": "Steve",
+    "emailAddress": "Steve@example.com",
+    "privilege": "student",
+    "departmentId": 3,
+    "photo": "user-10.jpg",
+    "userPassword": "test1234",
+    "indexNumber": 10111324
+  },
+  {
+    "surName": "Lynn",
+    "otherNames": "Araav",
+    "emailAddress": "lynn@example.com",
+    "privilege": "student",
+    "departmentId": 4,
+    "photo": "user-11.jpg",
+    "userPassword": "test1234",
+    "indexNumber": 10111325
+  },
+  {
+    "surName": "Myles",
+    "otherNames": "Miyah",
+    "emailAddress": "miyah@example.com",
+    "privilege": "student",
+    "departmentId": 4,
+    "photo": "user-12.jpg",
+    "userPassword": "test1234",
+    "indexNumber": 10111326
+  },
+  {
+    "surName": "Hadley",
+    "otherNames": "Ben",
+    "emailAddress": "ben@example.com",
+    "privilege": "student",
+    "departmentId": 5,
+    "photo": "user-13.jpg",
+    "userPassword": "test1234",
+    "indexNumber": 10111327
+  },
+  {
+    "surName": "Wilson",
+    "otherNames": "laura",
+    "emailAddress": "wilson@example.com",
+    "privilege": "student",
+    "departmentId": 5,
+    "photo": "user-14.jpg",
+    "userPassword": "test1234",
+    "indexNumber": 10111328
+  }
+]

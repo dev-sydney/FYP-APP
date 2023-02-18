@@ -1,0 +1,105 @@
+[
+  {
+    "courseName": "Company & Partnership Law",
+    "courseCode": "BBBA306",
+    "departmentId": 2
+  },
+  {
+    "courseName": "Project Management",
+    "courseCode": "BBBA409",
+    "departmentId": 2
+  },
+  {
+    "courseName": "Total Quality Management",
+    "courseCode": "BBBA404",
+    "departmentId": 2
+  },
+  {
+    "courseName": "Organisational Behaviour",
+    "courseCode": "BBBA301",
+    "departmentId": 2
+  },
+  {
+    "courseName": "Operations Management",
+    "courseCode": "BBBA304",
+    "departmentId": 2
+  },
+
+  {
+    "courseName": "Marketing of Financial Services",
+    "courseCode": "BMKT406",
+    "departmentId": 3
+  },
+  {
+    "courseName": "Marketing Management",
+    "courseCode": "BMKT305",
+    "departmentId": 3
+  },
+  {
+    "courseName": "Understanding Customer Dynamics",
+    "courseCode": "BMKT301",
+    "departmentId": 3
+  },
+  {
+    "courseName": "Integrated Marketing Communication",
+    "courseCode": "BMKT303",
+    "departmentId": 3
+  },
+  {
+    "courseName": "Marketing Research",
+    "courseCode": "BMKT302",
+    "departmentId": 3
+  },
+
+  {
+    "courseName": "Communication Skills",
+    "courseCode": "BGEC101",
+    "departmentId": 4
+  },
+  {
+    "courseName": "Business Communication",
+    "courseCode": "BGEC103",
+    "departmentId": 4
+  },
+  {
+    "courseName": "French Language",
+    "courseCode": "BGEC109",
+    "departmentId": 4
+  },
+  {
+    "courseName": "Logic & Critical Thinking",
+    "courseCode": "BGEC105",
+    "departmentId": 4
+  },
+  {
+    "courseName": "Scholarly Writing",
+    "courseCode": "BGEC102",
+    "departmentId": 4
+  },
+
+  {
+    "courseName": "Intro to Mass Communication",
+    "courseCode": "PBPR101",
+    "departmentId": 5
+  },
+  {
+    "courseName": "Public Relations I",
+    "courseCode": "PBPR103",
+    "departmentId": 5
+  },
+  {
+    "courseName": "English Language I",
+    "courseCode": "PBPR105",
+    "departmentId": 5
+  },
+  {
+    "courseName": "Theories of Public Relations",
+    "courseCode": "PBPR102",
+    "departmentId": 5
+  },
+  {
+    "courseName": "Public Relations II",
+    "courseCode": "PBPR104",
+    "departmentId": 5
+  }
+]

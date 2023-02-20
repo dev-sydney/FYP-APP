@@ -25,8 +25,6 @@ const HomePage = () => {
   const [didProfessorScan, setDidProfessorScan] = useState(false);
   const [shouldQRcodeDetailPopup, setShouldQRcodeDetailPopup] = useState(false);
 
-  const dataStr = useRef('');
-
   const navigateTo = useNavigate();
 
   useEffect(() => {
@@ -65,7 +63,7 @@ const HomePage = () => {
       if (authContxt.user.privilege === 'student') {
         setIsAttendanceDetails(!isAttendanceDetails);
         setQRcodeData(result.text);
-        dataStr.current = result.text;
+        // dataStr.current = result.text;
         setShouldQRcodeDetailPopup(true);
       }
     }
@@ -102,11 +100,12 @@ const HomePage = () => {
         />
       </div>
       <QRcodeDetails
-        dataStr={dataStr.current}
         isAttendanceDetails={isAttendanceDetails}
         setIsAttendanceDetails={setIsAttendanceDetails}
         setShouldQRcodeDetailPopup={setShouldQRcodeDetailPopup}
         shouldQRcodeDetailPopup={shouldQRcodeDetailPopup}
+        setQRcodeData={setQRcodeData}
+        QRcodeData={QRcodeData}
       />
       //NOTE: THIS COMPONENT IS THE VERTICAL SLIDER THAT WILL ONLY POPUP //IF
       APROFESSOR SCANS OR AN ONGOING ATTENDANCE ISN'T EXPIRED AND THE

@@ -6,18 +6,22 @@ import LoadingQRcodeDetails from './loadingComponents/LoadingQRcodeDetails';
 
 import './../styles/componentsStyles.scss';
 const QRcodeDetails = ({
-  dataStr,
   isAttendanceDetails,
   shouldQRcodeDetailPopup,
   setShouldQRcodeDetailPopup,
+  setIsAttendanceDetails,
+  QRcodeData,
+  setQRcodeData,
 }) => {
   const attendanceContxt = useContext(attendanceContext);
   const { codeDetails, getRandomSecurityQuestion } = attendanceContxt;
 
   useEffect(() => {
-    if (!dataStr) return;
-    attendanceContxt.getQRcodeDetails(dataStr);
-    return () => {};
+    if (QRcodeData === '') return;
+    attendanceContxt.getQRcodeDetails(QRcodeData);
+    return () => {
+      attendanceContxt.clearSomeContextState('CLEAR_LOCKED_QRCODE');
+    };
   }, [isAttendanceDetails]);
 
   const onClick = () => {
@@ -70,7 +74,7 @@ const QRcodeDetails = ({
           {/* NOTE: Conditional rendering logic to show the locked details if the QR code is locked */}
           {attendanceContxt.QRcodeStatus && (
             <div className="unlocked__details">
-              <h3>{attendanceContxt.QRcodeStatus}</h3>
+              <h2>{attendanceContxt.QRcodeStatus}</h2>
               <p>Locked</p>
             </div>
           )}
@@ -83,6 +87,9 @@ const QRcodeDetails = ({
               onClick={() => {
                 //NOTE: THIS CLICK EVENT HANDLER HIDES THE QRcodeDetails Component
                 setShouldQRcodeDetailPopup(false);
+                setQRcodeData('');
+                setIsAttendanceDetails(!isAttendanceDetails);
+                attendanceContxt.clearSomeContextState('CLEAR_LOCKED_QRCODE');
               }}
             >
               {

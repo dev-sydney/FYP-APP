@@ -26,7 +26,12 @@ const signedAttendances = JSON.parse(
     'utf-8'
   )
 );
-
+const assignments = JSON.parse(
+  fs.readFileSync(
+    `${__dirname}/../dev-data/data/assignedCoursesLecturers.json`,
+    'utf-8'
+  )
+);
 let valuesStr = ' ';
 
 const importProfessorsData = async (valuesStr) => {
@@ -122,6 +127,10 @@ if (process.argv[2] === '--import-ongoing') {
 
 if (process.argv[2] === '--import-signed') {
   importDevData(signedAttendances, 'SignedAttendances');
+}
+
+if (process.argv[2] === '--import-assignments') {
+  importDevData(assignments, 'AssignedCoursesAndLecturers');
 }
 
 if (process.argv[2] === '--delete-courses') {

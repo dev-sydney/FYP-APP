@@ -1,0 +1,165 @@
+[
+  {
+    "userId": 27,
+    "courseId": 20,
+    "lectureRoom": "LBC2709",
+    "createdAt": "2023-01-04 15:30:10.000",
+    "endsAt": "2023-01-04 15:40:10.000",
+    "QRcodeId": 1
+  },
+  {
+    "userId": 27,
+    "courseId": 20,
+    "lectureRoom": "LBC2709",
+    "createdAt": "2023-01-11 15:30:10.000",
+    "endsAt": "2023-01-11 15:40:10.000",
+    "QRcodeId": 1
+  },
+  {
+    "userId": 27,
+    "courseId": 20,
+    "lectureRoom": "LBC2709",
+    "createdAt": "2023-02-01 15:30:10.000",
+    "endsAt": "2023-02-01 15:40:10.000",
+    "QRcodeId": 1
+  },
+  {
+    "userId": 27,
+    "courseId": 20,
+    "lectureRoom": "LBC2709",
+    "createdAt": "2023-02-08 15:30:10.000",
+    "endsAt": "2023-02-08 15:40:10.000",
+    "QRcodeId": 1
+  },
+  {
+    "userId": 27,
+    "courseId": 20,
+    "lectureRoom": "LBC2709",
+    "createdAt": "2023-02-15 15:30:10.000",
+    "endsAt": "2023-02-15 15:40:10.000",
+    "QRcodeId": 1
+  },
+
+  {
+    "userId": 28,
+    "courseId": 25,
+    "lectureRoom": "LBC419",
+    "createdAt": "2023-02-15 15:30:10.000",
+    "endsAt": "2023-02-15 15:40:10.000",
+    "QRcodeId": 13
+  },
+  {
+    "userId": 28,
+    "courseId": 25,
+    "lectureRoom": "LBC419",
+    "createdAt": "2023-01-11 15:30:10.000",
+    "endsAt": "2023-01-11 15:40:10.000",
+    "QRcodeId": 13
+  },
+  {
+    "userId": 28,
+    "courseId": 25,
+    "lectureRoom": "LBC419",
+    "createdAt": "2023-02-01 15:30:10.000",
+    "endsAt": "2023-02-01 15:40:10.000",
+    "QRcodeId": 13
+  },
+  {
+    "userId": 28,
+    "courseId": 25,
+    "lectureRoom": "LBC419",
+    "createdAt": "2023-02-08 15:30:10.000",
+    "endsAt": "2023-02-08 15:40:10.000",
+    "QRcodeId": 13
+  },
+  {
+    "userId": 28,
+    "courseId": 25,
+    "lectureRoom": "LBC419",
+    "createdAt": "2023-02-15 15:30:10.000",
+    "endsAt": "2023-02-15 15:40:10.000",
+    "QRcodeId": 13
+  },
+
+  {
+    "userId": 29,
+    "courseId": 27,
+    "lectureRoom": "LBC2709",
+    "createdAt": "2023-01-04 15:30:10.000",
+    "endsAt": "2023-01-04 15:40:10.000",
+    "QRcodeId": 1
+  },
+  {
+    "userId": 29,
+    "courseId": 27,
+    "lectureRoom": "LBC2709",
+    "createdAt": "2023-01-11 15:30:10.000",
+    "endsAt": "2023-01-11 15:40:10.000",
+    "QRcodeId": 1
+  },
+  {
+    "userId": 29,
+    "courseId": 27,
+    "lectureRoom": "LBC2709",
+    "createdAt": "2023-02-01 15:30:10.000",
+    "endsAt": "2023-02-01 15:40:10.000",
+    "QRcodeId": 1
+  },
+  {
+    "userId": 29,
+    "courseId": 27,
+    "lectureRoom": "LBC2709",
+    "createdAt": "2023-02-08 15:30:10.000",
+    "endsAt": "2023-02-08 15:40:10.000",
+    "QRcodeId": 1
+  },
+  {
+    "userId": 29,
+    "courseId": 27,
+    "lectureRoom": "LBC2709",
+    "createdAt": "2023-02-15 15:30:10.000",
+    "endsAt": "2023-02-15 15:40:10.000",
+    "QRcodeId": 1
+  },
+
+  {
+    "userId": 30,
+    "courseId": 34,
+    "lectureRoom": "LBC419",
+    "createdAt": "2023-01-04 15:30:10.000",
+    "endsAt": "2023-01-04 15:40:10.000",
+    "QRcodeId": 13
+  },
+  {
+    "userId": 30,
+    "courseId": 34,
+    "lectureRoom": "LBC419",
+    "createdAt": "2023-01-11 15:30:10.000",
+    "endsAt": "2023-01-11 15:40:10.000",
+    "QRcodeId": 13
+  },
+  {
+    "userId": 30,
+    "courseId": 34,
+    "lectureRoom": "LBC419",
+    "createdAt": "2023-02-01 15:30:10.000",
+    "endsAt": "2023-02-01 15:40:10.000",
+    "QRcodeId": 13
+  },
+  {
+    "userId": 30,
+    "courseId": 34,
+    "lectureRoom": "LBC419",
+    "createdAt": "2023-02-08 15:30:10.000",
+    "endsAt": "2023-02-08 15:40:10.000",
+    "QRcodeId": 13
+  },
+  {
+    "userId": 30,
+    "courseId": 34,
+    "lectureRoom": "LBC419",
+    "createdAt": "2023-02-15 15:30:10.000",
+    "endsAt": "2023-02-15 15:40:10.000",
+    "QRcodeId": 13
+  }
+]

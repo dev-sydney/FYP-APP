@@ -1,0 +1,321 @@
+[
+  {
+    "userId": 4,
+    "courseId": 20,
+    "ongoingAttendanceId": 24,
+    "createdAt": "2023-01-04 15:35:10"
+  },
+  {
+    "userId": 24,
+    "courseId": 20,
+    "ongoingAttendanceId": 24,
+    "createdAt": "2023-01-04 15:35:10"
+  },
+  {
+    "userId": 43,
+    "courseId": 20,
+    "ongoingAttendanceId": 24,
+    "createdAt": "2023-01-04 15:35:10"
+  },
+  {
+    "userId": 44,
+    "courseId": 20,
+    "ongoingAttendanceId": 24,
+    "createdAt": "2023-01-04 15:35:10"
+  },
+
+  {
+    "userId": 4,
+    "courseId": 20,
+    "ongoingAttendanceId": 25,
+    "createdAt": "2023-01-11 15:35:10"
+  },
+  {
+    "userId": 24,
+    "courseId": 20,
+    "ongoingAttendanceId": 25,
+    "createdAt": "2023-01-11 15:35:10"
+  },
+  {
+    "userId": 43,
+    "courseId": 20,
+    "ongoingAttendanceId": 25,
+    "createdAt": "2023-01-11 15:35:10"
+  },
+  {
+    "userId": 44,
+    "courseId": 20,
+    "ongoingAttendanceId": 25,
+    "createdAt": "2023-01-11 15:35:10"
+  },
+
+  {
+    "userId": 4,
+    "courseId": 20,
+    "ongoingAttendanceId": 26,
+    "createdAt": "2023-02-01 15:35:10"
+  },
+  {
+    "userId": 24,
+    "courseId": 20,
+    "ongoingAttendanceId": 26,
+    "createdAt": "2023-02-01 15:35:10"
+  },
+  {
+    "userId": 43,
+    "courseId": 20,
+    "ongoingAttendanceId": 26,
+    "createdAt": "2023-02-01 15:35:10"
+  },
+
+  {
+    "userId": 4,
+    "courseId": 20,
+    "ongoingAttendanceId": 27,
+    "createdAt": "2023-02-08 15:35:10"
+  },
+  {
+    "userId": 24,
+    "courseId": 20,
+    "ongoingAttendanceId": 27,
+    "createdAt": "2023-02-08 15:35:10"
+  },
+  {
+    "userId": 43,
+    "courseId": 20,
+    "ongoingAttendanceId": 27,
+    "createdAt": "2023-02-08 15:35:10"
+  },
+
+  {
+    "userId": 4,
+    "courseId": 20,
+    "ongoingAttendanceId": 28,
+    "createdAt": "2023-02-15 15:32:10"
+  },
+  {
+    "userId": 24,
+    "courseId": 20,
+    "ongoingAttendanceId": 28,
+    "createdAt": "2023-02-15 15:32:10"
+  },
+  {
+    "userId": 43,
+    "courseId": 20,
+    "ongoingAttendanceId": 28,
+    "createdAt": "2023-02-15 15:32:10"
+  },
+  {
+    "userId": 44,
+    "courseId": 20,
+    "ongoingAttendanceId": 28,
+    "createdAt": "2023-02-15 15:32:10"
+  },
+
+  {
+    "userId": 22,
+    "courseId": 25,
+    "ongoingAttendanceId": 29,
+    "createdAt": "2023-02-15 15:37:10"
+  },
+  {
+    "userId": 23,
+    "courseId": 25,
+    "ongoingAttendanceId": 29,
+    "createdAt": "2023-02-15 15:37:10"
+  },
+  {
+    "userId": 45,
+    "courseId": 25,
+    "ongoingAttendanceId": 29,
+    "createdAt": "2023-02-15 15:37:10"
+  },
+  {
+    "userId": 46,
+    "courseId": 25,
+    "ongoingAttendanceId": 29,
+    "createdAt": "2023-02-15 15:37:10"
+  },
+  {
+    "userId": 22,
+    "courseId": 25,
+    "ongoingAttendanceId": 30,
+    "createdAt": "2023-01-11 15:37:10"
+  },
+  {
+    "userId": 23,
+    "courseId": 25,
+    "ongoingAttendanceId": 30,
+    "createdAt": "2023-01-11 15:37:10"
+  },
+  {
+    "userId": 45,
+    "courseId": 25,
+    "ongoingAttendanceId": 30,
+    "createdAt": "2023-01-11 15:37:10"
+  },
+  {
+    "userId": 46,
+    "courseId": 25,
+    "ongoingAttendanceId": 30,
+    "createdAt": "2023-01-11 15:37:10"
+  },
+  {
+    "userId": 22,
+    "courseId": 25,
+    "ongoingAttendanceId": 31,
+    "createdAt": "2023-02-01 15:36:10"
+  },
+  {
+    "userId": 23,
+    "courseId": 25,
+    "ongoingAttendanceId": 31,
+    "createdAt": "2023-02-01 15:36:10"
+  },
+  {
+    "userId": 45,
+    "courseId": 25,
+    "ongoingAttendanceId": 31,
+    "createdAt": "2023-02-01 15:36:10"
+  },
+  {
+    "userId": 46,
+    "courseId": 25,
+    "ongoingAttendanceId": 31,
+    "createdAt": "2023-02-01 15:36:10"
+  },
+  {
+    "userId": 22,
+    "courseId": 25,
+    "ongoingAttendanceId": 32,
+    "createdAt": "2023-02-08 15:34:10"
+  },
+  {
+    "userId": 23,
+    "courseId": 25,
+    "ongoingAttendanceId": 32,
+    "createdAt": "2023-02-08 15:34:10"
+  },
+  {
+    "userId": 22,
+    "courseId": 25,
+    "ongoingAttendanceId": 33,
+    "createdAt": "2023-02-15 15:33:10"
+  },
+  {
+    "userId": 23,
+    "courseId": 25,
+    "ongoingAttendanceId": 33,
+    "createdAt": "2023-02-15 15:33:10"
+  },
+
+  {
+    "userId": 47,
+    "courseId": 27,
+    "ongoingAttendanceId": 34,
+    "createdAt": "2023-01-04 15:31:10"
+  },
+  {
+    "userId": 48,
+    "courseId": 27,
+    "ongoingAttendanceId": 34,
+    "createdAt": "2023-01-04 15:31:10"
+  },
+  {
+    "userId": 47,
+    "courseId": 27,
+    "ongoingAttendanceId": 35,
+    "createdAt": "2023-01-11 15:32:10"
+  },
+  {
+    "userId": 48,
+    "courseId": 27,
+    "ongoingAttendanceId": 35,
+    "createdAt": "2023-01-11 15:32:10"
+  },
+  {
+    "userId": 47,
+    "courseId": 27,
+    "ongoingAttendanceId": 36,
+    "createdAt": "2023-02-01 15:35:10"
+  },
+  {
+    "userId": 48,
+    "courseId": 27,
+    "ongoingAttendanceId": 36,
+    "createdAt": "2023-02-01 15:35:10"
+  },
+  {
+    "userId": 47,
+    "courseId": 27,
+    "ongoingAttendanceId": 37,
+    "createdAt": "2023-02-08 15:39:10"
+  },
+  {
+    "userId": 48,
+    "courseId": 27,
+    "ongoingAttendanceId": 37,
+    "createdAt": "2023-02-08 15:39:10"
+  },
+  {
+    "userId": 48,
+    "courseId": 27,
+    "ongoingAttendanceId": 38,
+    "createdAt": "2023-02-15 15:38:10"
+  },
+
+  {
+    "userId": 49,
+    "courseId": 34,
+    "ongoingAttendanceId": 39,
+    "createdAt": "2023-01-04 15:33:10"
+  },
+  {
+    "userId": 50,
+    "courseId": 34,
+    "ongoingAttendanceId": 39,
+    "createdAt": "2023-01-04 15:33:10"
+  },
+  {
+    "userId": 49,
+    "courseId": 34,
+    "ongoingAttendanceId": 40,
+    "createdAt": "2023-01-11 15:33:10"
+  },
+  {
+    "userId": 50,
+    "courseId": 34,
+    "ongoingAttendanceId": 40,
+    "createdAt": "2023-01-11 15:33:10"
+  },
+  {
+    "userId": 49,
+    "courseId": 34,
+    "ongoingAttendanceId": 41,
+    "createdAt": "2023-02-01 15:34:10"
+  },
+  {
+    "userId": 50,
+    "courseId": 34,
+    "ongoingAttendanceId": 41,
+    "createdAt": "2023-02-01 15:34:10"
+  },
+  {
+    "userId": 49,
+    "courseId": 34,
+    "ongoingAttendanceId": 42,
+    "createdAt": "2023-02-08 15:31:10"
+  },
+  {
+    "userId": 50,
+    "courseId": 34,
+    "ongoingAttendanceId": 42,
+    "createdAt": "2023-02-08 15:31:10"
+  },
+  {
+    "userId": 50,
+    "courseId": 34,
+    "ongoingAttendanceId": 43,
+    "createdAt": "2023-02-15 15:36:10"
+  }
+]

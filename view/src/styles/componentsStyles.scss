@@ -17,14 +17,16 @@
 }
 .details_container {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  // justify-content: space-between;
 }
 .action__btn {
   border-radius: 18px;
   height: 3.5em;
   width: 3.5em;
   margin-top: auto;
-  margin-bottom: 0.35em;
+  margin-left: auto;
+  // margin-bottom: 0.35em;
   border: none;
   color: white;
   background-color: black;
@@ -34,13 +36,14 @@
 }
 .unlocked__details {
   text-align: left;
-  min-width: 50%;
+  min-width: 60%;
+  // min-width: 50%;
   max-width: 2em;
   padding-left: 5px;
   padding-right: 5px;
   height: fit-content;
   margin-top: 0.7em;
-  h3 {
+  h2 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

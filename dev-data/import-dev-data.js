@@ -12,6 +12,21 @@ const students = JSON.parse(
 const courses = JSON.parse(
   fs.readFileSync(`${__dirname}/../dev-data/data/courses.json`, 'utf-8')
 );
+
+const ongoingAttendances = JSON.parse(
+  fs.readFileSync(
+    `${__dirname}/../dev-data/data/ongoingAttendances.json`,
+    'utf-8'
+  )
+);
+
+const signedAttendances = JSON.parse(
+  fs.readFileSync(
+    `${__dirname}/../dev-data/data/signedAtttendances.json`,
+    'utf-8'
+  )
+);
+
 let valuesStr = ' ';
 
 const importProfessorsData = async (valuesStr) => {
@@ -100,6 +115,21 @@ if (process.argv[2] === '--import-courses') {
   importDevData(courses, 'Courses');
   // console.log('first');
 }
+
+if (process.argv[2] === '--import-ongoing') {
+  importDevData(ongoingAttendances, 'OngoingAttendances');
+}
+
+if (process.argv[2] === '--import-signed') {
+  importDevData(signedAttendances, 'SignedAttendances');
+}
+
 if (process.argv[2] === '--delete-courses') {
   deleteDevData('Courses');
+}
+if (process.argv[2] === '--delete-ongoing') {
+  deleteDevData('OngoingAttendances');
+}
+if (process.argv[2] === '--delete-signed') {
+  deleteDevData('SignedAttendances');
 }

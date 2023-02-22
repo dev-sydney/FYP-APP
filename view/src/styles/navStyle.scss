@@ -4,7 +4,8 @@
 .nav__bar {
   background-color: #ffffff;
   overflow: hidden;
-  position: fixed;
+  // position: fixed;
+  position: sticky;
   bottom: 0;
   left: 0;
   right: 0;

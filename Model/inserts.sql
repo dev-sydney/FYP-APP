@@ -32,11 +32,35 @@ INSERT INTO SecurityQs (question)
         ('What is the name of the town where you were born?'),
         ('What is your mother\'s maiden name?');
         
-SELECT * FROM TestProfessors;
-SELECT * FROM TestQRcodes;    
-SELECT * FROM TestOngoingAttendances;
-SELECT * FROM TestSignedAttendances;  
-SELECT * FROM TestStudents;  
+-- Professor & HOD inserts
+INSERT INTO Users(surName,otherNames,emailAddress,privilege,departmentId,photo,userPassword)
+ VALUES('Browning','Lourdes','lourdes@example.com','head_of_department',2,'user-4.jpg','$2a$12$PEddIpWclYR/8orarRjeJOh12zoPQSiXADqfu8WFqh6NZ/Eqrla7O'),
+ ('Hart','Sophie Louise','sophie@example.com','head_of_department',3,'user-5.jpg','$2a$12$cOBIfoysDcKBgI0fYXj2QeXUpFYxsmZMFJuozEzrdtwIjeaUSWThu'),
+ ('Cornell','Ayla','ayla@example.com','head_of_department',4,'user-6.jpg','$2a$12$22f6MqI6M1KZDRKpeoH3feogGx215jtyOLET67PmXrKgmiVo2TWna'),
+ ('Hardy','Jennifer','jenny@example.com','head_of_department',5,'user-7.jpg','$2a$12$Bglm7AS.J3s5ZCPfgb/CHujyHEJ7w5RgwQDShxPA4bfNkgWoRbQQC'),
+ ('Max','Smith','max@example.com','professor',2,'user-15.jpg','$2a$12$f4yzEW5cUHuRufI0tVbrjeg63/HI3kZtv2WWlNhazqbajUxE2iHvW'),
+ ('Kirkland','Isabel','isabel@example.com','professor',2,'user-16.jpg','$2a$12$Jop02ckdcCqg/FlA2tc.1.hZ4VdMgcIJi7.yiCPnsjo16AqUp6M..'),
+ ('Jones','Alexander','jones@example.com','professor',2,'user-17.jpg','$2a$12$XOcusiKzAX4cxWB5saItuupdjyfNvbU7bgWiNa3khQi1E.uNnpqPW'),
+ ('Brown','Lisa','brown@example.com','professor',3,'user-18.jpg','$2a$12$QYFSLW8shd16cDa33UzH3OnrFCSJ1lk/igZuL2YI0PCBU6x2n.bqS'),
+ ('Breva','Seva','breva@example.com','professor',3,'user-18.jpg','$2a$12$7zBCGKNMCpSHIGo8NpKkn.EfvAmwBmJtr0RUrX.cMvweOvU4Mn.4i'),
+ ('Laffut','Claire','claire@example.com','professor',3,'user-19.jpg','$2a$12$b7tDWu.ZFRzn50pRQCS..Ob9r0ahEMl8EoQv4CkH3aHTcPUyN.mc2'),
+ ('Sharon','Naomi','sharon@example.com','professor',4,'user-20.jpg','$2a$12$bgNbGq55IQduayi.TUjs0.E/ZYerLwtgDqTLIOQypxtRgJTE05vau'),
+ ('Jordan','Majid','jordan@example.com','professor',4,'user-21.jpg','$2a$12$nvJyXWQw.ebeyIQK84d59.LGqheIsgtWpeHnL/uA6HkRkNBcYZBuW'),
+ ('Koffi','Ryan','koffi@example.com','professor',4,'user-22.jpg','$2a$12$T.nmacycWMaOkcnsdPl5buL8rzDqAOpkAYTJ7j9wF.QjjcoLMT7eK'),
+ ('Vie','Bella','bella@example.com','professor',5,'user-23.jpg','$2a$12$2Wh89dLVSa9OIushDzBDHeCR3qJNdXH8D2jkRnYS5Tdi5AdhYTnLi'),
+ ('Addams','Wednesday','wednesday@example.com','professor',5,'user-24.jpg','$2a$12$K1UviUum1CXJPXT/fWw4xeNLJwZfch325iBDIQZ0tL9Tkaipd1v8u'),
+ ('Austin','Jeunne','jeunne@example.com','professor',5,'user-25.jpg','$2a$12$d/7RSQrQ4momnia6A8ZxX.lKqk/G3WvfDAY0ctBUgb8f3EVcZbEiK');
+
+INSERT INTO Users (surName,otherNames,emailAddress,privilege,departmentId,photo,userPassword,indexNumber)
+ VALUES('Morrison','Kate','kate@example.com','student',2,'user-7.jpg','$2a$12$sOJRVTUhuwaUq0/PrPCpNOo9Ax6fVQby26YWpMKdur/qY35kxac22',10111321),
+ ('Stout','Elliana','elliana@example.com','student',2,'user-8.jpg','$2a$12$Lkd1XTADQL8xlwJVbXotvuWamaK3zDUqyzqbnM451Mv035bkZF5ha',10111322),
+ ('Vega','Christian','christian@example.com','student',3,'user-9.jpg','$2a$12$US.1dLo.Bc57dA6w6NgqQ.FGVMLXasaV1t/3kDGg4jpLqdc652EE.',10111323),
+ ('Scaife','Steve','steve@example.com','student',3,'user-10.jpg','$2a$12$kN4ezNEyt.3lEIgt3sDic.SlpIiez9cQj7QL4OpWiWQ94yG3ppL3u',10111324),
+ ('Lynn','Araav','lynn@example.com','student',4,'user-11.jpg','$2a$12$UGYfv/yToAhjHGVuXljVHOZ/dezevFKSQq08cFXsHT02LiSTZmCb2',10111325),
+ ('Myles','Miyah','miyah@example.com','student',4,'user-12.jpg','$2a$12$Y4UzAFt8J49lpouSaNFY3.8suVUylhWcWS2vsVkujfxnicQhl06q2',10111326),
+ ('Hadley','Ben','ben@example.com','student',5,'user-13.jpg','$2a$12$tM0aMkLzkBpWYVNFH9rt1OCLgTfbCwbG4Aa2hqFYnOIAuO5q2f/ny',10111327),
+ ('Wilson','laura','wilson@example.com','student',5,'user-14.jpg','$2a$12$oVIl.6kWoOuAd9ds0oBPW.ufPTQO0ZlYC3VSHP2qnAgOXgv/JS3fe',10111328);
+
 SELECT * FROM SecurityQs
 ORDER BY questionId ASC;
 

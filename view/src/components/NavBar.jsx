@@ -23,19 +23,27 @@ const NavBar = () => {
 
   return (
     <div
-      className={`nav__bar ${!authContxt.user && 'not-loggedIn'}`}
+      className={`nav__bar ${!authContxt?.user && 'not-loggedIn'}`}
       style={{ display: `${!authContxt.navBarVisibiltyStatus ? 'none' : ''}` }}
     >
-      <NavLink
-        className="navlink"
-        to="/"
-        style={({ isActive }) => ({
-          color: isActive ? '#284b63' : '#C5C5C5',
-        })}
-      >
-        <UilQrcodeScan size="35" style={{ width: '100%' }} />
-        <p>Scan</p>
-      </NavLink>
+      {/* NOTE: Conditional rendering of the link to the home page */}
+      {authContxt.user &&
+        (['student', 'head_of_department', 'professor'].includes(
+          authContxt.user.privilege
+        ) ? (
+          <NavLink
+            className="navlink"
+            to="/"
+            style={({ isActive }) => ({
+              color: isActive ? '#284b63' : '#C5C5C5',
+            })}
+          >
+            <UilQrcodeScan size="35" style={{ width: '100%' }} />
+            <p>Scan</p>
+          </NavLink>
+        ) : (
+          ''
+        ))}
 
       {/* NOTE: CONDTIONAL RENDERING FOR THE STUDENTS ATTENDED LECTURES */}
       {authContxt.user &&

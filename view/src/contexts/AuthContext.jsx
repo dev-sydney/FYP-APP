@@ -67,7 +67,7 @@ export const AuthContextProvider = ({ children }) => {
           payload: new AppAlert('logged in successfully', 'success'),
         });
         clearContextAlerts(1500);
-        state.user = result.data.user;
+
         dispatch({
           type: Types.SIGN_IN,
           payload: result.data.user,
@@ -78,20 +78,21 @@ export const AuthContextProvider = ({ children }) => {
             result.data.user.hasSecurityQuestionsSet === 0 &&
             result.data.user.privilege === 'student'
           ) {
-            navigateTo('/user-securityQnAs');
+            navigateTo('/user-securityQnAs', { replace: true });
           } else {
-            navigateTo('/');
+            navigateTo('/', { replace: true });
           }
         }, 2000);
       }
     } catch (err) {
       dispatch({
-        action: Types.SIGN_IN_ERROR,
+        type: Types.SIGN_IN_ERROR,
         payload: new AppAlert(err.message, 'error'),
       });
       clearContextAlerts();
     }
   };
+
   /**
    * Function responsible for signing up new users and loggin them in
    * @param {Object} formData The Form Data object containing the users credentials
@@ -130,7 +131,7 @@ export const AuthContextProvider = ({ children }) => {
         clearContextAlerts(400);
         //TODO: Navigate the user to the page that collects their security Q&A's
         setTimeout(() => {
-          navigateTo('/user-securityQnAs');
+          navigateTo('/user-securityQnAs', { replace: true });
         }, 700);
       }
     } catch (err) {
@@ -141,6 +142,7 @@ export const AuthContextProvider = ({ children }) => {
       clearContextAlerts();
     }
   };
+
   /**
    * This function makes a call to the API to fetch the series of random security questions
    */
@@ -204,7 +206,7 @@ export const AuthContextProvider = ({ children }) => {
           payload: results.user,
         });
 
-        navigateTo('/');
+        navigateTo('/', { replace: true });
       }
     } catch (err) {
       // console.log(err);
@@ -305,7 +307,7 @@ export const AuthContextProvider = ({ children }) => {
         });
 
         setTimeout(() => {
-          navigateTo('/login');
+          navigateTo('/login', { replace: true });
         }, 500);
         state.user = null;
       }
@@ -383,7 +385,7 @@ export const AuthContextProvider = ({ children }) => {
         clearContextAlerts(1500);
 
         setTimeout(() => {
-          navigateTo('/login');
+          navigateTo('/login', { replace: true });
         }, 2000);
       }
     } catch (err) {

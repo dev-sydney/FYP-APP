@@ -45,6 +45,9 @@ const createSendToken = (user, statusCode, req, res) => {
 
   user.userPassword = undefined;
   user.passwordConfirm = undefined;
+  user.passwordResetExpires = undefined;
+  user.resetPasswordToken = undefined;
+  user.userStatus = undefined;
 
   res.status(statusCode).json({
     status: `${statusCode}`.startsWith('2') ? 'success' : 'fail',

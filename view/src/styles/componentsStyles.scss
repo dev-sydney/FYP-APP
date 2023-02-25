@@ -9,7 +9,7 @@
   background-color: rgb(243, 248, 252);
   margin: 0em 0.6em;
   border-radius: 20px;
-  position: fixed;
+  position: sticky;
   bottom: 0;
   width: 95%;
   -webkit-transition: all 0.3s;
@@ -65,10 +65,12 @@
   border-radius: 20px;
 }
 .up {
-  transform: translateY(-100%);
+  transform: translateY(-25%);
+  opacity: 1;
 }
 .down {
   transform: translateY(25%);
+  opacity: 0;
 }
 
 .answer__securityQ {
@@ -158,9 +160,11 @@
 .show_alert {
   //NOTE: ALERT SHOWN=>transform: translateY(10%);
   transform: translateY(10%);
+  opacity: 1;
 }
 
 .hide_alert {
   //NOTE: ALERT HIDDEN=>
   transform: translateY(-150%);
+  opacity: 0;
 }

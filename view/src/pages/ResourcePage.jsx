@@ -20,13 +20,11 @@ const ResourcePage = () => {
   const navigateTo = useNavigate();
   //TODO: CHECK IF THE USER IS AUTHORISED TO VISIT THIS PAGE(LOGIN AND PRIVILEGE)
   useEffect(() => {
-    //EDGE-CASE: IF THE USER ISN'T LOGGED IN
-    if (!authContxt.user) navigateTo('/login');
-
+    authContxt.setNavBarVisibilty(true);
     //EDGE-CASE: IF THE USER DOESN'T HAVE PERMISSION TO VISIT THIS PAGE
     if (!['admin', 'head_of_department'].includes(authContxt.user.privilege))
-      navigateTo('/');
-  });
+      navigateTo('/', { replace: true });
+  }, []);
 
   const onBtnClick = (state, setStateFn) => () => {
     setStateFn(!state);

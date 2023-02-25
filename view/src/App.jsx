@@ -6,6 +6,8 @@ import { AttendanceContextProvider } from './contexts/AttendanceContext';
 import { QrCodeContextProvider } from './contexts/QRCodeContext';
 import { ResourceContextProvider } from './contexts/ResourceContext';
 
+import RequireAuth from './components/RequireAuth';
+
 /* ---------------PAGES------------------- */
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
@@ -29,7 +31,7 @@ import AssignedLecturersPage from './pages/AssignedLecturersPage';
 import AccountOverviewPage from './pages/AccountOverviewPage';
 import ChangePasswordPage from './pages/ChangePasswordPage';
 import Empty from './pages/Empty';
-
+import AlertComponent from './components/AlertComponent';
 import NavBar from './components/NavBar';
 import './App.css';
 
@@ -40,53 +42,73 @@ function App() {
         <AttendanceContextProvider>
           <QrCodeContextProvider>
             <ResourceContextProvider>
+              <AlertComponent />
               <BrowserRouter>
                 <Routes>
                   <Route
                     path="/account/overview"
-                    element={<AccountOverviewPage />}
+                    element={<RequireAuth children={<AccountOverviewPage />} />}
                   />
                   <Route
                     path="/account/change-password"
-                    element={<ChangePasswordPage />}
+                    element={<RequireAuth children={<ChangePasswordPage />} />}
                   />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/signup" element={<SignupPage />} />
-                  <Route path="/" element={<HomePage />} />
+                  <Route
+                    path="/"
+                    element={<RequireAuth children={<HomePage />} />}
+                  />
                   <Route
                     path="/attendances/ongoingAttendances"
-                    element={<OngoingAttendancePage />}
+                    element={
+                      <RequireAuth children={<OngoingAttendancePage />} />
+                    }
                   />
                   <Route
                     path="/attendances/ongoingAttendances/:ongoingAttendanceId/:courseId"
-                    element={<SignedAttendancesPage />}
+                    element={
+                      <RequireAuth children={<SignedAttendancesPage />} />
+                    }
                   />
-                  <Route path="/account/profile" element={<ProfilePage />} />
-                  <Route path="/resourceManager" element={<ResourcePage />} />
+                  <Route
+                    path="/account/profile"
+                    element={<RequireAuth children={<ProfilePage />} />}
+                  />
+                  <Route
+                    path="/resourceManager"
+                    element={<RequireAuth children={<ResourcePage />} />}
+                  />
                   <Route
                     path="/resourceManager/professors"
-                    element={<ProfessorResourcePage />}
+                    element={
+                      <RequireAuth children={<ProfessorResourcePage />} />
+                    }
                   />
                   <Route
                     path="/resourceManager/lecture-halls"
-                    element={<LectureHallResource />}
+                    element={<RequireAuth children={<LectureHallResource />} />}
                   />
                   <Route
                     path="/resourceManager/courses"
-                    element={<CoursesResourcePage />}
+                    element={<RequireAuth children={<CoursesResourcePage />} />}
                   />
                   <Route
                     path="/resourceManager/faculties"
-                    element={<FacultyResourcePage />}
+                    element={<RequireAuth children={<FacultyResourcePage />} />}
                   />
                   <Route
                     path="/attendance-scores"
-                    element={<AttendanceScoresPage />}
+                    element={
+                      <RequireAuth children={<AttendanceScoresPage />} />
+                    }
                   />
                   <Route path="/empty" element={<Empty />} />
                   <Route
                     path="/user-securityQnAs"
-                    element={<CollectUserSecurityQnAPage />}
+                    element={
+                      <RequireAuth children={<CollectUserSecurityQnAPage />} />
+                    }
                   />
                   <Route
                     path="/forgot-password"
@@ -98,19 +120,25 @@ function App() {
                   />
                   <Route
                     path="/attendedLectures"
-                    element={<AttendedLecturesPage />}
+                    element={
+                      <RequireAuth children={<AttendedLecturesPage />} />
+                    }
                   />
                   <Route
                     path="/attendedLectures/:courseId"
-                    element={<CourseLectures />}
+                    element={<RequireAuth children={<CourseLectures />} />}
                   />
                   <Route
                     path="/departmentCourses/"
-                    element={<DepartmentCoursesPage />}
+                    element={
+                      <RequireAuth children={<DepartmentCoursesPage />} />
+                    }
                   />
                   <Route
                     path="/departmentCourses/:courseId"
-                    element={<AssignedLecturersPage />}
+                    element={
+                      <RequireAuth children={<AssignedLecturersPage />} />
+                    }
                   />
                 </Routes>
                 <NavBar />

@@ -2,8 +2,6 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { UilSpinnerAlt } from '@iconscout/react-unicons';
 
-import AlertComponent from '../components/AlertComponent';
-
 import authContext from '../contexts/AuthContext';
 import resourceContext from '../contexts/ResourceContext';
 
@@ -43,7 +41,6 @@ const SignupPage = () => {
   };
   return (
     <div className="signup-container">
-      <AlertComponent />
       <p className="form__name">Sign up</p>
       <h1 className="logo">LOGO</h1>
 

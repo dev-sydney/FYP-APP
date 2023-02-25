@@ -11,7 +11,6 @@ import resourceContext from '../contexts/ResourceContext';
 import AttendanceForm from '../components/AttendanceForm';
 import QRcodeDetails from '../components/QRcodeDetails';
 import AnswerSecurityQForm from '../components/AnswerSecurityQForm';
-import AlertComponent from '../components/AlertComponent';
 import './../styles/homeStyle.scss';
 
 const HomePage = () => {
@@ -28,11 +27,6 @@ const HomePage = () => {
   const navigateTo = useNavigate();
 
   useEffect(() => {
-    //EDGE-CASE: IF THE USER ISN'T LOGGED IN
-    if (!authContxt.user) {
-      navigateTo('/login');
-    }
-
     //EDGE-CASE: IF THE USER IS A STUDENT & HAS NO SECURITY QUESTIONS SET
     if (
       authContxt?.user?.privilege === 'student' &&
@@ -42,7 +36,7 @@ const HomePage = () => {
     }
     //EDGE-CASE: If the user is a lecturer then get their assigned courses
     if (
-      ['head_of_department', 'professor'].includes(authContxt.user.privilege)
+      ['head_of_department', 'professor'].includes(authContxt.user?.privilege)
     ) {
       resourceContxt.loadUsersAssignedCourses();
     }
@@ -71,7 +65,6 @@ const HomePage = () => {
 
   return (
     <div className="home-container">
-      <AlertComponent />
       <div
         className="top_logo_space"
         style={{ textAlign: 'left', color: 'white' }}
@@ -107,9 +100,9 @@ const HomePage = () => {
         setQRcodeData={setQRcodeData}
         QRcodeData={QRcodeData}
       />
-      //NOTE: THIS COMPONENT IS THE VERTICAL SLIDER THAT WILL ONLY POPUP //IF
+      {/* //NOTE: THIS COMPONENT IS THE VERTICAL SLIDER THAT WILL ONLY POPUP //IF
       APROFESSOR SCANS OR AN ONGOING ATTENDANCE ISN'T EXPIRED AND THE
-      STUDENTGETS THEIR // SECURITY QUESTION
+      STUDENTGETS THEIR // SECURITY QUESTION */}
       <div
         className={`vertical__slider ${
           didProfessorScan || attendanceContxt.studentRandomQ?.secretQs

@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UilSpinnerAlt } from '@iconscout/react-unicons';
 
 import authContext from '../contexts/AuthContext';
-import AlertComponent from '../components/AlertComponent';
 
 import './../styles/profileStyle.scss';
 
@@ -48,7 +47,6 @@ const ChangePasswordPage = () => {
   };
   return (
     <div className="change_password__container">
-      <AlertComponent />
       <h1 style={{ textAlign: 'left', margin: '1em 0' }}>Security settings</h1>
       <form onSubmit={onPasswordFormSubmit}>
         <div className="input-block">

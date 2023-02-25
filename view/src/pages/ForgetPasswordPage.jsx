@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { UilSpinnerAlt } from '@iconscout/react-unicons';
 
-import AlertComponent from '../components/AlertComponent';
 import authContext from '../contexts/AuthContext';
 
 import './../styles/formStyles.scss';
@@ -27,7 +26,6 @@ const ForgetPasswordPage = () => {
 
   return (
     <div className="forgotpassword-container">
-      <AlertComponent />
       <form className="auth__form" onSubmit={onSubmit}>
         <div className="form__group">
           <input

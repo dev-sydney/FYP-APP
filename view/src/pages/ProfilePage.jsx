@@ -3,7 +3,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { UilUser, UilSpinnerAlt } from '@iconscout/react-unicons';
 
 import authContext from '../contexts/AuthContext';
-import AlertComponent from '../components/AlertComponent';
 import './../styles/profileStyle.scss';
 
 const ProfilePage = () => {
@@ -11,9 +10,6 @@ const ProfilePage = () => {
   const navigateTo = useNavigate();
 
   useEffect(() => {
-    //EDGE-CASE: IF THE USER ISN'T LOGGED IN
-    if (!authContxt.user) navigateTo('/login');
-
     //EDGE-CASE: IF THE USER IS A STUDENT & HAS NO SECURITY QUESTIONS SET
     if (
       authContxt.user.privilege === 'student' &&
@@ -66,7 +62,6 @@ const ProfilePage = () => {
 
   return (
     <div className="profile__container">
-      <AlertComponent />
       {/*------ACCOUNT INFORMATION SETTINGS------ */}
 
       <h1 style={{ textAlign: 'left', margin: '1em 0' }}>Edit Profile</h1>

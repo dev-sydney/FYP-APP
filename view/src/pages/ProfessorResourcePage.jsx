@@ -7,8 +7,6 @@ import AddProfessorForm from './../components/AddProfessorForm';
 import ModalBackground from '../components/ModalBackground';
 import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
 
-import AlertComponent from '../components/AlertComponent';
-
 import './../styles/resourceStyle.scss';
 
 const stat = 1;
@@ -28,7 +26,6 @@ const ProfessorResourcePage = () => {
 
   return (
     <div className="professors__container">
-      <AlertComponent />
       {isModalActive ? (
         <ModalBackground
           children={

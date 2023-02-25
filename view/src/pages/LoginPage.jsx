@@ -3,7 +3,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { UilSpinnerAlt } from '@iconscout/react-unicons';
 
 import authContext from '../contexts/AuthContext';
-import AlertComponent from '../components/AlertComponent';
 
 // import './../styles/formStyles.scss';
 import './../styles/profileStyle.scss';
@@ -32,8 +31,6 @@ const LoginPage = () => {
 
   return (
     <div className="login-container">
-      <AlertComponent />
-
       <div style={{ textAlign: 'center' }}>
         <p className="form__name">login</p>
       </div>

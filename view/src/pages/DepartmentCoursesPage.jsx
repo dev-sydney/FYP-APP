@@ -9,7 +9,6 @@ import {
 import resourceContext from '../contexts/ResourceContext';
 import ModalBackground from '../components/ModalBackground';
 import AddProfessorForm from '../components/AddProfessorForm';
-import AlertComponent from '../components/AlertComponent';
 
 import './../styles/departmentCoursesStyle.scss';
 
@@ -31,7 +30,6 @@ const DepartmentCoursesPage = () => {
 
   return (
     <div className="deptCourses__container">
-      <AlertComponent />
       {isModalActive ? (
         <ModalBackground
           children={

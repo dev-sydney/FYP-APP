@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { UilUserPlus, UilTimes, UilCheck } from '@iconscout/react-unicons';
 
 import resourceContext from '../contexts/ResourceContext';
-import AlertComponent from '../components/AlertComponent';
 import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
 
 import './../styles/departmentCoursesStyle.scss';
@@ -46,7 +45,6 @@ const AssignedLecturersPage = () => {
 
   return (
     <div className="assigned__container">
-      <AlertComponent />
       <section className="headings__section">
         <div className="icon">
           <UilUserPlus

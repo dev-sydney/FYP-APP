@@ -5,7 +5,6 @@ import resourceContext from '../contexts/ResourceContext';
 import ModalBackground from '../components/ModalBackground';
 import AddFacultyForm from './../components/AddFacultyForm';
 import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
-import AlertComponent from '../components/AlertComponent';
 
 import './../styles/resourceStyle.scss';
 
@@ -23,7 +22,6 @@ const FacultyResourcePage = () => {
   };
   return (
     <div className="faculty_resource__container">
-      <AlertComponent />
       {/* NOTE: CONDTIONAL RENDERING FOR THE MODAL BACKGROUND & FORM */}
       {isModalActive ? (
         <ModalBackground

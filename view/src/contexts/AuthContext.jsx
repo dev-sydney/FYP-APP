@@ -72,15 +72,22 @@ export const AuthContextProvider = ({ children }) => {
           type: Types.SIGN_IN,
           payload: result.data.user,
         });
-        //TODO: REDIRECT USER TO THE HOMEPAGE
+        //TODO: REDIRECT USER TO THE APPROPRIATE PAGES
         setTimeout(() => {
+          //NOTE: If the user is a student w/o security questions set
           if (
             result.data.user.hasSecurityQuestionsSet === 0 &&
             result.data.user.privilege === 'student'
           ) {
             navigateTo('/user-securityQnAs', { replace: true });
           } else {
-            navigateTo('/', { replace: true });
+            //NOTE: If the user is an admin
+            if (result.data.user.privilege === 'admin') {
+              navigateTo('/resourceManager', { replace: true });
+            } else {
+              //NOTE: If the user is student with their security questions set OR a professor
+              navigateTo('/', { replace: true });
+            }
           }
         }, 2000);
       }

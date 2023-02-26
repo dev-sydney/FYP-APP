@@ -35,6 +35,18 @@ const handleIncorrectIntegerValue = (errClone) => {
     400
   );
 };
+/**
+ * This function is responsible for handling situations where there's is a duplicate entry of index numbers or email addresses
+ * @param {*} errClone
+ * @returns
+ */
+const handleDuplicateFieldError = (errClone) => {
+  return new AppError(
+    'An account with that index number or email already exists',
+    400
+  );
+};
+
 const sendErrorsInDevMode = (err, req, res) => {
   //ERRORS FROM THE API
   // console.log(req.originalUrl);
@@ -82,6 +94,7 @@ module.exports = (err, req, res, next) => {
     if (errClone.errno === 1406) errClone = handleExcessInputLength(errClone);
     if (errClone.errno === 1366)
       errClone = handleIncorrectIntegerValue(errClone);
+    if (errClone.errno === 1062) errClone = handleDuplicateFieldError(errClone);
 
     //TODO: HANDLE ERRORS FOR 1054 NOTE: VERY IMPORTANT CHECK THE SCREENSHOTS FOR THE ERR MESSAGE
     sendErrorsInProdMode(errClone, req, res);

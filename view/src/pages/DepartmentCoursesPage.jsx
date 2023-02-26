@@ -9,7 +9,7 @@ import {
 import resourceContext from '../contexts/ResourceContext';
 import ModalBackground from '../components/ModalBackground';
 import AddProfessorForm from '../components/AddProfessorForm';
-
+import LoadingDeptCourses from '../components/loadingComponents/LoadingDeptCourses';
 import './../styles/departmentCoursesStyle.scss';
 
 const stat = 1;
@@ -109,45 +109,49 @@ const DepartmentCoursesPage = () => {
         </h1>
       </section>
       <section>
-        <div className="dept_courses">
-          {resourceContxt.departmentCourses &&
-            (resourceContxt.departmentCourses.length > 0
-              ? resourceContxt.departmentCourses.map((deptCourse, i) => (
-                  <div
-                    className="course_item"
-                    key={deptCourse.courseId}
-                    style={{
-                      backgroundColor: resourceContxt.deptCoursesColors[i],
-                    }}
-                  >
-                    <Link to={`/departmentCourses/${deptCourse.courseId}`}>
-                      <div className="course_title">
-                        <h2>{deptCourse.courseName}</h2>
-                      </div>
-                      <div className="lecturer_num__photo">
-                        <img
-                          src="/img/users/default.jpg"
-                          alt=""
-                          style={{
-                            minHeight: '2em',
-                            maxHeight: '2em',
-                            maxWidth: '2em',
-                            minWidth: '2em',
-
-                            borderRadius: '50%',
-                          }}
-                        />
-                        <div className="lecturers_num">
-                          {deptCourse.AssignedLecturers <= 1
-                            ? `${deptCourse.AssignedLecturers}+`
-                            : `${deptCourse.AssignedLecturers - 1}+`}
+        {resourceContxt.isResourceLoading ? (
+          <LoadingDeptCourses />
+        ) : (
+          <div className="dept_courses">
+            {resourceContxt.departmentCourses &&
+              (resourceContxt.departmentCourses.length > 0
+                ? resourceContxt.departmentCourses.map((deptCourse, i) => (
+                    <div
+                      className="course_item"
+                      key={deptCourse.courseId}
+                      style={{
+                        backgroundColor: resourceContxt.deptCoursesColors[i],
+                      }}
+                    >
+                      <Link to={`/departmentCourses/${deptCourse.courseId}`}>
+                        <div className="course_title">
+                          <h2>{deptCourse.courseName}</h2>
                         </div>
-                      </div>
-                    </Link>
-                  </div>
-                ))
-              : '')}
-        </div>
+                        <div className="lecturer_num__photo">
+                          <img
+                            src="/img/users/default.jpg"
+                            alt=""
+                            style={{
+                              minHeight: '2em',
+                              maxHeight: '2em',
+                              maxWidth: '2em',
+                              minWidth: '2em',
+
+                              borderRadius: '50%',
+                            }}
+                          />
+                          <div className="lecturers_num">
+                            {deptCourse.AssignedLecturers <= 1
+                              ? `${deptCourse.AssignedLecturers}+`
+                              : `${deptCourse.AssignedLecturers - 1}+`}
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  ))
+                : '')}
+          </div>
+        )}
       </section>
     </div>
   );

@@ -74,7 +74,7 @@ const SecurityQForm = () => {
             }`}
             strokeWidth={5}
             styles={buildStyles({
-              pathColor: `#AD1CEA`,
+              pathColor: `#284b63`,
               textColor: '#000000',
             })}
           />
@@ -132,12 +132,12 @@ const SecurityQForm = () => {
             className="navigation__btn"
             style={{
               backgroundColor: 'white',
-              color: '#8e18b9',
-              outline: '1px solid #8e18b9',
+              color: '#284b63',
+              outline: '1px solid #284b63',
             }}
           >
-            <span style={{ display: 'flex' }}>
-              <UilArrowLeft size="30" color="#8e18b9" />
+            <span role={'button'} style={{ display: 'flex' }}>
+              <UilArrowLeft size="30" color="#284b63" />
               <span style={{ marginTop: '.4em' }}>back</span>
             </span>
           </button>
@@ -154,7 +154,7 @@ const SecurityQForm = () => {
                 setCurrentSlide(currentSlide + 1);
               }}
               className="navigation__btn"
-              style={{ backgroundColor: '#8e18b9' }}
+              style={{ backgroundColor: '#284b63' }}
             >
               <span style={{ display: 'flex' }}>
                 <span style={{ marginTop: '.4em' }}>next</span>

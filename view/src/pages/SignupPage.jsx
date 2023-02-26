@@ -49,7 +49,7 @@ const SignupPage = () => {
         <div
           className={`form__group--signup ${!showSecondStep ? 'hide' : 'show'}`}
         >
-          <select name="facultyId" onChange={onChange} required>
+          <select name="departmentId" onChange={onChange} required>
             <option>Department</option>
             {/*EDGE-CASE: IF THERES NO FACULTIES LOADED YET RENDER "LOADING..."  */}
             {!resourceContxt.departments ? (

@@ -2,7 +2,7 @@
 /* NOTE:: STYLING FOR THE MAIN ALL REOSURCES PAGE */
 
 .resource__container {
-  min-height: fit-content;
+  min-height: inherit;
   overflow: auto;
   background-color: #edededb4;
   .controls__container {
@@ -155,11 +155,12 @@ section {
     }
   }
 }
-// .faculty_resource__container {
-//   .lists__section {
-//     background: rgba(240, 128, 128, 0.475);
-//   }
-// }
+.faculty_resource__container {
+  min-height: inherit;
+  // .lists__section {
+  //   background: rgba(240, 128, 128, 0.475);
+  // }
+}
 
 .list__items {
   outline: 1px solid gray;

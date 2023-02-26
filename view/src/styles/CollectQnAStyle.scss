@@ -39,7 +39,7 @@
       -webkit-transition: 1s all;
     }
     .submit__btn {
-      background-color: #8e18b9;
+      background-color: #284b63;
       cursor: none;
     }
     .show_sub {
@@ -151,7 +151,7 @@
     .start_btn {
       @include btn;
       margin: 1.5em 0;
-      background-color: #ad1cea;
+      // background-color: #ad1cea;
       width: 80%;
     }
   }

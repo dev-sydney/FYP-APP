@@ -30,10 +30,10 @@ import DepartmentCoursesPage from './pages/DepartmentCoursesPage';
 import AssignedLecturersPage from './pages/AssignedLecturersPage';
 import AccountOverviewPage from './pages/AccountOverviewPage';
 import ChangePasswordPage from './pages/ChangePasswordPage';
-import Empty from './pages/Empty';
 import AlertComponent from './components/AlertComponent';
 import NavBar from './components/NavBar';
 import './App.css';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -103,7 +103,6 @@ function App() {
                       <RequireAuth children={<AttendanceScoresPage />} />
                     }
                   />
-                  <Route path="/empty" element={<Empty />} />
                   <Route
                     path="/user-securityQnAs"
                     element={
@@ -140,6 +139,7 @@ function App() {
                       <RequireAuth children={<AssignedLecturersPage />} />
                     }
                   />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
                 <NavBar />
               </BrowserRouter>

@@ -34,6 +34,7 @@ import AlertComponent from './components/AlertComponent';
 import NavBar from './components/NavBar';
 import './App.css';
 import NotFound from './pages/NotFound';
+import Testing from './pages/Testing';
 
 function App() {
   return (
@@ -139,6 +140,7 @@ function App() {
                       <RequireAuth children={<AssignedLecturersPage />} />
                     }
                   />
+                  <Route path="/tests" element={<Testing />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
                 <NavBar />

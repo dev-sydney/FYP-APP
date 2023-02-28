@@ -147,15 +147,17 @@ const attendanceReducer = (state, action) => {
         QRcodeStatus: action.payload,
         isLoading: null,
       };
-    case Types.CLEAR_LOCKED_QRCODE:
+    case Types.CLEAR_QRCODE:
       return {
         ...state,
         QRcodeStatus: null,
+        codeDetails: null,
       };
     case Types.LOAD_ATTENDED_LECTURES:
       return {
         ...state,
         attendedLecturesSummaries: action.payload,
+        coursesColors: action.colors,
         isLoading: null,
       };
     case Types.LOAD_COURSE_SIGNED_ATENDANCES:

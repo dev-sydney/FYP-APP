@@ -88,12 +88,13 @@ const AttendedLecturesPage = () => {
         <div className="lists__items">
           {attendanceContxt.attendedLecturesSummaries &&
             (attendanceContxt.attendedLecturesSummaries.length > 0
-              ? attendanceContxt.attendedLecturesSummaries.map((el) => (
+              ? attendanceContxt.attendedLecturesSummaries.map((el, i) => (
                   <div
                     className="attended_course"
                     onClick={() => {
                       attendanceContxt.setCurrentCourseName(el.courseName);
                     }}
+                    key={i}
                   >
                     <Link
                       key={el.courseId}
@@ -107,7 +108,7 @@ const AttendedLecturesPage = () => {
                             style={{
                               padding: '.5em',
                               borderRadius: '10px',
-                              background: '#8e18b930',
+                              background: attendanceContxt.coursesColors[i],
                             }}
                           />
                         </div>
@@ -127,11 +128,19 @@ const AttendedLecturesPage = () => {
                         </div>
                         <div className="score_num">
                           <p>
-                            <b>{el.Total}</b> points
+                            <b>{el.Total}</b> marks
                           </p>
-                          <p style={{ color: 'gray' }}>Gathered</p>
+                          <p style={{ color: 'gray' }}>Scored</p>
                         </div>
-                        <div className="course_code">{el.courseCode}</div>
+                        <div
+                          className="course_code"
+                          style={{
+                            background: attendanceContxt.coursesColors[i],
+                            color: 'black',
+                          }}
+                        >
+                          {el.courseCode}
+                        </div>
                       </div>
                     </Link>
                   </div>

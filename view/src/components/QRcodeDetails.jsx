@@ -20,13 +20,14 @@ const QRcodeDetails = ({
     if (QRcodeData === '') return;
     attendanceContxt.getQRcodeDetails(QRcodeData);
     return () => {
-      attendanceContxt.clearSomeContextState('CLEAR_LOCKED_QRCODE');
+      attendanceContxt.clearSomeContextState('CLEAR_QRCODE');
     };
   }, [isAttendanceDetails]);
 
   const onClick = () => {
     getRandomSecurityQuestion();
     setShouldQRcodeDetailPopup(false);
+    attendanceContxt.clearSomeContextState('CLEAR_QRCODE');
   };
   return (
     <div
@@ -89,7 +90,7 @@ const QRcodeDetails = ({
                 setShouldQRcodeDetailPopup(false);
                 setQRcodeData('');
                 setIsAttendanceDetails(!isAttendanceDetails);
-                attendanceContxt.clearSomeContextState('CLEAR_LOCKED_QRCODE');
+                attendanceContxt.clearSomeContextState('CLEAR_QRCODE');
               }}
             >
               {

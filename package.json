@@ -28,7 +28,8 @@
     "mysql2": "^2.3.3",
     "nodemailer": "^6.8.0",
     "qrcode": "^1.5.1",
-    "sharp": "^0.31.2"
+    "sharp": "^0.31.2",
+    "toad-scheduler": "^2.2.0"
   },
   "devDependencies": {
     "concurrently": "^7.5.0"

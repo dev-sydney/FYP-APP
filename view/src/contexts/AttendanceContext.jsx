@@ -1,4 +1,5 @@
 import { createContext, useReducer } from 'react';
+import randomColor from 'randomcolor';
 
 import attendanceReducer from '../reducers/attendanceReducer';
 import * as Types from '../utils/types';
@@ -23,6 +24,7 @@ export const AttendanceContextProvider = ({ children }) => {
     attendedLecturesSummaries: null,
     attendedLectures: null,
     currentCourseName: null,
+    coursesColors: null,
   };
 
   const [state, dispatch] = useReducer(attendanceReducer, initialState);
@@ -432,6 +434,11 @@ export const AttendanceContextProvider = ({ children }) => {
         dispatch({
           type: Types.LOAD_ATTENDED_LECTURES,
           payload: result.attendedLectures,
+          colors: randomColor({
+            count: result.attendedLectures.length,
+            format: 'rgba',
+            alpha: 0.7,
+          }),
         });
       }
     } catch (err) {
@@ -494,6 +501,7 @@ export const AttendanceContextProvider = ({ children }) => {
         attendedLectures: state.attendedLectures,
         attendedLecturesSummaries: state.attendedLecturesSummaries,
         currentCourseName: state.currentCourseName,
+        coursesColors: state.coursesColors,
         startOngoingAttendance,
         getQRcodeDetails,
         getRandomSecurityQuestion,

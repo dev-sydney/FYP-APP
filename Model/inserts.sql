@@ -61,9 +61,11 @@ INSERT INTO Users (surName,otherNames,emailAddress,privilege,departmentId,photo,
  ('Hadley','Ben','ben@example.com','student',5,'user-13.jpg','$2a$12$tM0aMkLzkBpWYVNFH9rt1OCLgTfbCwbG4Aa2hqFYnOIAuO5q2f/ny',10111327),
  ('Wilson','laura','wilson@example.com','student',5,'user-14.jpg','$2a$12$oVIl.6kWoOuAd9ds0oBPW.ufPTQO0ZlYC3VSHP2qnAgOXgv/JS3fe',10111328);
 
-SELECT * FROM SecurityQs
-ORDER BY questionId ASC;
-
+INSERT INTO TestTimes (createdAt)
+VALUES ('2023-03-01 14:32:02.009'),
+('2023-02-27 14:43:57.183'),
+('2023-02-27 14:37:05.844'),
+('2023-02-27 15:02:48.311');
 
 
 

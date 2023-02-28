@@ -21,3 +21,6 @@ SELECT * FROM SignedAttendances WHERE signedAttendanceId >= 16;
 SELECT * FROM Faculties;
 
 SELECT * FROM Departments;
+
+SELECT * FROM TestTimes;
+SELECT * FROM TestTimes WHERE createdAt <= '2023-02-27 15:00:22.013';

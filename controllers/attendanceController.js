@@ -63,8 +63,15 @@ exports.createOngoingAttendance = catchAsyncErrors(async (req, res, next) => {
     );
   //2. update the QRcodes ongingattendance
   await pool.query(
-    `UPDATE QRcodes SET isLocked = ?, ongoingAttendanceId = ?, professorId = ?, currentCourseName = ? WHERE QRcodeId = ?`,
-    [0, result.insertId, req.user.userId, req.body.courseName, +QRcodeId]
+    `UPDATE QRcodes SET isLocked = ?, ongoingAttendanceId = ?, professorId = ?, currentCourseName = ?, expiresAt = ? WHERE QRcodeId = ?`,
+    [
+      0,
+      result.insertId,
+      req.user.userId,
+      req.body.courseName,
+      cloneObject.endsAt,
+      +QRcodeId,
+    ]
   );
 
   //3. send a success message

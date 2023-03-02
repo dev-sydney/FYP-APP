@@ -12,6 +12,7 @@ import attendanceContext from '../contexts/AttendanceContext';
 import authContext from '../contexts/AuthContext';
 
 import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
+import LoadingStudentSearch from '../components/loadingComponents/LoadingStudentSearch';
 
 import './../styles/componentsStyles.scss';
 import './../styles/signedAttendanceStyle.scss';
@@ -125,20 +126,17 @@ const SignedAttendancesPage = () => {
       {/*NOTE: Conditional rendering logic for displpaying the search results  */}
       <div className="search__results" style={{ textAlign: 'center' }}>
         {attendanceContxt.isStudentLoading ? (
-          <div className="spinner_icon">
-            <UilSpinnerAlt
-              color="#FFFFFF"
-              size="22"
-              style={{ marginTop: '.2em' }}
-            />
-          </div>
+          <LoadingStudentSearch />
         ) : (
           attendanceContxt.student && (
             <div className="search__details">
               <img
                 src={`/img/users/${attendanceContxt.student.photo}`}
                 style={{
-                  height: '5em',
+                  maxHeight: '5em',
+                  minHeight: '5em',
+                  minWidth: '5em',
+                  maxWidth: '5em',
                   borderRadius: '20px',
                   marginTop: '.1em',
                 }}
@@ -160,7 +158,10 @@ const SignedAttendancesPage = () => {
         )}
       </div>
 
-      <section className="lists__section" style={{ margin: '0.5em .3em' }}>
+      <section
+        className="lists__section"
+        style={{ margin: '0.5em .3em', padding: '1%' }}
+      >
         {/* NOTE: Conditional rendering logic for displaying either the LoadingComponent or the data of signed attendances  */}
         {attendanceContxt.isLoading ? (
           <LoadingResourcesComponent />
@@ -174,6 +175,7 @@ const SignedAttendancesPage = () => {
                       key={signedAttendance.signedAttendanceId}
                     >
                       <img
+                        role={'presentation'}
                         src={`/img/users/${signedAttendance.photo}`}
                         style={{
                           maxHeight: '5em',

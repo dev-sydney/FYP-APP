@@ -311,15 +311,19 @@ exports.createSignedAttendanceManually = catchAsyncErrors(
       `INSERT INTO SignedAttendances(userId,courseId,ongoingAttendanceId) VALUES(?,?,?)`,
       [+userId, +courseId, +ongoingAttendanceId]
     );
-    //EDGE-CASE:
+    //EDGE-CASE: if the signed attendance wasn't added to the DB
     if (!result.insertId)
       return next(
         new AppError('Unable to add student right now, please try again', 400)
       );
+
     const [results] = await pool.query(
-      'SELECT * FROM SignedAttendances WHERE signedAttendanceId = ?',
-      [result.insertId]
+      `SELECT SignedAttendances.signedAttendanceId,Users.photo,Users.surName,Users.otherNames,Users.indexNumber
+      FROM  SignedAttendances
+      INNER JOIN Users ON SignedAttendances.userId=Users.userId WHERE SignedAttendances.ongoingAttendanceId = ? AND SignedAttendances.signedAttendanceId = ?`,
+      [+ongoingAttendanceId, +result.insertId]
     );
+
     res.status(201).json({
       status: 'success',
       signedAttendance: results[0],

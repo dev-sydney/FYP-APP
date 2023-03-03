@@ -335,7 +335,7 @@ export const AttendanceContextProvider = ({ children }) => {
 
       if (res.status >= 400) throw new Error(result.message);
 
-      if (res.status === 200) {
+      if (res.status === 201) {
         dispatch({
           type: Types.ADD_STUDENT,
           payload: result.signedAttendance,

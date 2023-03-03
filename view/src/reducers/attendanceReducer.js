@@ -102,6 +102,7 @@ const attendanceReducer = (state, action) => {
       return {
         ...state,
         signedAttendances: [action.payload, ...state.signedAttendances],
+        attendanceAlert: action.alert,
         isLoading: null,
       };
     case Types.ADD_STUDENT_ERROR:

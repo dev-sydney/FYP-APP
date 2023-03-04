@@ -71,7 +71,7 @@ const SignedAttendancesPage = () => {
   return (
     <div className={`signed__page`}>
       <div className="number__present_container">
-        <span className="flex__1">
+        <div className="flex__1">
           {didSearchBtnClicked ? (
             <form onSubmit={onSubmit} className={`add__student__form`}>
               <span className="input__search">
@@ -106,7 +106,56 @@ const SignedAttendancesPage = () => {
               <UilUserPlus color="#5F5E5E" size="30" />
             </div>
           )}
-        </span>
+          <div
+            className={`search__results ${
+              attendanceContxt.isStudentLoading || attendanceContxt.student
+                ? 'show_search'
+                : 'hide_search'
+            }`}
+            style={{ textAlign: 'center' }}
+          >
+            {attendanceContxt.isStudentLoading ? (
+              <LoadingStudentSearch />
+            ) : (
+              attendanceContxt.student && (
+                <div className="search__details">
+                  <img
+                    src={`/img/users/${attendanceContxt.student.photo}`}
+                    style={{
+                      maxHeight: '5em',
+                      minHeight: '5em',
+                      minWidth: '5em',
+                      maxWidth: '5em',
+                      borderRadius: '20px',
+                      marginTop: '.1em',
+                    }}
+                  />
+                  <div className="name__index">
+                    <h3>
+                      {attendanceContxt.student.surName.concat(
+                        ` ${attendanceContxt.student.otherNames}`
+                      )}
+                    </h3>
+                    <p>{attendanceContxt.student.indexNumber}</p>
+                  </div>
+
+                  <button
+                    onClick={onAddBtnClick}
+                    className={`add_student__btn`}
+                  >
+                    {attendanceContxt.isLoading ? (
+                      <div className="spinner_icon">
+                        <UilSpinnerAlt color="#284b63" size="25" />
+                      </div>
+                    ) : (
+                      <UilPlus color="#284b63" size="30" />
+                    )}
+                  </button>
+                </div>
+              )
+            )}
+          </div>
+        </div>
 
         <h1 className="flex__2">
           {!attendanceContxt.signedAttendances ? (
@@ -121,41 +170,6 @@ const SignedAttendancesPage = () => {
           )}
         </h1>
         <p className="flex__3">Students present</p>
-      </div>
-
-      {/*NOTE: Conditional rendering logic for displpaying the search results  */}
-      <div className="search__results" style={{ textAlign: 'center' }}>
-        {attendanceContxt.isStudentLoading ? (
-          <LoadingStudentSearch />
-        ) : (
-          attendanceContxt.student && (
-            <div className="search__details">
-              <img
-                src={`/img/users/${attendanceContxt.student.photo}`}
-                style={{
-                  maxHeight: '5em',
-                  minHeight: '5em',
-                  minWidth: '5em',
-                  maxWidth: '5em',
-                  borderRadius: '20px',
-                  marginTop: '.1em',
-                }}
-              />
-              <div className="name__index">
-                <h3>
-                  {attendanceContxt.student.surName.concat(
-                    ` ${attendanceContxt.student.otherNames}`
-                  )}
-                </h3>
-                <p>{attendanceContxt.student.indexNumber}</p>
-              </div>
-
-              <button onClick={onAddBtnClick} className={`add_student__btn`}>
-                <UilPlus color="#E8E8E8" size="30" />
-              </button>
-            </div>
-          )
-        )}
       </div>
 
       <section

@@ -53,3 +53,9 @@ WHERE AssignedCoursesAndLecturers.userId = 2;
 -- QUERY STRING FOR GETTING THE INFORMATION ABOUT THE CURRENT PROFESSOR TAKING THE ATTENDANCE
 SELECT * FROM QRcodes;
 SELECT * FROM OngoingAttendances;
+
+SELECT SignedAttendances.signedAttendanceId,Users.photo,Users.surName,Users.otherNames,Users.indexNumber
+FROM  SignedAttendances
+INNER JOIN Users ON SignedAttendances.userId=Users.userId WHERE SignedAttendances.ongoingAttendanceId=46 AND SignedAttendances.signedAttendanceId=82;
+
+

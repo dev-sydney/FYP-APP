@@ -32,16 +32,17 @@ const AttendanceScoresPage = () => {
   const [isModalActive, setIsModalActive] = useState(false);
 
   useEffect(() => {
-    //EDGE-CASE: IF THE USER ISN'T LOGGED IN
-    if (!authContxt.user) navigateTo('/login');
-
     //EDGE-CASE: IF THERES ANY UNAUTHORIZED VISIT
     if (
       !['professor', 'head_of_department'].includes(authContxt.user.privilege)
     )
       navigateTo('/');
-
     resourceContxt.loadUsersAssignedCourses();
+    return () => {
+      if (attendanceContxt?.attendanceScores?.length > 0) {
+        attendanceContxt.clearSomeContextState('CLEAR_ATTENDANCE_SCORES');
+      }
+    };
   }, [stat]);
 
   /* -------THE SELECT OPTIONS ONCHANGE EVENT HANDLERS------- */

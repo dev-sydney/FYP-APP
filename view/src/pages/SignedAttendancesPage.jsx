@@ -29,10 +29,6 @@ const SignedAttendancesPage = () => {
   const attendanceContxt = useContext(attendanceContext);
   const authContxt = useContext(authContext);
   useEffect(() => {
-    //EDGE-CASE: IF THE USER ISN'T LOGGED IN
-    if (!authContxt.user) {
-      navigateTo('/');
-    }
     //EDGE-CASE: IF THE USER ISN'T A PROFESSOR OR HEAD OF DEPT.
     if (
       !['professor', 'head_of_department'].includes(authContxt.user.privilege)

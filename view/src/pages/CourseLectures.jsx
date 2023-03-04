@@ -17,6 +17,11 @@ const CourseLectures = () => {
 
   useEffect(() => {
     attendanceContxt.getCoursesSignedAttendances(courseId);
+    return () => {
+      if (attendanceContxt.attendedLectures.length > 0) {
+        attendanceContxt.clearSomeContextState('CLEAR_ATTENDED_LECTURES');
+      }
+    };
   }, [stat]);
   /**
    * This function gets the number of weeks passed between the current date & the signed attendance date

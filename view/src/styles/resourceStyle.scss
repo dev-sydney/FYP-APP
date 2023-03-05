@@ -115,6 +115,7 @@ section {
 }
 
 .lectureHalls__container {
+  min-height: inherit;
   .lock__status {
     // outline: 1px solid gray;
     width: fit-content;

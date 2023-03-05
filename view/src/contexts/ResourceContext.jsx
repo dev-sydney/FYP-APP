@@ -22,7 +22,19 @@ export const ResourceContextProvider = ({ children }) => {
     userAssignedCourses: null,
     deptCoursesColors: null,
   };
+
   const [state, dispatch] = useReducer(resourceReducer, initialState);
+
+  /**
+   * This right here is a cleanup function that is supposed to clear some parts of the context state when
+   * that part of the context state is no longer needed
+   * @param {String} type The action type that is dispatched to the useReducer to trigger the change in the context state
+   */
+  const clearSomeContextState = (type) => {
+    dispatch({
+      type,
+    });
+  };
 
   /**
    * This function starts a timeout function which dispatches the type to clear authAlertMessage in the context
@@ -602,6 +614,7 @@ export const ResourceContextProvider = ({ children }) => {
         loadUnAssignedProfessors,
         assignCourseToProfessor,
         loadUsersAssignedCourses,
+        clearSomeContextState,
       }}
     >
       {children}

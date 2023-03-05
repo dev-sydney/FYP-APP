@@ -41,6 +41,9 @@ const AssignedLecturersPage = () => {
   };
   useEffect(() => {
     resourceContxt.loadAssignedProfessors(courseId);
+    return () => {
+      resourceContxt.clearSomeContextState('CLEAR_ALL_LECTURERS');
+    };
   }, []);
 
   return (

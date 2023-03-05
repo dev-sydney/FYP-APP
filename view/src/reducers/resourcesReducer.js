@@ -237,6 +237,12 @@ const resourceReducer = (state, action) => {
         userAssignedCourses: null,
         resourceContextAlert: action.payload,
       };
+    case Types.CLEAR_ALL_LECTURERS:
+      return {
+        ...state,
+        unAssignedProfessors: null,
+        assignedProfessors: null,
+      };
     default:
       return state;
   }

@@ -104,17 +104,20 @@ const attendanceReducer = (state, action) => {
         signedAttendances: [action.payload, ...state.signedAttendances],
         attendanceAlert: action.alert,
         isLoading: null,
+        student: null,
       };
     case Types.ADD_STUDENT_ERROR:
       return {
         ...state,
         attendanceAlert: action.payload,
         isLoading: null,
+        student: null,
       };
     case Types.CLEAR_STUDENT:
       return {
         ...state,
         student: null,
+        signedAttendances: null,
       };
     case Types.ERASED_ONGOING_ATTENDANCE:
       return {
@@ -178,6 +181,16 @@ const attendanceReducer = (state, action) => {
       return {
         ...state,
         currentCourseName: action.payload,
+      };
+    case Types.CLEAR_ATTENDED_LECTURES:
+      return {
+        ...state,
+        attendedLectures: null,
+      };
+    case Types.CLEAR_ATTENDANCE_SCORES:
+      return {
+        ...state,
+        attendanceScores: null,
       };
     default:
       return state;

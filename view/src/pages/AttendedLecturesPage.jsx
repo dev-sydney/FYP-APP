@@ -8,7 +8,12 @@ import {
 
 import attendanceContext from '../contexts/AttendanceContext';
 import './../styles/attendanceStyle.scss';
-
+/**
+ * This page component renders information about the courses lectures attended between
+ * a specified span of time.The information here is the number of lecturers attended &
+ * the marks gathered so far for that course
+ * @returns
+ */
 const AttendedLecturesPage = () => {
   const attendanceContxt = useContext(attendanceContext);
 

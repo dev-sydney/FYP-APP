@@ -8,7 +8,8 @@ import LoadingResourcesComponent from '../components/loadingComponents/LoadingRe
 import './../styles/attendanceStyle.scss';
 const stat = 1;
 /**
- * This Page component renders information about all the signed attendances for a particular course
+ * This Page component renders information about all the signed attendances for a particular course.
+ * Information here is how long ago that courses lectures were attended
  * @returns
  */
 const CourseLectures = () => {

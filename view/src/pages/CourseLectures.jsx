@@ -19,7 +19,7 @@ const CourseLectures = () => {
   useEffect(() => {
     attendanceContxt.getCoursesSignedAttendances(courseId);
     return () => {
-      if (attendanceContxt.attendedLectures.length > 0) {
+      if (attendanceContxt?.attendedLectures?.length > 0) {
         attendanceContxt.clearSomeContextState('CLEAR_ATTENDED_LECTURES');
       }
     };

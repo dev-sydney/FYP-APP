@@ -1,7 +1,7 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
 import { QrReader } from 'react-qr-reader';
 import { useNavigate } from 'react-router-dom';
-
+import { UilInfoCircle } from '@iconscout/react-unicons';
 /* ---------------CONTEXTS---------------- */
 import authContext from '../contexts/AuthContext';
 import attendanceContext from '../contexts/AttendanceContext';
@@ -117,7 +117,12 @@ const HomePage = () => {
           ) &&
           didProfessorScan && (
             <p className="lectureroom">
-              {QRcodeData.split(' ')[1].split('=')[1]} ?
+              {QRcodeData.split(' ')[1].split('=')[1]}{' '}
+              <UilInfoCircle
+                size="1em"
+                color="gray"
+                style={{ paddingTop: '0.2em' }}
+              />
             </p>
           )}
 

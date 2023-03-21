@@ -9,14 +9,23 @@ SELECT * FROM SecurityQuestionsAnswers;
 
 SELECT * FROM Users;
 SELECT * FROM Users WHERE privilege IN ('head_of_department','professor');
-SELECT * FROM Users WHERE privilege = 'student';
+SELECT * FROM Users WHERE privilege = 'head_of_department';
 SELECT * FROM Users WHERE userId =27;
+SELECT * FROM Users WHERE hasSecurityQuestionsSet = FALSE AND privilege = 'student';
+DESC Users;
+
+SELECT Courses.courseId,Courses.courseName
+  FROM AssignedCoursesAndLecturers INNER JOIN Courses ON AssignedCoursesAndLecturers.courseId = Courses.courseId
+  WHERE AssignedCoursesAndLecturers.userId = 14;
+  
+SELECT * FROM  AssignedCoursesAndLecturers;
 
 SELECT * FROM QRcodes;
 
-SELECT * FROM OngoingAttendances WHERE ongoingAttendanceId >= 24;
+SELECT * FROM OngoingAttendances ;
 
 SELECT * FROM SignedAttendances WHERE signedAttendanceId >= 16;
+SELECT * FROM SignedAttendances;
 
 SELECT * FROM Faculties;
 

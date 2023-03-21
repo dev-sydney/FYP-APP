@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { UilTimes, UilSpinnerAlt } from '@iconscout/react-unicons';
 
 import resourceContext from '../contexts/ResourceContext';
-
+import './../styles/resourceFormStyle.scss';
 const AddLectureRoomForm = ({ isModalActive, setIsModalActive }) => {
   const resourceContxt = useContext(resourceContext);
 

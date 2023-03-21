@@ -113,6 +113,7 @@
     margin: 0;
   }
 }
+
 .change_password__container,
 .profile__container,
 .login-container {
@@ -168,6 +169,11 @@
     display: flex;
     justify-content: center;
   }
+}
+.login-container {
+  flex-direction: column;
+  align-content: space-around;
+  row-gap: 2em;
 }
 .profile__container {
   .file__upload {

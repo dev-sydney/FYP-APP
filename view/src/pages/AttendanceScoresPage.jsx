@@ -42,6 +42,7 @@ const AttendanceScoresPage = () => {
       if (attendanceContxt?.attendanceScores?.length > 0) {
         attendanceContxt.clearSomeContextState('CLEAR_ATTENDANCE_SCORES');
       }
+      resourceContxt.clearSomeContextState('CLEAR_ASSIGNED_COURSES');
     };
   }, [stat]);
 
@@ -77,7 +78,9 @@ const AttendanceScoresPage = () => {
               background: '#8e18b930',
             }}
             onClick={() => {
-              setIsModalActive(true);
+              if (resourceContxt.userAssignedCourses) {
+                setIsModalActive(true);
+              }
             }}
           />
         </div>

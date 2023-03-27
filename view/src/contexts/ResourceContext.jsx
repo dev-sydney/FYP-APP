@@ -577,7 +577,7 @@ export const ResourceContextProvider = ({ children }) => {
         type: Types.LOAD_USER_ASSIGNED_COURSES_ERROR,
         payload: new AppAlert(err.message, 'error'),
       });
-      clearContextAlerts();
+      // clearContextAlerts();
     }
   };
   return (

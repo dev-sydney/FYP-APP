@@ -3,7 +3,10 @@ import { useParams } from 'react-router-dom';
 import { UilUserPlus, UilTimes, UilCheck } from '@iconscout/react-unicons';
 
 import resourceContext from '../contexts/ResourceContext';
+
 import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
+import DialogBox from '../components/DialogBox';
+import ModalBackground from '../components/ModalBackground';
 
 import './../styles/departmentCoursesStyle.scss';
 
@@ -15,8 +18,14 @@ import './../styles/departmentCoursesStyle.scss';
 const AssignedLecturersPage = () => {
   const resourceContxt = useContext(resourceContext);
   const { courseId } = useParams();
+
   const [userIds, setUserIds] = useState([]);
   const [isAssigning, setisAssigning] = useState(false);
+  const [isModalActive, setIsModalActive] = useState(false);
+  const [selectedAssignmentId, setSelectedAssignmentId] = useState(0);
+
+  const dialogMessage =
+    'Unassigning this course from professors will prevent them from taking attendance for the course.';
 
   const onCheckBoxClick = (e) => {
     if (userIds.includes(e.target.value)) {
@@ -48,8 +57,24 @@ const AssignedLecturersPage = () => {
 
   return (
     <div className="assigned__container">
+      {/* NOTE: Conditional rendering of the dialog box */}
+      {isModalActive ? (
+        <ModalBackground
+          children={
+            <DialogBox
+              dialogMessage={dialogMessage}
+              onCancelClickFn={setIsModalActive}
+              onProceedClickFn={resourceContxt.deAllocateAssignedCourse}
+              args={selectedAssignmentId}
+            />
+          }
+        />
+      ) : (
+        ''
+      )}
+
       <section className="headings__section">
-        <div className="icon">
+        <div className="icon" style={{ textAlign: 'right' }}>
           <UilUserPlus
             size="45"
             color="#8E18B9"
@@ -204,7 +229,8 @@ const AssignedLecturersPage = () => {
                                 backgroundColor: '#ca14141a',
                               }}
                               onClick={() => {
-                                resourceContxt.deAllocateAssignedCourse(
+                                setIsModalActive(!isModalActive);
+                                setSelectedAssignmentId(
                                   assignedProf.assignmentId
                                 );
                               }}

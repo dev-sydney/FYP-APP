@@ -56,8 +56,9 @@ const ProfessorResourcePage = () => {
           />
         </div>
         <h1>
-          Manage <br />
-          Professors
+          Professors In
+          <br />
+          Your Department
         </h1>
       </section>
 

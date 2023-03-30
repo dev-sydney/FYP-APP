@@ -55,9 +55,9 @@ const CoursesResourcePage = () => {
           />
         </div>
         <h1>
-          Manage
+          Manage Courses
           <br />
-          Courses
+          In Your Department
         </h1>
       </section>
 

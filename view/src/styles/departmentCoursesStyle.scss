@@ -77,6 +77,8 @@
         flex-direction: column;
         text-decoration: none;
         min-height: 100%;
+        text-decoration: none;
+        color: black;
       }
     }
   }
@@ -110,6 +112,15 @@
 }
 .assigned__container {
   min-height: inherit;
+  padding: 0 0.1em;
+  .lists__section {
+    outline: 1px solid gray;
+    border-radius: 20px;
+    padding: 0 2%;
+  }
+  .list__items {
+    outline: none;
+  }
   .profItem {
     // outline: 1px solid #ca14141f;
     padding: 0.5em 0;

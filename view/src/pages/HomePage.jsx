@@ -52,7 +52,6 @@ const HomePage = () => {
       if (
         ['head_of_department', 'professor'].includes(authContxt.user.privilege)
       ) {
-        if (!resourceContxt.userAssignedCourses) return;
         setDidProfessorScan(true);
         setQRcodeData(result.text);
       }

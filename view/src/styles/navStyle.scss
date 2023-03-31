@@ -1,6 +1,7 @@
 .not-loggedIn {
   display: none;
 }
+
 .nav__bar {
   background-color: #ffffff;
   overflow: hidden;
@@ -14,7 +15,6 @@
   z-index: 5;
   border-top: 1px solid gray;
   display: flex;
-  justify-content: space-around;
   a {
     margin-top: 2em auto;
     // color: #1d2021;
@@ -22,15 +22,15 @@
     align-items: flex-start;
     text-decoration: none;
   }
-  .navlink {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-    text-align: center;
-    p {
-      text-align: center;
-      width: 100%;
-    }
-  }
+  // .navlink {
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-content: center;
+  //   justify-content: center;
+  //   text-align: center;
+  //   p {
+  //     text-align: center;
+  //     width: 100%;
+  //   }
+  // }
 }

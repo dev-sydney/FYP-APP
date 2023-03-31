@@ -6,6 +6,7 @@ import resourceContext from '../contexts/ResourceContext';
 import AddProfessorForm from './../components/AddProfessorForm';
 import ModalBackground from '../components/ModalBackground';
 import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
+import DialogBox from '../components/DialogBox';
 
 import './../styles/resourceStyle.scss';
 
@@ -15,6 +16,11 @@ const ProfessorResourcePage = () => {
   const resourceContxt = useContext(resourceContext);
 
   const [isModalActive, setIsModalActive] = useState(false);
+  const [isDialogModalActive, setIsDialogModalActive] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(0);
+
+  const dialogMessage =
+    'Deleting this professor will erase all data associated with them.';
 
   useEffect(() => {
     resourceContxt.loadAllProfessors();
@@ -26,6 +32,7 @@ const ProfessorResourcePage = () => {
 
   return (
     <div className="professors__container">
+      {/* NOTE: Conditional rendering logic for the form that is used to add professors */}
       {isModalActive ? (
         <ModalBackground
           children={
@@ -33,6 +40,22 @@ const ProfessorResourcePage = () => {
               setIsModalActive={setIsModalActive}
               isModalActive={isModalActive}
               loadProfessors={true}
+            />
+          }
+        />
+      ) : (
+        ''
+      )}
+
+      {/* NOTE: Conditonal rendering logic for the dialog box component */}
+      {isDialogModalActive ? (
+        <ModalBackground
+          children={
+            <DialogBox
+              dialogMessage={dialogMessage}
+              onProceedClickFn={resourceContxt.deleteProfessor}
+              onCancelClickFn={setIsDialogModalActive}
+              args={selectedUserId}
             />
           }
         />
@@ -106,7 +129,10 @@ const ProfessorResourcePage = () => {
                         </div>
                         <div
                           className="icon"
-                          onClick={onDeleteClick(prof.userId)}
+                          onClick={() => {
+                            setSelectedUserId(prof.userId);
+                            setIsDialogModalActive(!isDialogModalActive);
+                          }}
                         >
                           <UilTrashAlt
                             size="30"

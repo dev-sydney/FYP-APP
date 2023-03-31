@@ -2,16 +2,24 @@ import React, { useEffect, useContext, useState } from 'react';
 import { UilFocusAdd, UilTrashAlt, UilPen } from '@iconscout/react-unicons';
 
 import resourceContext from '../contexts/ResourceContext';
+
 import AddLectureRoomForm from './../components/AddLectureRoomForm';
 import ModalBackground from '../components/ModalBackground';
 import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
+import DialogBox from '../components/DialogBox';
 
 import './../styles/resourceStyle.scss';
 const stat = 1;
 
 const LectureHallResource = () => {
   const resourceContxt = useContext(resourceContext);
+
   const [isModalActive, setIsModalActive] = useState(false);
+  const [isDialogModalActive, setIsDialogModalActive] = useState(false);
+  const [selectedQrCodeId, setSelectedQrCodeId] = useState(0);
+
+  const dialogMessage =
+    'Deleting this QR code will prevent it from being used to track attendance.';
 
   useEffect(() => {
     resourceContxt.loadLectureHall();
@@ -22,12 +30,29 @@ const LectureHallResource = () => {
   };
   return (
     <div className="lectureHalls__container">
+      {/* NOTE: Conditional rendering logic for the form used to create new lecture hall QRcodes */}
       {isModalActive ? (
         <ModalBackground
           children={
             <AddLectureRoomForm
               setIsModalActive={setIsModalActive}
               isModalActive={isModalActive}
+            />
+          }
+        />
+      ) : (
+        ''
+      )}
+
+      {/* NOTE: Conditonal rendering logic for the dialog box */}
+      {isDialogModalActive ? (
+        <ModalBackground
+          children={
+            <DialogBox
+              dialogMessage={dialogMessage}
+              onProceedClickFn={resourceContxt.deleteLectureHallQRCode}
+              onCancelClickFn={setIsDialogModalActive}
+              args={selectedQrCodeId}
             />
           }
         />
@@ -99,7 +124,10 @@ const LectureHallResource = () => {
                         </div>
                         <div
                           className="icon"
-                          onClick={onDeleteClick(lectureHall.QRcodeId)}
+                          onClick={() => {
+                            setSelectedQrCodeId(lectureHall.QRcodeId);
+                            setIsDialogModalActive(!isDialogModalActive);
+                          }}
                         >
                           <UilTrashAlt
                             size="30"

@@ -5,6 +5,7 @@ import resourceContext from '../contexts/ResourceContext';
 import ModalBackground from '../components/ModalBackground';
 import AddFacultyForm from './../components/AddFacultyForm';
 import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
+import DialogBox from '../components/DialogBox';
 
 import './../styles/resourceStyle.scss';
 
@@ -12,6 +13,11 @@ const stat = 1;
 const FacultyResourcePage = () => {
   const resourceContxt = useContext(resourceContext);
   const [isModalActive, setIsModalActive] = useState(false);
+  const [isDialogModalActive, setIsDialogModalActive] = useState(false);
+  const [selectedFacultyId, setSelectedFacultyId] = useState(0);
+
+  const dialogMessage =
+    'Deleting this faculty will erase all departments, courses and users associated with it.';
 
   useEffect(() => {
     resourceContxt.loadAllFaculties();
@@ -29,6 +35,21 @@ const FacultyResourcePage = () => {
             <AddFacultyForm
               isModalActive={isModalActive}
               setIsModalActive={setIsModalActive}
+            />
+          }
+        />
+      ) : (
+        ''
+      )}
+      {/* NOTE: Condtional rendering logic for the dialog box compoenent */}
+      {isDialogModalActive ? (
+        <ModalBackground
+          children={
+            <DialogBox
+              dialogMessage={dialogMessage}
+              onProceedClickFn={resourceContxt.deleteFaculty}
+              onCancelClickFn={setIsDialogModalActive}
+              args={selectedFacultyId}
             />
           }
         />
@@ -81,7 +102,10 @@ const FacultyResourcePage = () => {
                       <div
                         className="icon"
                         style={{ background: 'none' }}
-                        onClick={onDeleteClick(faculty.facultyId)}
+                        onClick={() => {
+                          setSelectedFacultyId(faculty.facultyId);
+                          setIsDialogModalActive(!isDialogModalActive);
+                        }}
                       >
                         <UilTimes
                           size="30"

@@ -38,8 +38,8 @@ const NavBar = () => {
               color: isActive ? '#284b63' : '#C5C5C5',
             })}
           >
-            <UilQrcodeScan size="35" style={{ width: '100%' }} />
-            <p>Scan</p>
+            <UilQrcodeScan size="2.5em" style={{ width: '100%' }} />
+            <p>scan</p>
           </NavLink>
         ) : (
           ''
@@ -55,8 +55,8 @@ const NavBar = () => {
               color: isActive ? '#284b63' : '#C5C5C5',
             })}
           >
-            <UilHistoryAlt size="35" style={{ width: '100%' }} />
-            <p>History</p>
+            <UilHistoryAlt size="2.5em" style={{ width: '100%' }} />
+            <p>history</p>
           </NavLink>
         ) : (
           ''
@@ -74,8 +74,8 @@ const NavBar = () => {
               color: isActive ? '#284b63' : '#C5C5C5',
             })}
           >
-            <UilLightbulbAlt size="35" style={{ width: '100%' }} />
-            <p>Ongoing</p>
+            <UilLightbulbAlt size="2.5em" style={{ width: '100%' }} />
+            <p>ongoing</p>
           </NavLink>
         ) : (
           ''
@@ -93,8 +93,8 @@ const NavBar = () => {
               color: isActive ? '#284b63' : '#C5C5C5',
             })}
           >
-            <UilChart size="35" style={{ width: '100%' }} />
-            <p>Scores</p>
+            <UilChart size="2.5em" style={{ width: '100%' }} />
+            <p>scores</p>
           </NavLink>
         ) : (
           ''
@@ -110,8 +110,8 @@ const NavBar = () => {
               color: isActive ? '#284b63' : '#C5C5C5',
             })}
           >
-            <UilCreateDashboard size="35" style={{ width: '100%' }} />
-            <p>DashBoard</p>
+            <UilCreateDashboard size="2.5em" style={{ width: '100%' }} />
+            <p>dashBoard</p>
           </NavLink>
         ) : (
           ''
@@ -123,8 +123,8 @@ const NavBar = () => {
           color: isActive ? '#284b63' : '#C5C5C5',
         })}
       >
-        <UilUserCircle size="35" style={{ width: '100%' }} />
-        <p>Me</p>
+        <UilUserCircle size="2.5em" style={{ width: '100%' }} />
+        <p>profile</p>
       </NavLink>
     </div>
   );

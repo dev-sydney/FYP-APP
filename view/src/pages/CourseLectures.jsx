@@ -63,7 +63,7 @@ const CourseLectures = () => {
                     <div className="lecture__item">
                       <div className="icon" key={el.signedAttendanceId}>
                         <UilCalender
-                          size="45"
+                          size="3em"
                           color="#1D6D1D"
                           style={{
                             padding: '.5em',

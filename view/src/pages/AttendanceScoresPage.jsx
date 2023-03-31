@@ -71,7 +71,7 @@ const AttendanceScoresPage = () => {
         <div className="form__icon">
           <UilFileInfoAlt
             color="#8E18B9"
-            size="45"
+            size="3em"
             style={{
               padding: '.5em',
               borderRadius: '50%',
@@ -159,11 +159,19 @@ const AttendanceScoresPage = () => {
       {/* NOTE: CONDITIONAL RENDERING FOR WHEN THERE ARE NO SCORES QUERIED YET */}
       {!attendanceContxt.attendanceScores && (
         <div className="no_scores_container">
-          <img
-            src="/img/empty-box.png"
-            alt=""
-            className="lists__illustration"
-          />
+          <div
+            style={{
+              textAlign: 'center',
+              width: 'fit-content',
+              height: 'fit-content',
+            }}
+          >
+            <img
+              src="/img/empty-box.png"
+              alt=""
+              className="lists__illustration"
+            />
+          </div>
           <h2>No Scores</h2>
           <p>Let's get started, shall we ?</p>
           <button

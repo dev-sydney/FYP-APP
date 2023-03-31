@@ -52,7 +52,7 @@ const DepartmentCoursesPage = () => {
         }}
       >
         <UilEllipsisV
-          size="40"
+          size="3em"
           color="#787676"
           style={{
             padding: '.5em',
@@ -103,7 +103,7 @@ const DepartmentCoursesPage = () => {
         )}
       </div>
       <section className="headings__section">
-        <h1>
+        <h1 style={{ marginBottom: '0.5em' }}>
           Courses In Your
           <br /> Department
         </h1>
@@ -125,7 +125,9 @@ const DepartmentCoursesPage = () => {
                     >
                       <Link to={`/departmentCourses/${deptCourse.courseId}`}>
                         <div className="course_title">
-                          <h2>{deptCourse.courseName}</h2>
+                          <h2 style={{ margin: '0' }}>
+                            {deptCourse.courseName}
+                          </h2>
                         </div>
                         <div className="lecturer_num__photo">
                           <img

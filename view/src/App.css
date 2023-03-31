@@ -106,6 +106,7 @@ label {
     transform: rotate(360deg);
   }
 }
+/* NOTE: MEDIA QUERY FOR MOBILE VIEW */
 @media (max-width: 900px) {
   * {
     box-sizing: border-box;
@@ -132,5 +133,63 @@ label {
     /* outline: 5px solid red; */
     width: 100%;
     min-height: inherit;
+  }
+}
+
+/* NOTE: MEDIA QUERY FOR THE LAPTOP & DESKTOP VIEW */
+@media (min-width: 992px) {
+  body {
+    max-width: 100%;
+    min-height: inherit;
+    /* outline-style: solid;
+    outline-color: red; */
+  }
+  #root {
+    width: 100%;
+    min-height: inherit;
+  }
+  html {
+    max-width: 100vw;
+    min-height: 100vh;
+    margin: auto;
+  }
+  .App {
+    text-align: center;
+    /* outline: 5px solid red; */
+    /* width: 100%; */
+    min-height: inherit;
+  }
+  .nav__bar {
+    outline: 1px solid red;
+    height: 100vh;
+    width: fit-content;
+    /* width: 10%; */
+    /* width: 100%; */
+    /* position: fixed;  */
+    z-index: 0;
+    /* top: 0;  */
+    /* left: 0; */
+    display: flex;
+    flex-direction: column;
+  }
+  /* .overview__container {
+    min-width: calc(100%-200px);
+  } */
+  .app_flex {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+  }
+
+  .resource__container,
+  .lectureHalls__container,
+  .faculty_resource__container,
+  .deptCourses__container,
+  .assigned__container,
+  .professors__container,
+  .course_resource__container,
+  .ongoing__page,
+  .signed__page {
+    flex-grow: 1;
   }
 }

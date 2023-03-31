@@ -78,256 +78,258 @@ function App() {
           <QrCodeContextProvider>
             <ResourceContextProvider>
               <AlertComponent />
-              <BrowserRouter>
-                <Routes>
-                  <Route
-                    path="/account/overview"
-                    element={
-                      <RequireAuth
-                        children={
-                          <React.Suspense fallback={<LoadingFallBack />}>
-                            <LazyAccountOverviewPage />
-                          </React.Suspense>
-                        }
-                      />
-                    }
-                  />
-                  <Route
-                    path="/account/change-password"
-                    element={
-                      <RequireAuth
-                        children={
-                          <React.Suspense fallback={<LoadingFallBack />}>
-                            <LazyChangePasswordPage />
-                          </React.Suspense>
-                        }
-                      />
-                    }
-                  />
-                  <Route
-                    path="/login"
-                    element={
-                      <React.Suspense fallback={<LoadingFallBack />}>
-                        <LazyLoginPage />
-                      </React.Suspense>
-                    }
-                  />
-                  <Route
-                    path="/signup"
-                    element={
-                      <React.Suspense fallback={<LoadingFallBack />}>
-                        <LazySignupPage />
-                      </React.Suspense>
-                    }
-                  />
-                  <Route
-                    path="/"
-                    element={
-                      <RequireAuth
-                        children={
-                          <React.Suspense fallback={<LoadingFallBack />}>
-                            <LazyHomePage />
-                          </React.Suspense>
-                        }
-                      />
-                    }
-                  />
-                  <Route
-                    path="/attendances/ongoingAttendances"
-                    element={
-                      <RequireAuth
-                        children={
-                          <React.Suspense fallback={<LoadingFallBack />}>
-                            <LazyOngoingAttendancePage />
-                          </React.Suspense>
-                        }
-                      />
-                    }
-                  />
-                  <Route
-                    path="/attendances/ongoingAttendances/:ongoingAttendanceId/:courseId"
-                    element={
-                      <RequireAuth
-                        children={
-                          <React.Suspense fallback={<LoadingFallBack />}>
-                            <LazySignedAttendancesPage />
-                          </React.Suspense>
-                        }
-                      />
-                    }
-                  />
-                  <Route
-                    path="/account/profile"
-                    element={
-                      <RequireAuth
-                        children={
-                          <React.Suspense fallback={<LoadingFallBack />}>
-                            <LazyProfilePage />
-                          </React.Suspense>
-                        }
-                      />
-                    }
-                  />
-                  <Route
-                    path="/resourceManager"
-                    element={
-                      <RequireAuth
-                        children={
-                          <React.Suspense fallback={<LoadingFallBack />}>
-                            <LazyResourcePage />
-                          </React.Suspense>
-                        }
-                      />
-                    }
-                  />
-                  <Route
-                    path="/resourceManager/professors"
-                    element={
-                      <RequireAuth
-                        children={
-                          <React.Suspense fallback={<LoadingFallBack />}>
-                            <LazyProfessorResourcePage />
-                          </React.Suspense>
-                        }
-                      />
-                    }
-                  />
-                  <Route
-                    path="/resourceManager/lecture-halls"
-                    element={
-                      <RequireAuth
-                        children={
-                          <React.Suspense fallback={<LoadingFallBack />}>
-                            <LazyLectureHallResource />
-                          </React.Suspense>
-                        }
-                      />
-                    }
-                  />
-                  <Route
-                    path="/resourceManager/courses"
-                    element={
-                      <RequireAuth
-                        children={
-                          <React.Suspense fallback={<LoadingFallBack />}>
-                            <LazyCoursesResourcePage />
-                          </React.Suspense>
-                        }
-                      />
-                    }
-                  />
-                  <Route
-                    path="/resourceManager/faculties"
-                    element={
-                      <RequireAuth
-                        children={
-                          <React.Suspense fallback={<LoadingFallBack />}>
-                            <LazyFacultyResourcePage />
-                          </React.Suspense>
-                        }
-                      />
-                    }
-                  />
-                  <Route
-                    path="/attendance-scores"
-                    element={
-                      <RequireAuth
-                        children={
-                          <React.Suspense fallback={<LoadingFallBack />}>
-                            <LazyAttendanceScoresPage />
-                          </React.Suspense>
-                        }
-                      />
-                    }
-                  />
-                  <Route
-                    path="/user-securityQnAs"
-                    element={
-                      <RequireAuth
-                        children={
-                          <React.Suspense fallback={<LoadingFallBack />}>
-                            <LazyCollectUserSecurityQnAPage />
-                          </React.Suspense>
-                        }
-                      />
-                    }
-                  />
-                  <Route
-                    path="/forgot-password"
-                    element={
-                      <React.Suspense fallback={<LoadingFallBack />}>
-                        <LazyForgetPasswordPage />
-                      </React.Suspense>
-                    }
-                  />
-                  <Route
-                    path="/reset-password/:token"
-                    element={
-                      <React.Suspense fallback={<LoadingFallBack />}>
-                        <LazyResetPasswordPage />
-                      </React.Suspense>
-                    }
-                  />
-                  <Route
-                    path="/attendedLectures"
-                    element={
-                      <RequireAuth
-                        children={
-                          <React.Suspense fallback={<LoadingFallBack />}>
-                            <LazyAttendedLecturesPage />
-                          </React.Suspense>
-                        }
-                      />
-                    }
-                  />
-                  <Route
-                    path="/attendedLectures/:courseId"
-                    element={
-                      <RequireAuth
-                        children={
-                          <React.Suspense fallback={<LoadingFallBack />}>
-                            <LazyCourseLectures />
-                          </React.Suspense>
-                        }
-                      />
-                    }
-                  />
-                  <Route
-                    path="/departmentCourses/"
-                    element={
-                      <RequireAuth
-                        children={
-                          <React.Suspense fallback={<LoadingFallBack />}>
-                            <LazyDepartmentCoursesPage />
-                          </React.Suspense>
-                        }
-                      />
-                    }
-                  />
-                  <Route
-                    path="/departmentCourses/:courseId"
-                    element={
-                      <RequireAuth
-                        children={
-                          <React.Suspense fallback={<LoadingFallBack />}>
-                            <LazyAssignedLecturersPage />
-                          </React.Suspense>
-                        }
-                      />
-                    }
-                  />
-                  <Route path="/tests" element={<Testing />} />
-                  <Route
-                    path="*"
-                    element={
-                      <React.Suspense fallback={<LoadingFallBack />}>
-                        <LazyNotFound />
-                      </React.Suspense>
-                    }
-                  />
-                </Routes>
-                <NavBar />
-              </BrowserRouter>
+              <div className="app_flex">
+                <BrowserRouter>
+                  <Routes>
+                    <Route
+                      path="/account/overview"
+                      element={
+                        <RequireAuth
+                          children={
+                            <React.Suspense fallback={<LoadingFallBack />}>
+                              <LazyAccountOverviewPage />
+                            </React.Suspense>
+                          }
+                        />
+                      }
+                    />
+                    <Route
+                      path="/account/change-password"
+                      element={
+                        <RequireAuth
+                          children={
+                            <React.Suspense fallback={<LoadingFallBack />}>
+                              <LazyChangePasswordPage />
+                            </React.Suspense>
+                          }
+                        />
+                      }
+                    />
+                    <Route
+                      path="/login"
+                      element={
+                        <React.Suspense fallback={<LoadingFallBack />}>
+                          <LazyLoginPage />
+                        </React.Suspense>
+                      }
+                    />
+                    <Route
+                      path="/signup"
+                      element={
+                        <React.Suspense fallback={<LoadingFallBack />}>
+                          <LazySignupPage />
+                        </React.Suspense>
+                      }
+                    />
+                    <Route
+                      path="/"
+                      element={
+                        <RequireAuth
+                          children={
+                            <React.Suspense fallback={<LoadingFallBack />}>
+                              <LazyHomePage />
+                            </React.Suspense>
+                          }
+                        />
+                      }
+                    />
+                    <Route
+                      path="/attendances/ongoingAttendances"
+                      element={
+                        <RequireAuth
+                          children={
+                            <React.Suspense fallback={<LoadingFallBack />}>
+                              <LazyOngoingAttendancePage />
+                            </React.Suspense>
+                          }
+                        />
+                      }
+                    />
+                    <Route
+                      path="/attendances/ongoingAttendances/:ongoingAttendanceId/:courseId"
+                      element={
+                        <RequireAuth
+                          children={
+                            <React.Suspense fallback={<LoadingFallBack />}>
+                              <LazySignedAttendancesPage />
+                            </React.Suspense>
+                          }
+                        />
+                      }
+                    />
+                    <Route
+                      path="/account/profile"
+                      element={
+                        <RequireAuth
+                          children={
+                            <React.Suspense fallback={<LoadingFallBack />}>
+                              <LazyProfilePage />
+                            </React.Suspense>
+                          }
+                        />
+                      }
+                    />
+                    <Route
+                      path="/resourceManager"
+                      element={
+                        <RequireAuth
+                          children={
+                            <React.Suspense fallback={<LoadingFallBack />}>
+                              <LazyResourcePage />
+                            </React.Suspense>
+                          }
+                        />
+                      }
+                    />
+                    <Route
+                      path="/resourceManager/professors"
+                      element={
+                        <RequireAuth
+                          children={
+                            <React.Suspense fallback={<LoadingFallBack />}>
+                              <LazyProfessorResourcePage />
+                            </React.Suspense>
+                          }
+                        />
+                      }
+                    />
+                    <Route
+                      path="/resourceManager/lecture-halls"
+                      element={
+                        <RequireAuth
+                          children={
+                            <React.Suspense fallback={<LoadingFallBack />}>
+                              <LazyLectureHallResource />
+                            </React.Suspense>
+                          }
+                        />
+                      }
+                    />
+                    <Route
+                      path="/resourceManager/courses"
+                      element={
+                        <RequireAuth
+                          children={
+                            <React.Suspense fallback={<LoadingFallBack />}>
+                              <LazyCoursesResourcePage />
+                            </React.Suspense>
+                          }
+                        />
+                      }
+                    />
+                    <Route
+                      path="/resourceManager/faculties"
+                      element={
+                        <RequireAuth
+                          children={
+                            <React.Suspense fallback={<LoadingFallBack />}>
+                              <LazyFacultyResourcePage />
+                            </React.Suspense>
+                          }
+                        />
+                      }
+                    />
+                    <Route
+                      path="/attendance-scores"
+                      element={
+                        <RequireAuth
+                          children={
+                            <React.Suspense fallback={<LoadingFallBack />}>
+                              <LazyAttendanceScoresPage />
+                            </React.Suspense>
+                          }
+                        />
+                      }
+                    />
+                    <Route
+                      path="/user-securityQnAs"
+                      element={
+                        <RequireAuth
+                          children={
+                            <React.Suspense fallback={<LoadingFallBack />}>
+                              <LazyCollectUserSecurityQnAPage />
+                            </React.Suspense>
+                          }
+                        />
+                      }
+                    />
+                    <Route
+                      path="/forgot-password"
+                      element={
+                        <React.Suspense fallback={<LoadingFallBack />}>
+                          <LazyForgetPasswordPage />
+                        </React.Suspense>
+                      }
+                    />
+                    <Route
+                      path="/reset-password/:token"
+                      element={
+                        <React.Suspense fallback={<LoadingFallBack />}>
+                          <LazyResetPasswordPage />
+                        </React.Suspense>
+                      }
+                    />
+                    <Route
+                      path="/attendedLectures"
+                      element={
+                        <RequireAuth
+                          children={
+                            <React.Suspense fallback={<LoadingFallBack />}>
+                              <LazyAttendedLecturesPage />
+                            </React.Suspense>
+                          }
+                        />
+                      }
+                    />
+                    <Route
+                      path="/attendedLectures/:courseId"
+                      element={
+                        <RequireAuth
+                          children={
+                            <React.Suspense fallback={<LoadingFallBack />}>
+                              <LazyCourseLectures />
+                            </React.Suspense>
+                          }
+                        />
+                      }
+                    />
+                    <Route
+                      path="/departmentCourses/"
+                      element={
+                        <RequireAuth
+                          children={
+                            <React.Suspense fallback={<LoadingFallBack />}>
+                              <LazyDepartmentCoursesPage />
+                            </React.Suspense>
+                          }
+                        />
+                      }
+                    />
+                    <Route
+                      path="/departmentCourses/:courseId"
+                      element={
+                        <RequireAuth
+                          children={
+                            <React.Suspense fallback={<LoadingFallBack />}>
+                              <LazyAssignedLecturersPage />
+                            </React.Suspense>
+                          }
+                        />
+                      }
+                    />
+                    <Route path="/tests" element={<Testing />} />
+                    <Route
+                      path="*"
+                      element={
+                        <React.Suspense fallback={<LoadingFallBack />}>
+                          <LazyNotFound />
+                        </React.Suspense>
+                      }
+                    />
+                  </Routes>
+                  <NavBar />
+                </BrowserRouter>
+              </div>
             </ResourceContextProvider>
           </QrCodeContextProvider>
         </AttendanceContextProvider>

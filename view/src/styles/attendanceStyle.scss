@@ -38,7 +38,7 @@ a:visited {
     }
     .flex__1 {
       display: flex;
-      justify-content: space-between;
+      // justify-content: space-between;
       h2 {
         color: #3e3a3a;
       }
@@ -50,6 +50,7 @@ a:visited {
         padding-left: 5px;
         padding-right: 5px;
         background: #d3d3d362;
+        margin-left: auto;
       }
     }
     .flex__2 {

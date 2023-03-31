@@ -5,6 +5,7 @@ import resourceContext from '../contexts/ResourceContext';
 import ModalBackground from '../components/ModalBackground';
 import AddCourseForm from './../components/AddCourseForm';
 import LoadingResourcesComponent from '../components/loadingComponents/LoadingResourcesComponent';
+import DialogBox from '../components/DialogBox';
 
 import './../styles/resourceStyle.scss';
 
@@ -14,6 +15,10 @@ const CoursesResourcePage = () => {
 
   const [formData, setFormData] = useState({ facultyId: 0 });
   const [isModalActive, setIsModalActive] = useState(false);
+  const [isDialogModalActive, setIsDialogModalActive] = useState(false);
+  const [selectedCourseId, setSelectedCourseId] = useState(0);
+  const dialogMessage =
+    'Deleting this course will erase all data associated with it.';
 
   useEffect(() => {
     resourceContxt.loadAllCourses();
@@ -32,6 +37,21 @@ const CoursesResourcePage = () => {
             <AddCourseForm
               isModalActive={isModalActive}
               setIsModalActive={setIsModalActive}
+            />
+          }
+        />
+      ) : (
+        ''
+      )}
+      {/* NOTE: Conditional rendering logic for the modal & dialog box */}
+      {isDialogModalActive ? (
+        <ModalBackground
+          children={
+            <DialogBox
+              dialogMessage={dialogMessage}
+              onProceedClickFn={resourceContxt.deleteCourse}
+              onCancelClickFn={setIsDialogModalActive}
+              args={selectedCourseId}
             />
           }
         />
@@ -92,7 +112,10 @@ const CoursesResourcePage = () => {
                         </div>
                         <div
                           className="icon"
-                          onClick={onDeleteClick(course.courseId)}
+                          onClick={() => {
+                            setSelectedCourseId(course.courseId);
+                            setIsDialogModalActive(!isDialogModalActive);
+                          }}
                         >
                           <UilTrashAlt
                             size="30"

@@ -56,7 +56,7 @@ const OngoingAttendances = () => {
                     timeStyle: 'short',
                   })}
                 </p>
-                <span
+                <div
                   className={`attendance__status ${
                     new Date(attendance.endsAt).getTime() <= Date.now()
                       ? 'completed'
@@ -66,7 +66,7 @@ const OngoingAttendances = () => {
                   {new Date(attendance.endsAt).getTime() <= Date.now()
                     ? 'Completed'
                     : 'Ongoing'}
-                </span>
+                </div>
               </div>
             </Link>
           </div>

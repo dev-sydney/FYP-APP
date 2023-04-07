@@ -62,6 +62,7 @@ const AccountOverviewPage = () => {
           <Link
             className="password_link overview_btn"
             to="/account/change-password"
+            style={{ width: '90%' }}
           >
             Change Password
           </Link>

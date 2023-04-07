@@ -56,8 +56,8 @@ const ControlScoresForm = ({ isModalActive, setIsModalActive }) => {
         <img src={`/img/businessman-explaining-the-strategy.png`} />
         <h1>Let's Get Started.</h1>
         <p>
-          Choose a start & end date, as well as a course If you've been assigned
-          multiple courses
+          Choose a start & end date, as well as a particular course If you've
+          been assigned multiple courses
         </p>
       </div>
       {resourceContxt.userAssignedCourses &&

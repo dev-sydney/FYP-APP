@@ -49,6 +49,7 @@ const LoginPage = () => {
             name="emailAddress"
             value={formData.emailAddress}
             onChange={onChange}
+            style={{ width: '95%' }}
           />
           <span className="placeholder">Email Address: </span>
         </div>
@@ -63,6 +64,7 @@ const LoginPage = () => {
             name="userPassword"
             value={formData.userPassword}
             onChange={onChange}
+            style={{ width: '95%' }}
           />
           <span className="placeholder">Password: </span>
         </div>

@@ -8,7 +8,8 @@
     "server": "nodemon server.js",
     "view": "npm start --prefix view",
     "viewinstall": "npm install --prefix view",
-    "dev": "concurrently \"npm run server\" \"cd ./view && npm run start\""
+    "dev": "concurrently \"npm run server\" \"cd ./view && npm run start\"",
+    "start": "concurrently \"npm run server\" \"cd ./view && npm run host\""
   },
   "author": "Sydney Agbenu",
   "license": "ISC",

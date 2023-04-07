@@ -160,6 +160,9 @@ label {
     min-width: 100%;
     margin: 0;
   }
+  .login-container {
+    padding: 0 4%;
+  }
 }
 
 /* NOTE: MEDIA QUERY FOR THE LAPTOP & DESKTOP VIEW */
@@ -230,11 +233,16 @@ label {
   .course_resource__container,
   .ongoing__page,
   .signed__page,
-  .QnA__container {
+  .QnA__container,
+  .overview__container {
     flex-grow: 1;
+    padding: 0 2%;
   }
 
   .lists__illustration {
     display: none;
+  }
+  .login-container {
+    padding: 0 20%;
   }
 }

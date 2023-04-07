@@ -42,7 +42,7 @@ router
 router
   .route('/manual-attendance-sign/:userId/:courseId/:ongoingAttendanceId')
   .post(
-    authController.restrictTo('professor', 'heaad_of_department'),
+    authController.restrictTo('professor', 'head_of_department'),
     attendanceController.createSignedAttendanceManually
   );
 

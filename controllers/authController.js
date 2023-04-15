@@ -200,8 +200,9 @@ exports.getSecurityQuestions = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.createUsersQnAs = catchAsyncErrors(async (req, res, next) => {
-  //NOTE: At point the user on the req object
+  const pattern = /( and | & | )/g;
 
+  //NOTE: At point the user on the req object
   const cloneObject = { ...req.body };
 
   //TODO: Get all the questions into a single string
@@ -211,10 +212,15 @@ exports.createUsersQnAs = catchAsyncErrors(async (req, res, next) => {
     )
     .join(',');
 
+  //NOTE: This is the test for the lexical operation
+  // let answers = Object.values(cloneObject).map(
+  //   (ans) => ans.trim().toLowerCase().replaceAll(pattern, '') //HASHING THE CURRENT ANSWER OF THE ITERATION
+  // );
   //TODO: Get all the answers into an array and hash each of them
   let answers = await Promise.all(
     Object.values(cloneObject).map(
-      async (ans) => bcrypt.hash(ans.trim().toLowerCase(), 12) //HASHING THE CURRENT ANSWER OF THE ITERATION
+      async (ans) =>
+        bcrypt.hash(ans.trim().toLowerCase().replaceAll(pattern, ''), 12) //HASHING THE CURRENT ANSWER OF THE ITERATION
     )
   );
 
@@ -239,6 +245,7 @@ exports.createUsersQnAs = catchAsyncErrors(async (req, res, next) => {
     const [result] = await pool.query('SELECT * FROM Users WHERE userId=?', [
       req.user.userId,
     ]);
+
     res.status(200).json({
       status: 'success',
       user: result[0],

@@ -144,11 +144,14 @@ exports.createSignedAttendance = catchAsyncErrors(async (req, res, next) => {
     [req.user.userId]
   );
   const [securityAnswers] = results;
+
+  const pattern = /( and | & | )/g;
+
   // console.log(securityQuestions);
   //EDGE-CASE: If the answer is incorrect
   if (
     !(await bcrypt.compare(
-      secretAnswer.toLowerCase(),
+      secretAnswer.trim().toLowerCase().replaceAll(pattern, ''),
       securityAnswers.securityAnswers[+cloneObject.randomIndex]
     ))
   ) {

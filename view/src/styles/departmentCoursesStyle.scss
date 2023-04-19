@@ -114,13 +114,17 @@
   min-height: inherit;
   padding: 0 0.1em;
   .lists__section {
-    outline: 1px solid gray;
+    // outline: 1px solid red;
     border-radius: 20px;
     padding: 0 2%;
+
+    box-shadow: -1px 4px 10px 1px rgba(222, 222, 222, 1);
+    -webkit-box-shadow: -1px 4px 10px 1px rgba(222, 222, 222, 1);
+    -moz-box-shadow: -1px 4px 10px 1px rgba(222, 222, 222, 1);
   }
-  .list__items {
-    outline: none;
-  }
+  // .list__items {
+  //   outline: 1px solid red;
+  // }
   .profItem {
     // outline: 1px solid #ca14141f;
     padding: 0.5em 0;

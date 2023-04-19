@@ -7,7 +7,7 @@ const authContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const intialState = {
-    user: JSON.parse(localStorage.getItem('user')),
+    user: JSON.parse(localStorage.getItem('F_Y_P_USER')),
     isLoggedIn: false,
     authAlertMessage: null,
     loggedInUser: null,

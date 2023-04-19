@@ -29,8 +29,8 @@ const authReducer = (state, action) => {
         isUpdatesLoading: true,
       };
     case Types.SIGN_UP:
-      localStorage.removeItem('user');
-      localStorage.setItem('user', JSON.stringify(action.payload));
+      localStorage.removeItem('F_Y_P_USER');
+      localStorage.setItem('F_Y_P_USER', JSON.stringify(action.payload));
       return {
         ...state,
         isLoggedIn: true,
@@ -38,7 +38,7 @@ const authReducer = (state, action) => {
         // authAlertMessage: 'Sign up successful!',
       };
     case Types.SIGN_UP_ERROR:
-      localStorage.removeItem('user');
+      localStorage.removeItem('F_Y_P_USER');
       return {
         ...state,
         isLoggedIn: false,
@@ -47,8 +47,8 @@ const authReducer = (state, action) => {
       };
 
     case Types.SIGN_IN:
-      localStorage.removeItem('user');
-      localStorage.setItem('user', JSON.stringify(action.payload));
+      localStorage.removeItem('F_Y_P_USER');
+      localStorage.setItem('F_Y_P_USER', JSON.stringify(action.payload));
       return {
         ...state,
         isLoggedIn: true,
@@ -56,7 +56,7 @@ const authReducer = (state, action) => {
         user: action.payload,
       };
     case Types.SIGN_IN_ERROR:
-      localStorage.removeItem('user');
+      localStorage.removeItem('F_Y_P_USER');
       return {
         ...state,
         authAlertMessage: action.payload,
@@ -71,8 +71,8 @@ const authReducer = (state, action) => {
         isLoading: null,
       };
     case Types.SET_USER_SECURITY_ANSWERS:
-      localStorage.removeItem('user');
-      localStorage.setItem('user', JSON.stringify(action.payload));
+      localStorage.removeItem('F_Y_P_USER');
+      localStorage.setItem('F_Y_P_USER', JSON.stringify(action.payload));
       return {
         ...state,
         isLoading: null,
@@ -92,7 +92,7 @@ const authReducer = (state, action) => {
       };
 
     case Types.UPDATE_ACCOUNT_SUCCESS:
-      localStorage.setItem('user', JSON.stringify(action.payload));
+      localStorage.setItem('F_Y_P_USER', JSON.stringify(action.payload));
       return {
         ...state,
         isUpdatesLoading: null,
@@ -105,7 +105,7 @@ const authReducer = (state, action) => {
       };
 
     case Types.SIGN_OUT:
-      localStorage.removeItem('user');
+      localStorage.removeItem('F_Y_P_USER');
       return {
         ...state,
       };

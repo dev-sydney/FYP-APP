@@ -4,7 +4,7 @@
 .resource__container {
   min-height: inherit;
   overflow: auto;
-  background-color: #edededb4;
+  // background-color: #edededb4;
   .controls__container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -16,7 +16,7 @@
 
     overflow: auto;
     .control {
-      //   outline: 1px solid gray;
+      // outline: 1px solid gray;
       font-size: 1.1em;
       display: flex;
       flex-direction: column;
@@ -26,6 +26,10 @@
       row-gap: 0.5em;
       background-color: white;
       height: fit-content;
+
+      box-shadow: -1px 4px 10px -3px rgba(181, 177, 177, 1);
+      -webkit-box-shadow: -1px 4px 10px -3px rgba(181, 177, 177, 1);
+      -moz-box-shadow: -1px 4px 10px -3px rgba(181, 177, 177, 1);
 
       //   align-content: space-around;
       .icon {
@@ -166,10 +170,14 @@ section {
   background-color: #284b6313;
 }
 .list__items {
-  outline: 1px solid gray;
+  // outline: 1px solid gray;
   border-radius: 20px;
   padding: 0.5em 0.7em;
   margin: 0.5em 0;
+
+  box-shadow: -1px 4px 10px 1px rgba(222, 222, 222, 1);
+  -webkit-box-shadow: -1px 4px 10px 1px rgba(222, 222, 222, 1);
+  -moz-box-shadow: -1px 4px 10px 1px rgba(222, 222, 222, 1);
   .faculty_item {
     // outline: 1px solid #ca14141f;
     display: flex;

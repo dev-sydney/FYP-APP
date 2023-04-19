@@ -8,6 +8,10 @@
   justify-content: center;
   padding: 1.5em;
   row-gap: 1em;
+
+  box-shadow: -1px 4px 10px 1px rgba(181, 177, 177, 1);
+  -webkit-box-shadow: -1px 4px 10px 1px rgba(181, 177, 177, 1);
+  -moz-box-shadow: -1px 4px 10px 1px rgba(181, 177, 177, 1);
   .dialog__btn {
     // color: white;
     font-size: 1rem;

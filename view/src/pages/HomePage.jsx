@@ -70,9 +70,12 @@ const HomePage = () => {
     <div className="home-container">
       <div
         className="top_logo_space"
-        style={{ textAlign: 'left', color: 'white' }}
+        style={{
+          textAlign: 'center',
+          color: 'white',
+        }}
       >
-        <span>PresencePal</span>
+        <p style={{ fontWeight: '5em' }}>Find a QR code</p>
       </div>
       <div>
         <QrReader

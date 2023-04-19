@@ -121,6 +121,7 @@ const DepartmentCoursesPage = () => {
                       key={deptCourse.courseId}
                       style={{
                         backgroundColor: resourceContxt.deptCoursesColors[i],
+                        background: `linear-gradient(336deg, ${resourceContxt.deptCoursesColors[i]} 75%, rgba(234,234,234,1) 100%)`,
                       }}
                     >
                       <Link to={`/departmentCourses/${deptCourse.courseId}`}>

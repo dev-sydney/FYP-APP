@@ -122,6 +122,8 @@ const DepartmentCoursesPage = () => {
                       style={{
                         backgroundColor: resourceContxt.deptCoursesColors[i],
                         background: `linear-gradient(336deg, ${resourceContxt.deptCoursesColors[i]} 75%, rgba(234,234,234,1) 100%)`,
+                        boxShadow: `0px 5px 11px -4px ${resourceContxt.deptCoursesColors[i]}`,
+                        WebkitBoxShadow: `0px 5px 11px -4px ${resourceContxt.deptCoursesColors[i]}`,
                       }}
                     >
                       <Link to={`/departmentCourses/${deptCourse.courseId}`}>

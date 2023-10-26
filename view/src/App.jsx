@@ -242,7 +242,7 @@ function App() {
                       }
                     />
                     <Route
-                      path="/user-securityQnAs"
+                      path="/userSecurityQnAs"
                       element={
                         <RequireAuth
                           children={

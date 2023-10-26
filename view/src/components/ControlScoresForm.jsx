@@ -89,7 +89,7 @@ const ControlScoresForm = ({ isModalActive, setIsModalActive }) => {
           onChange={onChange}
           className={`form__input start__date`}
         />
-        <span className="dash">-</span>
+        <span className="dash">to</span>
         <input
           required
           name="endDate"

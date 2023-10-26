@@ -36,7 +36,7 @@ const LoginPage = () => {
       </div>
 
       <div style={{ textAlign: 'center' }}>
-        <h1 className="logo">LOGO</h1>
+        <h1 className="logo">PRESENCEPAL</h1>
       </div>
 
       <form onSubmit={onSubmit} style={{ padding: '0 1%' }}>

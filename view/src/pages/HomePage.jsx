@@ -32,7 +32,7 @@ const HomePage = () => {
       authContxt?.user?.privilege === 'student' &&
       authContxt?.user?.hasSecurityQuestionsSet === 0
     ) {
-      navigateTo('/user-securityQnAs');
+      navigateTo('/userSecurityQnAs');
     }
     //EDGE-CASE: If the user is a lecturer then get their assigned courses
     if (

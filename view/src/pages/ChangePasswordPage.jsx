@@ -31,7 +31,7 @@ const ChangePasswordPage = () => {
       authContxt.user.privilege === 'student' &&
       authContxt.user.hasSecurityQuestionsSet === 0
     ) {
-      navigateTo('/user-securityQnAs');
+      navigateTo('/userSecurityQnAs');
     }
   }, []);
 

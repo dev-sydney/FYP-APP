@@ -35,6 +35,7 @@ const authReducer = (state, action) => {
         ...state,
         isLoggedIn: true,
         isLoading: null,
+        user: action.payload,
         // authAlertMessage: 'Sign up successful!',
       };
     case Types.SIGN_UP_ERROR:
@@ -76,6 +77,7 @@ const authReducer = (state, action) => {
       return {
         ...state,
         isLoading: null,
+        user: action.payload,
       };
 
     case Types.UPDATE_PASSWORD_SUCCESS:

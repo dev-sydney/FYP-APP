@@ -9,9 +9,13 @@ SELECT * FROM SecurityQuestionsAnswers;
 
 SELECT * FROM Users;
 SELECT * FROM Users WHERE privilege IN ('head_of_department','professor');
-SELECT * FROM Users WHERE privilege = 'head_of_department';
+SELECT * FROM Users WHERE privilege = 'professor';
+SELECT * FROM Users WHERE privilege = 'student';
+
+SELECT * FROM Users WHERE privilege = 'admin';
+
 SELECT * FROM Users WHERE userId =27;
-SELECT * FROM Users WHERE hasSecurityQuestionsSet = FALSE AND privilege = 'student';
+SELECT * FROM Users WHERE privilege = 'student' AND hasSecurityQuestionsSet = FALSE;
 DESC Users;
 
 SELECT Courses.courseId,Courses.courseName
@@ -33,3 +37,5 @@ SELECT * FROM Departments;
 
 SELECT * FROM TestTimes;
 SELECT * FROM TestTimes WHERE createdAt <= '2023-02-27 15:00:22.013';
+
+SELECT * FROM SecurityQs;

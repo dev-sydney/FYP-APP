@@ -79,7 +79,7 @@ export const AuthContextProvider = ({ children }) => {
             result.data.user.hasSecurityQuestionsSet === 0 &&
             result.data.user.privilege === 'student'
           ) {
-            navigateTo('/user-securityQnAs', { replace: true });
+            navigateTo('/userSecurityQnAs', { replace: true });
           } else {
             //NOTE: If the user is an admin
             if (result.data.user.privilege === 'admin') {
@@ -138,7 +138,7 @@ export const AuthContextProvider = ({ children }) => {
         clearContextAlerts(400);
         //TODO: Navigate the user to the page that collects their security Q&A's
         setTimeout(() => {
-          navigateTo('/user-securityQnAs', { replace: true });
+          navigateTo('/userSecurityQnAs', { replace: true });
         }, 700);
       }
     } catch (err) {
@@ -212,7 +212,6 @@ export const AuthContextProvider = ({ children }) => {
           type: Types.SET_USER_SECURITY_ANSWERS,
           payload: results.user,
         });
-
         navigateTo('/', { replace: true });
       }
     } catch (err) {
